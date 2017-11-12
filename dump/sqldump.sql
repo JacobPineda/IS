@@ -119,22 +119,39 @@ insert into Manufactures values("FDA-0057527",2);
 insert into Manufactures values("FDA-0058293",3);
 insert into Manufactures values("FDA-0056539",4);
 insert into Manufactures values("FDA-0058278",5);
-insert into Manufactures values("FDA-0049904",6);
+insert into Manufactures values("FDA-0055616",6);
 insert into Manufactures values("FDA-0057527",7);
-insert into Manufactures values("FDA-0058293",8);
-insert into Manufactures values("FDA-0049904",9);
-insert into Manufactures values("FDA-0057527",9);
-insert into Manufactures values("FDA-0058293",9);
-insert into Manufactures values("FDA-0049904",9);
-insert into Manufactures values("FDA-0057527",10);
-insert into Manufactures values("FDA-0058293",11);
-insert into Manufactures values("FDA-0049904",11);
-insert into Manufactures values("FDA-0057527",12);
-insert into Manufactures values("FDA-0058293",13);
-insert into Manufactures values("FDA-0049904",13);
-insert into Manufactures values("FDA-0057527",14);
-insert into Manufactures values("FDA-0058293",3);
-insert into Trades values();
+insert into Manufactures values("FDA-0057528",8);
+insert into Manufactures values("FDA-0048937",9);
+insert into Manufactures values("FDA-0048936",9);
+insert into Manufactures values("FDA-0048935",9);
+insert into Manufactures values("FDA-0048934",9);
+insert into Manufactures values("FDA-0058295",10);
+insert into Manufactures values("FDA-0053789",11);
+insert into Manufactures values("FDA-0053790",11);
+insert into Manufactures values("FDA-0058046",12);
+insert into Manufactures values("FDA-0053824",13);
+insert into Manufactures values("FDA-0053823",13);
+insert into Manufactures values("FDA-0055552",14);
+insert into Trades values("FDA-0049904",1);
+insert into Trades values("FDA-0057527",2);
+insert into Trades values("FDA-0058293",3);
+insert into Trades values("FDA-0056539",4);
+insert into Trades values("FDA-0058278",5);
+insert into Trades values("FDA-0055616",6);
+insert into Trades values("FDA-0057527",7);
+insert into Trades values("FDA-0057528",8);
+insert into Trades values("FDA-0048937",9);
+insert into Trades values("FDA-0048936",9);
+insert into Trades values("FDA-0048935",9);
+insert into Trades values("FDA-0048934",9);
+insert into Trades values("FDA-0058295",10);
+insert into Trades values("FDA-0053789",11);
+insert into Trades values("FDA-0053790",11);
+insert into Trades values("FDA-0058046",12);
+insert into Trades values("FDA-0053824",13);
+insert into Trades values("FDA-0053823",13);
+insert into Trades values("FDA-0055552",14);
 
 /**INSERT into <table_name> VALUES (<table_values>)
 
@@ -149,6 +166,6 @@ insert into Trades values();
 -- DEFINITIONS
 -- <table_name> -> one of the tables in the report_analytics_portal_db database
 -- <table_values> -> depends on the preceding <table_name> and it follows the table's schema
--- <table_attribute> -> one of the attributes defined in the table's schema based on the preceding 				<table_name>
+-- <table_attribute> -> one of the attributes defined in the table's schema based on the preceding <table_name>
 -- <update_value> -> valid value that follows the data type of the preceding <table_attribute>
--- <condition> -> condition about the update, often includes attributes of the preceding 				<table_name>**/
+-- <condition> -> condition about the update, often includes attributes of the preceding <table_name>**/
