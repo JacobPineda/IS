@@ -17,7 +17,7 @@ echo "<!-------- START SIDE NAV --------->
     </li>
     <li><a href=''>Products</a>
       <ul class='submenu'>
-        <li><a href='/IS/reports/bio-prod.php'>Biological Products</a></li>
+        <li><a href='/IS/reports/drug.php'>Drugs</a></li>
         <li><a href=''>Prod2</a></li>
       </ul>
     </li>
