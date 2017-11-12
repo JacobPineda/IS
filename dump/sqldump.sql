@@ -74,7 +74,6 @@ insert into Food values(2,"FDA-0057527","My-Marvel Taheebo Herbal Dietary Supple
 insert into Food values(2,"FDA-0058293","Kgc Kgc Korean Red Ginseng","FR-128825","Korea","20200000000000","10/12/2020");
 insert into Food values(2,"FDA-0056539","Fresenius Kabi Supportan Drink - Cappucinno Flavor Reformulated (Food For Special Medical Purpose)","FR-103810","Germany","20100000000000","10/3/2020");
 insert into Food values(2,"FDA-0058278","Falcon's Valley Falcon's Valley Choice Whole Young Corn","FR-87500","Thailand","20100000000000","9/28/2020");
-insert into Food values(2,"FDA-0058278","Falcon's Valley Falcon's Valley Choice Whole Young Corn","FR-87500","Thailand","20100000000000","9/28/2020");
 insert into Food values(2,"FDA-0055616","Calciday Calcium Carbonate + Vitamin D Food Supplement Tablet","FR-103883","Philippines","20100000000000","9/13/2020");
 insert into Food values(2,"FDA-0057528","Interhealthcare Pharmaceuticals Inc. Green Juice (Wheat Grass + Barley Grass) Food Supplement Powder","FR-103682","Philippines","20100000000000","9/11/2020");
 insert into Food values(2,"FDA-0054728","App-Essentials A To Z Kid's Vitamin C Dietary Supplement Tablet - Strawberry Flavor","FR-103449","Malaysia","20100000000000","8/24/2020");
@@ -116,6 +115,27 @@ insert into Trader values(10,"Nestle Philippines, Inc.");
 insert into Trader values(11,"Century Canning Corporation");
 insert into Trader values(12,"Monde Nissin Corporation");
 insert into Trader values(13,"JIA2 Corp.");
+insert into Manufactures values("FDA-0049904",1);
+insert into Manufactures values("FDA-0057527",2);
+insert into Manufactures values("FDA-0058293",3);
+insert into Manufactures values("FDA-0056539",4);
+insert into Manufactures values("FDA-0058278",5);
+insert into Manufactures values("FDA-0049904",6);
+insert into Manufactures values("FDA-0057527",7);
+insert into Manufactures values("FDA-0058293",8);
+insert into Manufactures values("FDA-0049904",9);
+insert into Manufactures values("FDA-0057527",9);
+insert into Manufactures values("FDA-0058293",9);
+insert into Manufactures values("FDA-0049904",9);
+insert into Manufactures values("FDA-0057527",10);
+insert into Manufactures values("FDA-0058293",11);
+insert into Manufactures values("FDA-0049904",11);
+insert into Manufactures values("FDA-0057527",12);
+insert into Manufactures values("FDA-0058293",13);
+insert into Manufactures values("FDA-0049904",13);
+insert into Manufactures values("FDA-0057527",14);
+insert into Manufactures values("FDA-0058293",3);
+insert into Trades values();
 
 /**INSERT into <table_name> VALUES (<table_values>)
 
