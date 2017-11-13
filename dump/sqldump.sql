@@ -9,7 +9,7 @@ CREATE TABLE Industry(industry_id int, name varchar(50), primary key(industry_id
 
 CREATE TABLE Region(region_id varchar(50), region_name varchar(50), primary key (region_id));
 
-CREATE TABLE School(industry_id int, school_id varchar(50), name varchar(100), region_id varchar(50), contact varchar(50), email varchar(50), index idx_school_id(school_id), primary key (industry_id, school_id), foreign key (industry_id) references Industry(industry_id) on update cascade on delete cascade , foreign key (region_id) references Region(region_id) on update cascade on delete cascade );
+CREATE TABLE School(industry_id int, school_id varchar(50), name varchar(100), contact varchar(50), email varchar(50), index idx_school_id(school_id), primary key (industry_id, school_id), foreign key (industry_id) references Industry(industry_id) on update cascade on delete cascade , foreign key (region_id) references Region(region_id) on update cascade on delete cascade );
 
 CREATE TABLE Course(course_id varchar(50), course_name varchar(50), primary key(course_id), index idx_course_id(course_id));
 
@@ -272,6 +272,7 @@ INSERT INTO Course VALUES ('CID-008', 'History');
 INSERT INTO Course VALUES ('CID-009', 'Mathematics');
 INSERT INTO Course VALUES ('CID-010', 'Political Science');
 INSERT INTO Course VALUES ('CID-011', 'Sociology');
+
 
 
 /**INSERT into <table_name> VALUES (<table_values>)
