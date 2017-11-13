@@ -404,4 +404,19 @@ INSERT INTO costPerStudent VALUES ('SCID-0021', '61000', '3');
 --SELECT FROM <Distributes_attribute> from Distributes where <condition>;
 
 -- DEFINITIONS
+<food_values> -> values that follow the data types of the attributes of the Food table
+<Food_attribute> -> attributes/columns of the Food table
+<manufacturer_values> -> values that follow the data types of the attributes of the Manufacturer table
+<Manufacturer_attribute> -> attributes/columns of the Manufacturer table
+<trader_values> -> values that follow the data types of the attributes of the Trader table
+<Trader_attribute> -> attributes/columns of the Trader table
+<distributor_values> -> values that follow the data types of the attributes of the Distributor table
+<Distributor_attribute> -> attributes/columns of the Distributor table
+<manufactures_values> -> values that follow the data types of the attributes of the Manufactures table
+<Manufactures_attribute> -> attributes/columns of the Manufactures table
+<trades_values> -> values that follow the data types of the attributes of the Trades table
+<Trades_attribute> -> attributes/columns of the Trades table
+<distributes_values> -> values that follow the data types of the attributes of the Distributes table
+<Distributes_attribute> -> attributes/columns of the Distributes table
+<condition> -> 
 */
