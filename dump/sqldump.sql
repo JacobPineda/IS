@@ -205,6 +205,18 @@ INSERT INTO School VALUES (3, 'SCID-0019', 'Pampanga Agricultural College', 'RID
 INSERT INTO School VALUES (3, 'SCID-0020', 'Misamis Oriental State College of Agriculture & Tech.', 'RID-08', '(629) 2155842', 'info@suc.edu.ph');
 INSERT INTO School VALUES (3, 'SCID-0021', 'Cotabato City State Polytechnic College', 'RID-11', '(230) 6201223', 'info@suc.edu.ph');
 
+INSERT INTO Course VALUES ('CID-001', 'Applied Physics');
+INSERT INTO Course VALUES ('CID-002', 'Biology');
+INSERT INTO Course VALUES ('CID-003', 'Broadcast Communication');
+INSERT INTO Course VALUES ('CID-004', 'Business Administration');
+INSERT INTO Course VALUES ('CID-005', 'Civil Engineering');
+INSERT INTO Course VALUES ('CID-006', 'Computer Science');
+INSERT INTO Course VALUES ('CID-007', 'Food Technology');
+INSERT INTO Course VALUES ('CID-008', 'History');
+INSERT INTO Course VALUES ('CID-009', 'Mathematics');
+INSERT INTO Course VALUES ('CID-010', 'Political Science');
+INSERT INTO Course VALUES ('CID-011', 'Sociology');
+
 INSERT INTO Student VALUES ('SID-00001', 'SCID-001', 'CID-001', 'Lydia Ratledge', '2000-03-03', 'Male', '(971) 7055456', '9 Utah Avenue');
 INSERT INTO Student VALUES ('SID-00002', 'SCID-001', 'CID-002', 'Gratiana Skittle', '2001-06-10', 'Male', '(821) 5013564', '9714 Bayside Hill');
 INSERT INTO Student VALUES ('SID-00003', 'SCID-001', 'CID-003', 'Justin Spratt', '1999-07-31', 'Male', '(111) 6355279', '64303 Harbort Way');
@@ -268,18 +280,6 @@ INSERT INTO Student VALUES ('SID-00060', 'SCID-020', 'CID-005', 'Griswold Garlet
 INSERT INTO Student VALUES ('SID-00061', 'SCID-021', 'CID-006', 'Bebe Wackly', '2001-07-27', 'Female', '(405) 7095511', '9739 Mallard Street');
 INSERT INTO Student VALUES ('SID-00062', 'SCID-021', 'CID-007', 'Merell Twyford', '1998-12-17', 'Female', '(393) 4257666', '8 Veith Terrace');
 INSERT INTO Student VALUES ('SID-00063', 'SCID-021', 'CID-008', 'Fowler Comins', '1999-04-06', 'Male', '(864) 2142279', '5 Sunfield Pass');
-
-INSERT INTO Course VALUES ('CID-001', 'Applied Physics');
-INSERT INTO Course VALUES ('CID-002', 'Biology');
-INSERT INTO Course VALUES ('CID-003', 'Broadcast Communication');
-INSERT INTO Course VALUES ('CID-004', 'Business Administration');
-INSERT INTO Course VALUES ('CID-005', 'Civil Engineering');
-INSERT INTO Course VALUES ('CID-006', 'Computer Science');
-INSERT INTO Course VALUES ('CID-007', 'Food Technology');
-INSERT INTO Course VALUES ('CID-008', 'History');
-INSERT INTO Course VALUES ('CID-009', 'Mathematics');
-INSERT INTO Course VALUES ('CID-010', 'Political Science');
-INSERT INTO Course VALUES ('CID-011', 'Sociology');
 
 INSERT INTO Enrollment VALUES ('EID-00001', 'SID-00001', 17, 2017, '1', '17000', 'PAID', 'REGULAR');
 INSERT INTO Enrollment VALUES ('EID-00001', 'SID-00002', 18, 2017, '1', '18000', 'PAID', 'REGULAR');
