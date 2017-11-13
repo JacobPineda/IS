@@ -15,15 +15,7 @@ CREATE TABLE Course(course_id varchar(50), course_name varchar(50), primary key(
 
 CREATE TABLE Student(student_id varchar(50), school_id varchar(50), course_id varchar(50), student_name varchar(100), birthdate varchar(50), gender varchar(50), contact varchar(50), address varchar(100), primary key (student_id), foreign key (school_id) references School(school_id) on update cascade on delete cascade , foreign key (course_id) references Course(course_id) on update cascade on delete cascade );
 
-CREATE TABLE Enrollment(enrollment_id varchar(50), student_id varchar(50), num_units int, school_year int, semester varchar(50), payment_status varchar(50), primary key (enrollment_id), foreign key (student_id) references Student (student_id) on update cascade on delete cascade );
-
-CREATE TABLE locatedIn(region_id varchar(50), school_id varchar(50), primary key (region_id, school_id), foreign key (region_id) references Region(region_id) on update cascade on delete cascade , foreign key (school_id) references School(school_id) on update cascade on delete cascade );
-
-CREATE TABLE studiesIn(school_id varchar(50), student_id varchar(50), primary key (school_id, student_id), foreign key (school_id) references School(school_id) on update cascade on delete cascade , foreign key (student_id) references Student(student_id) on update cascade on delete cascade );
-
-CREATE TABLE majorsIn(student_id varchar(50), course_id varchar(50), primary key ( student_id, course_id), foreign key (student_id) references Student(student_id) on update cascade on delete cascade , foreign key (course_id) references Course(course_id) on update cascade on delete cascade );
-
-CREATE TABLE enrolled(student_id varchar(50), enrollment_id varchar(50), status varchar(50), primary key ( student_id, enrollment_id),  foreign key (student_id) references Student(student_id) on update cascade on delete cascade , foreign key (enrollment_id) references Enrollment(enrollment_id) on update cascade on delete cascade );
+CREATE TABLE Enrollment(enrollment_id varchar(50), student_id varchar(50), num_units int, school_year int, semester varchar(50), payment_status varchar(50), enrollment_status varchar(50), primary key (enrollment_id), foreign key (student_id) references Student (student_id) on update cascade on delete cascade );
 
 CREATE TABLE costPerStudent(enrollment_id varchar(50), school_id varchar(50), cost real, num_students int, primary key ( enrollment_id, school_id), foreign key (enrollment_id) references Enrollment(enrollment_id) on update cascade on delete cascade ,  foreign key (school_id) references School(school_id) on update cascade on delete cascade );
 
