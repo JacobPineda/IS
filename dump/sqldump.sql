@@ -175,6 +175,28 @@ INSERT INTO Region VALUES ('RID-09', 'REGION X');
 INSERT INTO Region VALUES ('RID-10', 'REGION XII (ARMM)');
 INSERT INTO Region VALUES ('RID-11', 'REGION XII (Main)');
 
+INSERT INTO School VALUES (3, 'SCID-0001', 'University of the Philippines System', 'RID-01', '(667) 2215286', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0002', 'Philippine Merchant Marine Academy', 'RID-04', '(628) 7754568', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0003', 'MSU - Tawi-Tawi College of Technology and Oceanography', 'RID-07', '(840) 4288563', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0004', 'Adiong Memorial Polytechnic State  College', 'RID-10', '(615) 3219112', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0005', 'Mindanao State University', 'RID-10', '(351) 6464825', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0006', 'Cotabato Foundation College of Science & Tech.', 'RID-11', '(574) 9812516', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0007', 'Don Mariano Marcos Memorial State University', 'RID-03', '(291) 5118210', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0008', 'Tarlac College of Agriculture', 'RID-04', '(710) 7166900', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0009', 'MSU - Iligan Institute of Technology', 'RID-08', '(979) 6378149', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0010', 'Samar State College of Agriculture and Forestry', 'RID-06', '(236) 3987540', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0011', 'Abra State Institute of Science and Technology', 'RID-02', '(355) 8760074', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0012', 'Central Luzon State University', 'RID-04', '(508) 4352459', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0013', 'Central Mindanao University', 'RID-08', '(301) 3824401', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0014', 'Southern Philippines Agri-Business & Marine & Aquatic School of Technology', 'RID-09', '(602) 3031724', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0015', 'Mariano Marcos State University', 'RID-03', '(745) 7906699', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0016', 'Benguet State University', 'RID-02', '(490) 1406782', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0017', 'Iloilo State College of Fisheries', 'RID-05', '(185) 1231843', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0018', 'Davao del Norte State College', 'RID-09', '(537) 7195222', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0019', 'Pampanga Agricultural College', 'RID-04', '(403) 1296490', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0020', 'Misamis Oriental State College of Agriculture & Tech.', 'RID-08', '(629) 2155842', 'info@suc.edu.ph');
+INSERT INTO School VALUES (3, 'SCID-0021', 'Cotabato City State Polytechnic College', 'RID-11', '(230) 6201223', 'info@suc.edu.ph');
+
 
 /**INSERT into <table_name> VALUES (<table_values>)
 
