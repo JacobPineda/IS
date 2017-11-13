@@ -161,6 +161,21 @@ insert into Trades values("0","FDA-0053823",13);
 insert into Trades values("0","FDA-0055552",5);
 insert into Trades values("0","FDA-0058266",14);
 insert into Trades values("0","FDA-0058267",14);
+
+--SCHOOL/SUC DB
+INSERT INTO Region VALUES ('RID-01', 'NCR');
+INSERT INTO Region VALUES ('RID-02', 'C A R');
+INSERT INTO Region VALUES ('RID-03', 'REGION I');
+INSERT INTO Region VALUES ('RID-04', 'REGION III');
+INSERT INTO Region VALUES ('RID-05', 'REGION VI');
+INSERT INTO Region VALUES ('RID-06', 'REGION VIII');
+INSERT INTO Region VALUES ('RID-07', 'REGION XI');
+INSERT INTO Region VALUES ('RID-08', 'REGION IX (ARMM)')
+INSERT INTO Region VALUES ('RID-09', 'REGION X');
+INSERT INTO Region VALUES ('RID-10', 'REGION XII (ARMM)');
+INSERT INTO Region VALUES ('RID-11', 'REGION XII (Main)');
+
+
 /**INSERT into <table_name> VALUES (<table_values>)
 
 -- UPDATE VALUES
