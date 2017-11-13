@@ -17,7 +17,7 @@ CREATE TABLE Student(student_id varchar(50), school_id varchar(50), course_id va
 
 CREATE TABLE Enrollment(enrollment_id varchar(50), student_id varchar(50), num_units int, school_year int, semester varchar(50), tuition real, payment_status varchar(50), enrollment_status varchar(50), primary key (enrollment_id), foreign key (student_id) references Student (student_id) on update cascade on delete cascade );
 
-CREATE TABLE costPerStudent(enrollment_id varchar(50), school_id varchar(50), cost real, num_students int, primary key ( enrollment_id, school_id), foreign key (enrollment_id) references Enrollment(enrollment_id) on update cascade on delete cascade ,  foreign key (school_id) references School(school_id) on update cascade on delete cascade );
+CREATE TABLE costPerStudent(enrollment_id varchar(50), school_id varchar(50), total_tuition real, num_students int, primary key ( enrollment_id, school_id), foreign key (enrollment_id) references Enrollment(enrollment_id) on update cascade on delete cascade ,  foreign key (school_id) references School(school_id) on update cascade on delete cascade );
 
 CREATE TABLE Public_Elementary_School(industry_id int, elementary_school_id int, school_name varchar(50), no_of_students int, index idx_elementary_school_id(elementary_school_id), primary key ( industry_id, elementary_school_id), foreign key (industry_id) references Industry(industry_id) on update cascade on delete cascade );
 
@@ -346,6 +346,27 @@ INSERT INTO Enrollment VALUES ('EID-00021', 'SID-00061', 20, 2017, '1', '20000',
 INSERT INTO Enrollment VALUES ('EID-00021', 'SID-00062', 21, 2017, '1', '21000', 'PAID', 'REGULAR');
 INSERT INTO Enrollment VALUES ('EID-00021', 'SID-00063', 20, 2017, '1', '20000', 'PAID', 'REGULAR');
 
+INSERT INTO costPerStudent VALUES ('EID-0001', 'SCID-0001', '54000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0002', 'SCID-0002', '59000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0003', 'SCID-0003', '55000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0004', 'SCID-0004', '57000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0005', 'SCID-0005', '58000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0006', 'SCID-0006', '55000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0007', 'SCID-0007', '61000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0008', 'SCID-0008', '54000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0009', 'SCID-0009', '59000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0010', 'SCID-0010', '55000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0011', 'SCID-0011', '57000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0012', 'SCID-0012', '58000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0013', 'SCID-0013', '55000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0014', 'SCID-0014', '61000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0015', 'SCID-0015', '55000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0016', 'SCID-0016', '59000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0017', 'SCID-0017', '55000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0018', 'SCID-0018', '57000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0019', 'SCID-0019', '58000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0020', 'SCID-0020', '55000', '3');
+INSERT INTO costPerStudent VALUES ('EID-0021', 'SCID-0021', '61000', '3');
 
 /**INSERT into <table_name> VALUES (<table_values>)
 
