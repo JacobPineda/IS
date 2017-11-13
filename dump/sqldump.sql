@@ -9,7 +9,7 @@ CREATE TABLE Industry(industry_id int, name varchar(50), primary key(industry_id
 
 CREATE TABLE Region(region_id varchar(50), region_name varchar(50), primary key (region_id));
 
-CREATE TABLE School(industry_id int, school_id varchar(50), name varchar(100), contact varchar(50), email varchar(50), index idx_school_id(school_id), primary key (industry_id, school_id), foreign key (industry_id) references Industry(industry_id) on update cascade on delete cascade , foreign key (region_id) references Region(region_id) on update cascade on delete cascade );
+CREATE TABLE School(industry_id int, school_id varchar(50), name varchar(100), region_id varchar(50), contact varchar(50), email varchar(50), index idx_school_id(school_id), primary key (industry_id, school_id), foreign key (industry_id) references Industry(industry_id) on update cascade on delete cascade , foreign key (region_id) references Region(region_id) on update cascade on delete cascade );
 
 CREATE TABLE Course(course_id varchar(50), course_name varchar(50), primary key(course_id), index idx_course_id(course_id));
 
@@ -33,9 +33,9 @@ CREATE TABLE Distributor(dist_no int, name varchar(50), primary key (dist_no), i
 
 CREATE TABLE Manufacturer(manu_no int, name varchar(50), primary key (manu_no), index idx_manu_no(manu_no));
 
-CREATE TABLE Drug(industry_id int, cpr_no varchar(50), dr_no varchar(50), country varchar(50), rsn varchar(50),validity_date date,generic_name varchar(50),brand_name varchar(50),strength varchar(50),form varchar(50), index idx_cpr_no(cpr_no), primary key (industry_id, cpr_no), foreign key (industry_id) references Industry(industry_id) on update cascade on delete cascade );
+CREATE TABLE Drug(industry_id int, cpr_no varchar(50), dr_no varchar(50), country varchar(50), rsn varchar(50),validity_date date,generic_name varchar(200),brand_name varchar(200),strength varchar(50),form varchar(50), index idx_cpr_no(cpr_no), primary key (industry_id, cpr_no), foreign key (industry_id) references Industry(industry_id) on update cascade on delete cascade );
 
-CREATE TABLE Food(industry_id int, cpr_no varchar(50), food_name varchar(100), dr_no varchar(50), country varchar(50), rsn varchar(50),validity_date date,index idx_cpr_no(cpr_no), primary key (industry_id, cpr_no), foreign key (industry_id) references Industry(industry_id) on update cascade on delete cascade );
+CREATE TABLE Food(industry_id int, cpr_no varchar(50), food_name varchar(200), dr_no varchar(50), country varchar(50), rsn varchar(50),validity_date date,index idx_cpr_no(cpr_no), primary key (industry_id, cpr_no), foreign key (industry_id) references Industry(industry_id) on update cascade on delete cascade );
 
 CREATE TABLE Trades(drug_cpr_no varchar(50), food_cpr_no varchar(50), trader_no int, primary key (drug_cpr_no, food_cpr_no, trader_no), foreign key (drug_cpr_no) references Drug(cpr_no) on update cascade on delete cascade , foreign key (food_cpr_no) references Food(cpr_no) on update cascade on delete cascade , foreign key (trader_no) references Trader(trader_no) on update cascade on delete cascade );
 
@@ -171,7 +171,6 @@ insert into Trades values("0","FDA-0055552",5);
 insert into Trades values("0","FDA-0058266",14);
 insert into Trades values("0","FDA-0058267",14);
 
---SCHOOL/SUC DB
 INSERT INTO Region VALUES ('RID-01', 'NCR');
 INSERT INTO Region VALUES ('RID-02', 'C A R');
 INSERT INTO Region VALUES ('RID-03', 'REGION I');
@@ -179,7 +178,7 @@ INSERT INTO Region VALUES ('RID-04', 'REGION III');
 INSERT INTO Region VALUES ('RID-05', 'REGION VI');
 INSERT INTO Region VALUES ('RID-06', 'REGION VIII');
 INSERT INTO Region VALUES ('RID-07', 'REGION XI');
-INSERT INTO Region VALUES ('RID-08', 'REGION IX (ARMM)')
+INSERT INTO Region VALUES ('RID-08', 'REGION IX (ARMM)');
 INSERT INTO Region VALUES ('RID-09', 'REGION X');
 INSERT INTO Region VALUES ('RID-10', 'REGION XII (ARMM)');
 INSERT INTO Region VALUES ('RID-11', 'REGION XII (Main)');
@@ -368,6 +367,7 @@ INSERT INTO costPerStudent VALUES ('EID-0019', 'SCID-0019', '58000', '3');
 INSERT INTO costPerStudent VALUES ('EID-0020', 'SCID-0020', '55000', '3');
 INSERT INTO costPerStudent VALUES ('EID-0021', 'SCID-0021', '61000', '3');
 
+/* Generalized SQL Statements
 --INSERT into Food values(<food_values>);
 --UPDATE Food set <Food_attribute> = <Food_values> where <condition>;
 --DELETE FROM Food where <condition>;
@@ -404,3 +404,4 @@ INSERT INTO costPerStudent VALUES ('EID-0021', 'SCID-0021', '61000', '3');
 --SELECT FROM <Distributes_attribute> from Distributes where <condition>;
 
 -- DEFINITIONS
+*/
