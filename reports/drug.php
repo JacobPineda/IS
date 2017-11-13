@@ -13,7 +13,9 @@ session_start();
     <meta charset="utf-8">
 	<link   href="/IS/css/sidenav.css" rel="stylesheet">
 <title>Drug Products Report</title>
+
 </head>
+
 
 <body>
 
@@ -32,16 +34,17 @@ session_start();
 				<input type='checkbox' name='check_list[]' value='rsn'>RSN</input>	
 				<input type='checkbox' name='check_list[]' value='validity_date'>Validity Date</input>	
 				<input type='checkbox' name='check_list[]' value='generic_name'>Generic Name</input>	
-				<input type='checkbox' name='check_list[]' value='brand_name'>Brand Name</input>	
+				<input type='checkbox' name='check_list[]' value='brand_name'>Brand Name</input>
 				<input type='checkbox' name='check_list[]' value='strength'>Strength</input>	
-				<input type='checkbox' name='check_list[]' value='form'>Form</input>	
+				<input type='checkbox' name='check_list[]' value='form'>Form</input>		
 				
 				<input type='submit' name='generate' value='Generate'/>
 				
 			</form>
 		</div>";
-			$cols = "1";
 		
+		$cols = "1";
+			
 		if($_POST['generate']){
 			echo "$form</br>";
 			$arrCheckBox = $_POST['check_list'];
