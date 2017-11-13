@@ -346,20 +346,39 @@ INSERT INTO Enrollment VALUES ('EID-00021', 'SID-00061', 20, 2017, '1', '20000',
 INSERT INTO Enrollment VALUES ('EID-00021', 'SID-00062', 21, 2017, '1', '21000', 'PAID', 'REGULAR');
 INSERT INTO Enrollment VALUES ('EID-00021', 'SID-00063', 20, 2017, '1', '20000', 'PAID', 'REGULAR');
 
+--INSERT into Food values(<food_values>);
+--UPDATE Food set <Food_attribute> = <Food_values> where <condition>;
+--DELETE FROM Food where <condition>;
+--SELECT FROM <Food_attribute> from Food where <condition>;
 
-/**INSERT into <table_name> VALUES (<table_values>)
+--INSERT into Manufacturer values(<manufacturer_values>);
+--UPDATE Manufacturer set <Manufacturer_attribute> = <manufacturer_values> where <condition>;
+--DELETE FROM Manufacturer where <condition>;
+--SELECT FROM <Manufacturer_attribute> from Manufacturer where <condition>;
 
--- UPDATE VALUES
+--INSERT into Trader values(<trader_values>);
+--UPDATE Trader set <Trader_attribute> = <trader_values> where <condition>;
+--DELETE FROM Trader where <condition>;
+--SELECT FROM <Trader_attribute> from Trader where <condition>;
 
---UPDATE <table_name> SET <table_attribute> = <update_value> WHERE <condition>
+--INSERT into Distributor values(<distributor_values>);
+--UPDATE Distributor set <Distributor_attribute> = <distirbutor_values> where <condition>;
+--DELETE FROM Distributor where <condition>;
+--SELECT FROM <Distributor_attribute> from Distributor where <condition>;
 
--- DELETE VALUES
+--INSERT into Manufactures values(<manufactures_values>);
+--UPDATE Manufactures set <Manufactures_attribute> = <manufactures_values> where <condition>;
+--DELETE FROM Manufactures where <condition>;
+--SELECT FROM <Manufactures_attribute> from Manufactures where <condition>;
 
---DELETE FROM <table_name> where <condition>
+--INSERT into Trades values(<trades_values>);
+--UPDATE Trades set <Trades_attribute> = <trades_values> where <condition>;
+--DELETE FROM Trades where <condition>;
+--SELECT FROM <Trades_attribute> from Trades where <condition>;
+
+--INSERT into Distributes values(<distributes_values>);
+--UPDATE Distributes set <Distributes_attribute> = <distirbutes_values> where <condition>;
+--DELETE FROM Distributes where <condition>;
+--SELECT FROM <Distributes_attribute> from Distributes where <condition>;
 
 -- DEFINITIONS
--- <table_name> -> one of the tables in the report_analytics_portal_db database
--- <table_values> -> depends on the preceding <table_name> and it follows the table's schema
--- <table_attribute> -> one of the attributes defined in the table's schema based on the preceding <table_name>
--- <update_value> -> valid value that follows the data type of the preceding <table_attribute>
--- <condition> -> condition about the update, often includes attributes of the preceding <table_name>**/
