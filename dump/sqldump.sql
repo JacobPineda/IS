@@ -62,6 +62,7 @@ INSERT INTO Industry VALUES (2, 'Food');
 INSERT INTO Industry VALUES (3, 'School');
 INSERT INTO Industry VALUES (4, 'Public_Elementary_School');
 
+
 INSERT INTO Drug VALUES (1,"0",null,null,null,null,null,null,null,null);
 INSERT INTO Drug VALUES (1,"NO-004746","DRP-1228-01",null,"20100000000000",'2020-10-10',"Purified Water (Distilled Water)",null,null,null);
 INSERT INTO Drug VALUES (1,"DE-000331","DR-XY13892","Australia","05A-1915",'2020-8-11',"Budesonide",'Budecort Respules',"250 mg/mL",'Nebulizing Suspension (Sterile)');
