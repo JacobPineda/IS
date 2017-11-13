@@ -11,7 +11,7 @@ CREATE TABLE Region(region_id varchar(50), region_name varchar(50), primary key 
 
 CREATE TABLE School(industry_id int, school_id varchar(50), name varchar(100), contact varchar(50), email varchar(50), index idx_school_id(school_id), primary key (industry_id, school_id), foreign key (industry_id) references Industry(industry_id) on update cascade on delete cascade , foreign key (region_id) references Region(region_id) on update cascade on delete cascade );
 
-CREATE TABLE Course(course_id varchar(50), course_name varchar(50), primary key(course_id), index idx_course_id(course_id));
+CREATE TABLE Course(course_id varchar(50), course_name varchar(50), cost_per_unit real, primary key(course_id), index idx_course_id(course_id));
 
 CREATE TABLE Student(student_id varchar(50), school_id varchar(50), course_id varchar(50), student_name varchar(100), birthdate varchar(50), gender varchar(50), contact varchar(50), address varchar(100), primary key (student_id), foreign key (school_id) references School(school_id) on update cascade on delete cascade , foreign key (course_id) references Course(course_id) on update cascade on delete cascade );
 
