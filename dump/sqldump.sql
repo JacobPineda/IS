@@ -368,6 +368,12 @@ INSERT INTO costPerStudent VALUES ('SCID-0020', '55000', '3');
 INSERT INTO costPerStudent VALUES ('SCID-0021', '61000', '3');
 
 /* Generalized SQL Statements
+--INSERT INTO Drug VALUES( <drug_values>);
+--UPDATE Drug SET <drug_attribute> = <drug_values> where <condition>;
+--DELETE FROM Drug where <condition>;
+--SELECT FROM <Drug_attributes> from Drug where <condition>;
+
+
 --INSERT into Food values(<food_values>);
 --UPDATE Food set <Food_attribute> = <Food_values> where <condition>;
 --DELETE FROM Food where <condition>;
@@ -434,6 +440,8 @@ INSERT INTO costPerStudent VALUES ('SCID-0021', '61000', '3');
 --SELECT FROM <cps_attribute> from costPerStudent where <condition>;
 
 -- DEFINITIONS
+<drug_values> -> values that follow the data types of the attributes of the Drug table
+<Drug_attribute> -> attributes/columns of the Drug table
 <food_values> -> values that follow the data types of the attributes of the Food table
 <Food_attribute> -> attributes/columns of the Food table
 <manufacturer_values> -> values that follow the data types of the attributes of the Manufacturer table
