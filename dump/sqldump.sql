@@ -403,6 +403,36 @@ INSERT INTO costPerStudent VALUES ('SCID-0021', '61000', '3');
 --DELETE FROM Distributes where <condition>;
 --SELECT FROM <Distributes_attribute> from Distributes where <condition>;
 
+--INSERT INTO Region values(<Region_values>);
+--UPDATE Region set <Region_attribute> = <Region_values> where <condition>;
+--DELETE FROM Region where <condition>;
+--SELECT FROM <Region_attribute> from Region where <condition>;
+
+--INSERT INTO School values(<School_values>);
+--UPDATE School set <School_attribute> = <School_values> where <condition>;
+--DELETE FROM School where <condition>;
+--SELECT FROM <School_attribute> from School where <condition>;
+
+--INSERT INTO Course values(<Course_values>);
+--UPDATE Course set <Course_attribute> = <Course_values> where <condition>;
+--DELETE FROM Course where <condition>;
+--SELECT FROM <Course_attribute> from Course where <condition>;
+
+--INSERT INTO Student values(<Student_values>);
+--UPDATE Student set <Student_attribute> = <Student_values> where <condition>;
+--DELETE FROM Student where <condition>;
+--SELECT FROM <Student_attribute> from Student where <condition>;
+
+--INSERT INTO Enrollment values(<Enrollment_values>);
+--UPDATE Enrollment set <Enrollment_attribute> = <Enrollment_values> where <condition>;
+--DELETE FROM Enrollment where <condition>;
+--SELECT FROM <Enrollment_attribute> from Enrollment where <condition>;
+
+--INSERT INTO costPerStudent values(<cps_values>);
+--UPDATE costPerStudent set <cps_attribute> = <cps_values> where <condition>;
+--DELETE FROM costPerStudent where <condition>;
+--SELECT FROM <cps_attribute> from costPerStudent where <condition>;
+
 -- DEFINITIONS
 <food_values> -> values that follow the data types of the attributes of the Food table
 <Food_attribute> -> attributes/columns of the Food table
