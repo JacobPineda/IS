@@ -19,3 +19,116 @@ INSERT INTO Drug VALUES(1,"NO-004486","DRP-1505-02",null,"20100000000000","2019-
 INSERT INTO Drug VALUES(1,"NO-004487","DRP-1505-01",null,"20100000000000","2019-12-13","Phenylephrine Hydrochloride / Brompheniramine Maleate","Cold-Aid","12.5 mg/4 mg per 5 mL","Syrup");
 INSERT INTO Drug VALUES(1,"NO-004537","DRP-3416-04","India","20140903120756,20150223145719","2019-12-8","Piperacillin (As Sodium) + Tazobactam (As Sodiuim)","Nazovac","4 g/500 mg","Powder for Injection IM/IV");
 INSERT INTO Drug VALUES(1,"NO-004538","DRP-3416-03","India","20100000000000","2019-12-8","Piperacillin (As Sodium) + Tazobactam (As Sodiuim)","Tazmar","4 g/500 mg","Powder for Injection IM/IV");
+
+
+
+
+INSERT INTO Manufacturer VALUES(16,'Best Drug Industries Inc');
+INSERT INTO Manufacturer VALUES(17,'Astra');
+INSERT INTO Manufacturer VALUES(18,'Lloyd Lab Inc.');
+INSERT INTO Manufacturer VALUES(19,'Syncom Formulation Ltd');
+INSERT INTO Manufacturer VALUES(20,'Lyka labs Ltd');
+INSERT INTO Manufacturer VALUES(21,'XL Labs Pvt Ltd');
+INSERT INTO Manufacturer VALUES(22,'Kyungdong Pharma Co., Ltd');
+INSERT INTO Manufacturer VALUES(23,"Agio Pharma'l Ltd");
+INSERT INTO Manufacturer VALUES(24,'Lloyd Labs Inc');
+INSERT INTO Manufacturer VALUES(25,'Stallion Labs Pvt Ltd');
+
+
+INSERT INTO Manufactures VALUES("NO-004746",'0',16);
+INSERT INTO Manufactures VALUES("DE-000331",'0',17);
+INSERT INTO Manufactures VALUES("NO-004749",'0',16);
+INSERT INTO Manufactures VALUES("DC-000195",'0',18);
+INSERT INTO Manufactures VALUES("NO-004748",'0',16);
+INSERT INTO Manufactures VALUES("NO-004391",'0',19);
+INSERT INTO Manufactures VALUES("NO-004756",'0',20);
+INSERT INTO Manufactures VALUES("NO-004633",'0',21);
+INSERT INTO Manufactures VALUES("NO-004673",'0',21);
+INSERT INTO Manufactures VALUES("NO-004710",'0',22);
+INSERT INTO Manufactures VALUES("NO-004706",'0',22);
+INSERT INTO Manufactures VALUES("NO-004708",'0',22);
+INSERT INTO Manufactures VALUES("NO-004707",'0',22);
+INSERT INTO Manufactures VALUES("NO-004721",'0',22);
+INSERT INTO Manufactures VALUES("NO-004723",'0',22);
+INSERT INTO Manufactures VALUES("NO-004755",'0',22);
+INSERT INTO Manufactures VALUES("NO-004639",'0',23);
+INSERT INTO Manufactures VALUES("NO-004486",'0',24);
+INSERT INTO Manufactures VALUES("NO-004487",'0',24);
+INSERT INTO Manufactures VALUES("NO-004537",'0',25);
+INSERT INTO Manufactures VALUES("NO-004538",'0',25);
+
+INSERT INTO Trader VALUES(15,"First Fil-Bio Import Export Corp.");
+INSERT INTO Trader VALUES(16,"Interhealthcare Pharma'l Inc");
+
+INSERT INTO Trades VALUES("DC-000195","0",15);
+INSERT INTO Trades VALUES("NO-004486","0",16);
+INSERT INTO Trades VALUES("NO-004487","0",16);
+
+
+INSERT INTO Importer VALUES(1,"AstraZeneca Pharmaceuticals (Phils.) Inc.");
+INSERT INTO Importer VALUES(2,"Pharmasan Inc");
+INSERT INTO Importer VALUES(3,"Pasteur Pharma'l Sales");
+INSERT INTO Importer VALUES(4,"Ambica Int'l Trading Corp");
+INSERT INTO Importer VALUES(5,"D.B. Manix Int'l Inc");
+
+
+INSERT INTO Imports VALUES("DE-000331","0",1);
+INSERT INTO Imports VALUES("NO-004391","0",2);
+INSERT INTO Imports VALUES("NO-004756","0",3);
+INSERT INTO Imports VALUES("NO-004633","0",4);
+INSERT INTO Imports VALUES("NO-004673","0",4);
+INSERT INTO Imports VALUES("NO-004710","0",5);
+INSERT INTO Imports VALUES("NO-004706","0",5);
+INSERT INTO Imports VALUES("NO-004708","0",5);
+INSERT INTO Imports VALUES("NO-004707","0",5);
+INSERT INTO Imports VALUES("NO-004721","0",5);
+INSERT INTO Imports VALUES("NO-004723","0",5);
+INSERT INTO Imports VALUES("NO-004755","0",5);
+INSERT INTO Imports VALUES("NO-004639","0",4);
+INSERT INTO Imports VALUES("NO-004537","0",4);
+INSERT INTO Imports VALUES("NO-004538","0",4);
+
+
+
+
+
+
+INSERT INTO Distributor VALUES(1,"Quinosil Laboratory Inc");
+INSERT INTO Distributor VALUES(2,"AstraZeneca Pharmaceuticals (Phils.) Inc.");
+INSERT INTO Distributor VALUES(3,"Cris Pharma House");
+INSERT INTO Distributor VALUES(4,"DNBG Pharma'l Phils");
+INSERT INTO Distributor VALUES(5,"All-Bio Pharma");
+INSERT INTO Distributor VALUES(6,"Pharex Health Corp");
+INSERT INTO Distributor VALUES(7,"Medirich Pharma Distribution Corp");
+INSERT INTO Distributor VALUES(8,"Foramen Products Corp");
+INSERT INTO Distributor VALUES(9,"Solvang Pharma'l Inc");
+INSERT INTO Distributor VALUES(10,"Altomed Pharma'l Inc");
+INSERT INTO Distributor VALUES(11,"Innogen Pharma'l Inc");
+INSERT INTO Distributor VALUES(12,"Randril Int'l Co., Inc");
+INSERT INTO Distributor VALUES(13,"Wecare Pharma Corp");
+INSERT INTO Distributor VALUES(14,"Ambicare Pharma'l Inc");
+INSERT INTO Distributor VALUES(15,"GPC Geo Pharma Corp");
+INSERT INTO Distributor VALUES(16,"Marzan Pharma Corp");
+
+
+INSERT INTO Distributes VALUES("NO-004746","0",1);
+INSERT INTO Distributes VALUES("DE-000331","0",2);
+INSERT INTO Distributes VALUES("NO-004749","0",1);
+INSERT INTO Distributes VALUES("NO-004748","0",1);
+INSERT INTO Distributes VALUES("NO-004391","0",3);
+INSERT INTO Distributes VALUES("NO-004756","0",4);
+INSERT INTO Distributes VALUES("NO-004633","0",5);
+INSERT INTO Distributes VALUES("NO-004673","0",6);
+INSERT INTO Distributes VALUES("NO-004710","0",7);
+INSERT INTO Distributes VALUES("NO-004706","0",8);
+INSERT INTO Distributes VALUES("NO-004708","0",9);
+INSERT INTO Distributes VALUES("NO-004707","0",10);
+INSERT INTO Distributes VALUES("NO-004721","0",11);
+INSERT INTO Distributes VALUES("NO-004723","0",12);
+INSERT INTO Distributes VALUES("NO-004755","0",13);
+INSERT INTO Distributes VALUES("NO-004639","0",14);
+INSERT INTO Distributes VALUES("NO-004486","0",7);
+INSERT INTO Distributes VALUES("NO-004537","0",15);
+INSERT INTO Distributes VALUES("NO-004538","0",16);
+
+
