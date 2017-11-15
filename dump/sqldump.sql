@@ -466,6 +466,13 @@ INSERT INTO costPerStudent VALUES ('SCID-0019', '58000', '3');
 INSERT INTO costPerStudent VALUES ('SCID-0020', '55000', '3');
 INSERT INTO costPerStudent VALUES ('SCID-0021', '61000', '3');
 
+CREATE VIEW suc_costPerStudent AS 
+(
+  SELECT s.name, r.region_name, TRUNCATE((c.total_tuition / c.num_students), 2) AS cost_per_student 
+  FROM School AS s, costPerStudent AS c, Region AS r 
+  WHERE s.school_id = c.school_id AND s.region_id = r.region_id
+);
+
 /* Generalized SQL Statements
 --INSERT INTO Drug VALUES( <drug_values>);
 --UPDATE Drug SET <drug_attribute> = <drug_values> where <condition>;
