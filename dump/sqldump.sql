@@ -20,7 +20,7 @@ CREATE TABLE Student(student_id varchar(50), school_id varchar(50), course_id va
 
 CREATE TABLE Enrollment(enrollment_id varchar(50), student_id varchar(50), num_units int, school_year int, semester varchar(50), tuition real, payment_status varchar(50), enrollment_status varchar(50), primary key (enrollment_id), foreign key (student_id) references Student (student_id) on update cascade on delete cascade );
 
-CREATE TABLE costPerStudent(school_id varchar(50), total_tuition real, num_students int, primary key (school_id), foreign key (school_id) references School(school_id) on update cascade on delete cascade);
+CREATE TABLE Cost_Per_Student(school_id varchar(50), total_tuition real, num_students int, primary key (school_id), foreign key (school_id) references School(school_id) on update cascade on delete cascade);
 
 CREATE TABLE Grade_Level(level_id varchar(50), level_name varchar(50), primary key (level_id));
 
@@ -453,27 +453,27 @@ INSERT INTO Enrollment VALUES ('EID-00061', 'SID-00061', 20, 2017, '1', '20000',
 INSERT INTO Enrollment VALUES ('EID-00062', 'SID-00062', 21, 2017, '1', '21000', 'PAID', 'REGULAR');
 INSERT INTO Enrollment VALUES ('EID-00063', 'SID-00063', 20, 2017, '1', '20000', 'PAID', 'REGULAR');
 
-INSERT INTO costPerStudent VALUES ('SCID-0001', '54000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0002', '59000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0003', '55000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0004', '57000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0005', '58000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0006', '55000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0007', '61000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0008', '54000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0009', '59000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0010', '55000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0011', '57000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0012', '58000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0013', '55000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0014', '61000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0015', '55000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0016', '59000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0017', '55000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0018', '57000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0019', '58000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0020', '55000', '3');
-INSERT INTO costPerStudent VALUES ('SCID-0021', '61000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0001', '54000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0002', '59000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0003', '55000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0004', '57000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0005', '58000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0006', '55000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0007', '61000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0008', '54000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0009', '59000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0010', '55000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0011', '57000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0012', '58000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0013', '55000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0014', '61000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0015', '55000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0016', '59000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0017', '55000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0018', '57000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0019', '58000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0020', '55000', '3');
+INSERT INTO Cost_Per_Student VALUES ('SCID-0021', '61000', '3');
 
 INSERT INTO Grade_Level VALUES ('GID-01', 'Grade 1');
 INSERT INTO Grade_Level VALUES ('GID-02', 'Grade 2');
@@ -556,10 +556,10 @@ INSERT INTO Offers VALUES ('PESID-118705', 'GID-05', 115);
 INSERT INTO Offers VALUES ('PESID-118705', 'GID-06', 120);
 
 
-CREATE VIEW suc_costPerStudent AS 
+CREATE VIEW suc_Cost_Per_Student AS 
 (
   SELECT s.name, r.region_name, TRUNCATE((c.total_tuition / c.num_students), 2) AS cost_per_student 
-  FROM School AS s, costPerStudent AS c, Region AS r 
+  FROM School AS s, Cost_Per_Student AS c, Region AS r 
   WHERE s.school_id = c.school_id AND s.region_id = r.region_id
 );
 
@@ -641,10 +641,10 @@ UPDATE Enrollment set <Enrollment_attribute> = <Enrollment_values> where <condit
 DELETE FROM Enrollment where <condition>;
 SELECT FROM <Enrollment_attribute> from Enrollment where <condition>;
 
-INSERT INTO costPerStudent values(<cps_values>);
-UPDATE costPerStudent set <cps_attribute> = <cps_values> where <condition>;
-DELETE FROM costPerStudent where <condition>;
-SELECT FROM <cps_attribute> from costPerStudent where <condition>;
+INSERT INTO Cost_Per_Student values(<cps_values>);
+UPDATE Cost_Per_Student set <cps_attribute> = <cps_values> where <condition>;
+DELETE FROM Cost_Per_Student where <condition>;
+SELECT FROM <cps_attribute> from Cost_Per_Student where <condition>;
 
 INSERT INTO Grade_Level values(<Level_values>);
 UPDATE Grade_Level set <Level_attribute> = <Level_values> where <condition>;
@@ -693,8 +693,8 @@ SELECT FROM <Offers_attribute> from Offers where <condition>;
 <Student_attribute> -> attributes/columns of the Student table
 <Enrollment_values> -> values that follow the data types of the attributes of the Enrollment table
 <Enrollment_attribute> -> attributes/columns of the Enrollment table
-<cps_values> -> values that follow the data types of the attributes of the costPerStudent table
-<cps_attribute> -> attributes/columns of the costPerStudent table
+<cps_values> -> values that follow the data types of the attributes of the Cost_Per_Student table
+<cps_attribute> -> attributes/columns of the Cost_Per_Student table
 <Level_values> -> values that follow the data types of the attributes of the Grade_Level table
 <Level_attribute> -> attributes/columns of the Grade_Level table
 <PES_values> -> values that follow the data types of the attributes of the Public_Elementary_School table
