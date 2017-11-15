@@ -475,6 +475,87 @@ INSERT INTO costPerStudent VALUES ('SCID-0019', '58000', '3');
 INSERT INTO costPerStudent VALUES ('SCID-0020', '55000', '3');
 INSERT INTO costPerStudent VALUES ('SCID-0021', '61000', '3');
 
+INSERT INTO Grade_Level VALUES ('GID-01', 'Grade 1');
+INSERT INTO Grade_Level VALUES ('GID-02', 'Grade 2');
+INSERT INTO Grade_Level VALUES ('GID-03', 'Grade 3');
+INSERT INTO Grade_Level VALUES ('GID-04', 'Grade 4');
+INSERT INTO Grade_Level VALUES ('GID-05', 'Grade 5');
+INSERT INTO Grade_Level VALUES ('GID-06', 'Grade 6');
+INSERT INTO Grade_Level VALUES ('GID-07', 'Grade 7');
+INSERT INTO Grade_Level VALUES ('GID-08', 'Grade 8');
+INSERT INTO Grade_Level VALUES ('GID-09', 'Grade 9');
+INSERT INTO Grade_Level VALUES ('GID-10', 'Grade 10');
+INSERT INTO Grade_Level VALUES ('GID-11', 'Grade 11');
+INSERT INTO Grade_Level VALUES ('GID-12', 'Grade 12');
+
+INSERT INTO Public_Elementary_School VALUES (4, 'PESID-102252', 'RID-03', 'Abanon Central Elementary School');
+INSERT INTO Public_Elementary_School VALUES (4, 'PESID-103773', 'RID-04', 'Malasin Elementary School');
+INSERT INTO Public_Elementary_School VALUES (4, 'PESID-105074', 'RID-05', 'Kalawakan Elementary School');
+INSERT INTO Public_Elementary_School VALUES (4, 'PESID-109719', 'RID-06', 'Ilayang Dupay Elementary School');
+INSERT INTO Public_Elementary_School VALUES (4, 'PESID-110618', 'RID-07', 'Paraway Mangyan School');
+INSERT INTO Public_Elementary_School VALUES (4, 'PESID-114537', 'RID-08', 'Gajo Elementary School');
+INSERT INTO Public_Elementary_School VALUES (4, 'PESID-114681', 'RID-09', 'Batan Elementary School');
+INSERT INTO Public_Elementary_School VALUES (4, 'PESID-118705', 'RID-10', 'City East Elementary School');
+INSERT INTO Public_Elementary_School VALUES (4, 'PESID-121314', 'RID-11', 'Guinarona Elementary School');
+INSERT INTO Public_Elementary_School VALUES (4, 'PESID-125721', 'RID-12', 'Naga Central Elementary School');
+INSERT INTO Public_Elementary_School VALUES (4, 'PESID-126375', 'RID-13', 'Hagpa Elementary School');
+INSERT INTO Public_Elementary_School VALUES (4, 'PESID-129180', 'RID-14', 'Causwagan Elementary School');
+INSERT INTO Public_Elementary_School VALUES (4, 'PESID-131355', 'RID-15', 'Macebolig Integrated School');
+INSERT INTO Public_Elementary_School VALUES (4, 'PESID-131794', 'RID-16', 'Inagawan Learning Center');
+INSERT INTO Public_Elementary_School VALUES (4, 'PESID-133754', 'RID-17', 'Calombog Elementary School');
+INSERT INTO Public_Elementary_School VALUES (4, 'PESID-136393', 'RID-02', 'Bonifacio Elementary school');
+INSERT INTO Public_Elementary_School VALUES (4, 'PESID-136624', 'RID-01', 'Tandang Sora IS');
+
+INSERT INTO Offers VALUES ('PESID-102252', 'GID-01', 133);
+INSERT INTO Offers VALUES ('PESID-102252', 'GID-02', 131);
+INSERT INTO Offers VALUES ('PESID-102252', 'GID-03', 112);
+INSERT INTO Offers VALUES ('PESID-102252', 'GID-04', 112);
+INSERT INTO Offers VALUES ('PESID-102252', 'GID-05', 115);
+INSERT INTO Offers VALUES ('PESID-102252', 'GID-06', 123);
+INSERT INTO Offers VALUES ('PESID-103773', 'GID-01', 50);
+INSERT INTO Offers VALUES ('PESID-103773', 'GID-02', 49);
+INSERT INTO Offers VALUES ('PESID-103773', 'GID-03', 37);
+INSERT INTO Offers VALUES ('PESID-103773', 'GID-04', 46);
+INSERT INTO Offers VALUES ('PESID-103773', 'GID-05', 49);
+INSERT INTO Offers VALUES ('PESID-103773', 'GID-06', 46);
+INSERT INTO Offers VALUES ('PESID-105074', 'GID-01', 51);
+INSERT INTO Offers VALUES ('PESID-105074', 'GID-02', 57);
+INSERT INTO Offers VALUES ('PESID-105074', 'GID-03', 24);
+INSERT INTO Offers VALUES ('PESID-105074', 'GID-04', 22);
+INSERT INTO Offers VALUES ('PESID-105074', 'GID-05', 19);
+INSERT INTO Offers VALUES ('PESID-105074', 'GID-06', 7);
+INSERT INTO Offers VALUES ('PESID-109719', 'GID-01', 59);
+INSERT INTO Offers VALUES ('PESID-109719', 'GID-02', 63);
+INSERT INTO Offers VALUES ('PESID-109719', 'GID-03', 46);
+INSERT INTO Offers VALUES ('PESID-109719', 'GID-04', 50);
+INSERT INTO Offers VALUES ('PESID-109719', 'GID-05', 42);
+INSERT INTO Offers VALUES ('PESID-109719', 'GID-06', 46);
+INSERT INTO Offers VALUES ('PESID-110618', 'GID-01', 16);
+INSERT INTO Offers VALUES ('PESID-110618', 'GID-02', 14);
+INSERT INTO Offers VALUES ('PESID-110618', 'GID-03', 9);
+INSERT INTO Offers VALUES ('PESID-110618', 'GID-04', 19);
+INSERT INTO Offers VALUES ('PESID-110618', 'GID-05', 19);
+INSERT INTO Offers VALUES ('PESID-110618', 'GID-06', 7);
+INSERT INTO Offers VALUES ('PESID-114537', 'GID-01', 15);
+INSERT INTO Offers VALUES ('PESID-114537', 'GID-02', 8);
+INSERT INTO Offers VALUES ('PESID-114537', 'GID-03', 12);
+INSERT INTO Offers VALUES ('PESID-114537', 'GID-04', 0);
+INSERT INTO Offers VALUES ('PESID-114537', 'GID-05', 9);
+INSERT INTO Offers VALUES ('PESID-114537', 'GID-06', 6);
+INSERT INTO Offers VALUES ('PESID-114681', 'GID-01', 102);
+INSERT INTO Offers VALUES ('PESID-114681', 'GID-02', 93);
+INSERT INTO Offers VALUES ('PESID-114681', 'GID-03', 97);
+INSERT INTO Offers VALUES ('PESID-114681', 'GID-04', 103);
+INSERT INTO Offers VALUES ('PESID-114681', 'GID-05', 83);
+INSERT INTO Offers VALUES ('PESID-114681', 'GID-06', 93);
+INSERT INTO Offers VALUES ('PESID-118705', 'GID-01', 126);
+INSERT INTO Offers VALUES ('PESID-118705', 'GID-02', 137);
+INSERT INTO Offers VALUES ('PESID-118705', 'GID-03', 134);
+INSERT INTO Offers VALUES ('PESID-118705', 'GID-04', 126);
+INSERT INTO Offers VALUES ('PESID-118705', 'GID-05', 115);
+INSERT INTO Offers VALUES ('PESID-118705', 'GID-06', 120);
+
+
 CREATE VIEW suc_costPerStudent AS 
 (
   SELECT s.name, r.region_name, TRUNCATE((c.total_tuition / c.num_students), 2) AS cost_per_student 
