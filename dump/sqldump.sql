@@ -488,6 +488,12 @@ INSERT INTO costPerStudent VALUES ('SCID-0021', '61000', '3');
 --DELETE FROM Trader where <condition>;
 --SELECT FROM <Trader_attribute> from Trader where <condition>;
 
+--INSERT into Importer values(<Importer_values>);
+--UPDATE Importer set <Importer_attribute> = <Importer_values> where <condition>;
+--DELETE FROM Importer where <condition>;
+--SELECT FROM <Importer_attribute> from Importer where <condition>;
+
+
 --INSERT into Distributor values(<distributor_values>);
 --UPDATE Distributor set <Distributor_attribute> = <distirbutor_values> where <condition>;
 --DELETE FROM Distributor where <condition>;
@@ -502,6 +508,12 @@ INSERT INTO costPerStudent VALUES ('SCID-0021', '61000', '3');
 --UPDATE Trades set <Trades_attribute> = <trades_values> where <condition>;
 --DELETE FROM Trades where <condition>;
 --SELECT FROM <Trades_attribute> from Trades where <condition>;
+
+--INSERT into Imports values(<Imports_values>);
+--UPDATE Importer set <imports_attribute> = <Imports_values> where <condition>;
+--DELETE FROM Imports where <condition>;
+--SELECT FROM <Imports_attribute> from Imports where <condition>;
+
 
 --INSERT into Distributes values(<distributes_values>);
 --UPDATE Distributes set <Distributes_attribute> = <distirbutes_values> where <condition>;
@@ -539,6 +551,10 @@ INSERT INTO costPerStudent VALUES ('SCID-0021', '61000', '3');
 --SELECT FROM <cps_attribute> from costPerStudent where <condition>;
 
 -- DEFINITIONS
+<imports_values> -> values that follow the data types of the attributes of the Imports table
+<imports_attribute> -> attributes/columns of the Import table
+<importer_values> -> values that follow the data types of the attributes of the Importer table
+<importer_attribute> -> attributes/columns of the Importer table
 <drug_values> -> values that follow the data types of the attributes of the Drug table
 <Drug_attribute> -> attributes/columns of the Drug table
 <food_values> -> values that follow the data types of the attributes of the Food table
