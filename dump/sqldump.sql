@@ -1,5 +1,5 @@
 -- DELETE DB IS EXIST
-DROP DATABASE if exists report_analytics_portal_db;
+DROP DATABASE IF EXISTS report_analytics_portal_db;
 
 -- CREATE DATABASE
 CREATE DATABASE report_analytics_portal_db;
@@ -564,87 +564,103 @@ CREATE VIEW suc_costPerStudent AS
 );
 
 /* Generalized SQL Statements
---INSERT INTO Drug VALUES( <drug_values>);
---UPDATE Drug SET <drug_attribute> = <drug_values> where <condition>;
---DELETE FROM Drug where <condition>;
---SELECT FROM <Drug_attributes> from Drug where <condition>;
+INSERT INTO Drug VALUES( <drug_values>);
+UPDATE Drug SET <drug_attribute> = <drug_values> where <condition>;
+DELETE FROM Drug where <condition>;
+SELECT FROM <Drug_attributes> from Drug where <condition>;
 
 
---INSERT into Food values(<food_values>);
---UPDATE Food set <Food_attribute> = <Food_values> where <condition>;
---DELETE FROM Food where <condition>;
---SELECT FROM <Food_attribute> from Food where <condition>;
+INSERT into Food values(<food_values>);
+UPDATE Food set <Food_attribute> = <Food_values> where <condition>;
+DELETE FROM Food where <condition>;
+SELECT FROM <Food_attribute> from Food where <condition>;
 
---INSERT into Manufacturer values(<manufacturer_values>);
---UPDATE Manufacturer set <Manufacturer_attribute> = <manufacturer_values> where <condition>;
---DELETE FROM Manufacturer where <condition>;
---SELECT FROM <Manufacturer_attribute> from Manufacturer where <condition>;
+INSERT into Manufacturer values(<manufacturer_values>);
+UPDATE Manufacturer set <Manufacturer_attribute> = <manufacturer_values> where <condition>;
+DELETE FROM Manufacturer where <condition>;
+SELECT FROM <Manufacturer_attribute> from Manufacturer where <condition>;
 
---INSERT into Trader values(<trader_values>);
---UPDATE Trader set <Trader_attribute> = <trader_values> where <condition>;
---DELETE FROM Trader where <condition>;
---SELECT FROM <Trader_attribute> from Trader where <condition>;
+INSERT into Trader values(<trader_values>);
+UPDATE Trader set <Trader_attribute> = <trader_values> where <condition>;
+DELETE FROM Trader where <condition>;
+SELECT FROM <Trader_attribute> from Trader where <condition>;
 
---INSERT into Importer values(<Importer_values>);
---UPDATE Importer set <Importer_attribute> = <Importer_values> where <condition>;
---DELETE FROM Importer where <condition>;
---SELECT FROM <Importer_attribute> from Importer where <condition>;
-
-
---INSERT into Distributor values(<distributor_values>);
---UPDATE Distributor set <Distributor_attribute> = <distirbutor_values> where <condition>;
---DELETE FROM Distributor where <condition>;
---SELECT FROM <Distributor_attribute> from Distributor where <condition>;
-
---INSERT into Manufactures values(<manufactures_values>);
---UPDATE Manufactures set <Manufactures_attribute> = <manufactures_values> where <condition>;
---DELETE FROM Manufactures where <condition>;
---SELECT FROM <Manufactures_attribute> from Manufactures where <condition>;
-
---INSERT into Trades values(<trades_values>);
---UPDATE Trades set <Trades_attribute> = <trades_values> where <condition>;
---DELETE FROM Trades where <condition>;
---SELECT FROM <Trades_attribute> from Trades where <condition>;
-
---INSERT into Imports values(<Imports_values>);
---UPDATE Importer set <imports_attribute> = <Imports_values> where <condition>;
---DELETE FROM Imports where <condition>;
---SELECT FROM <Imports_attribute> from Imports where <condition>;
+INSERT into Importer values(<Importer_values>);
+UPDATE Importer set <Importer_attribute> = <Importer_values> where <condition>;
+DELETE FROM Importer where <condition>;
+SELECT FROM <Importer_attribute> from Importer where <condition>;
 
 
---INSERT into Distributes values(<distributes_values>);
---UPDATE Distributes set <Distributes_attribute> = <distirbutes_values> where <condition>;
---DELETE FROM Distributes where <condition>;
---SELECT FROM <Distributes_attribute> from Distributes where <condition>;
+INSERT into Distributor values(<distributor_values>);
+UPDATE Distributor set <Distributor_attribute> = <distirbutor_values> where <condition>;
+DELETE FROM Distributor where <condition>;
+SELECT FROM <Distributor_attribute> from Distributor where <condition>;
 
---INSERT INTO Region values(<Region_values>);
---UPDATE Region set <Region_attribute> = <Region_values> where <condition>;
---DELETE FROM Region where <condition>;
---SELECT FROM <Region_attribute> from Region where <condition>;
---INSERT INTO School values(<School_values>);
---UPDATE School set <School_attribute> = <School_values> where <condition>;
---DELETE FROM School where <condition>;
---SELECT FROM <School_attribute> from School where <condition>;
+INSERT into Manufactures values(<manufactures_values>);
+UPDATE Manufactures set <Manufactures_attribute> = <manufactures_values> where <condition>;
+DELETE FROM Manufactures where <condition>;
+SELECT FROM <Manufactures_attribute> from Manufactures where <condition>;
 
---INSERT INTO Course values(<Course_values>);
---UPDATE Course set <Course_attribute> = <Course_values> where <condition>;
---DELETE FROM Course where <condition>;
---SELECT FROM <Course_attribute> from Course where <condition>;
+INSERT into Trades values(<trades_values>);
+UPDATE Trades set <Trades_attribute> = <trades_values> where <condition>;
+DELETE FROM Trades where <condition>;
+SELECT FROM <Trades_attribute> from Trades where <condition>;
 
---INSERT INTO Student values(<Student_values>);
---UPDATE Student set <Student_attribute> = <Student_values> where <condition>;
---DELETE FROM Student where <condition>;
---SELECT FROM <Student_attribute> from Student where <condition>;
+INSERT into Imports values(<Imports_values>);
+UPDATE Importer set <imports_attribute> = <Imports_values> where <condition>;
+DELETE FROM Imports where <condition>;
+SELECT FROM <Imports_attribute> from Imports where <condition>;
 
---INSERT INTO Enrollment values(<Enrollment_values>);
---UPDATE Enrollment set <Enrollment_attribute> = <Enrollment_values> where <condition>;
---DELETE FROM Enrollment where <condition>;
---SELECT FROM <Enrollment_attribute> from Enrollment where <condition>;
 
---INSERT INTO costPerStudent values(<cps_values>);
---UPDATE costPerStudent set <cps_attribute> = <cps_values> where <condition>;
---DELETE FROM costPerStudent where <condition>;
---SELECT FROM <cps_attribute> from costPerStudent where <condition>;
+INSERT into Distributes values(<distributes_values>);
+UPDATE Distributes set <Distributes_attribute> = <distirbutes_values> where <condition>;
+DELETE FROM Distributes where <condition>;
+SELECT FROM <Distributes_attribute> from Distributes where <condition>;
+
+INSERT INTO Region values(<Region_values>);
+UPDATE Region set <Region_attribute> = <Region_values> where <condition>;
+DELETE FROM Region where <condition>;
+SELECT FROM <Region_attribute> from Region where <condition>;
+INSERT INTO School values(<School_values>);
+UPDATE School set <School_attribute> = <School_values> where <condition>;
+DELETE FROM School where <condition>;
+SELECT FROM <School_attribute> from School where <condition>;
+
+INSERT INTO Course values(<Course_values>);
+UPDATE Course set <Course_attribute> = <Course_values> where <condition>;
+DELETE FROM Course where <condition>;
+SELECT FROM <Course_attribute> from Course where <condition>;
+
+INSERT INTO Student values(<Student_values>);
+UPDATE Student set <Student_attribute> = <Student_values> where <condition>;
+DELETE FROM Student where <condition>;
+SELECT FROM <Student_attribute> from Student where <condition>;
+
+INSERT INTO Enrollment values(<Enrollment_values>);
+UPDATE Enrollment set <Enrollment_attribute> = <Enrollment_values> where <condition>;
+DELETE FROM Enrollment where <condition>;
+SELECT FROM <Enrollment_attribute> from Enrollment where <condition>;
+
+INSERT INTO costPerStudent values(<cps_values>);
+UPDATE costPerStudent set <cps_attribute> = <cps_values> where <condition>;
+DELETE FROM costPerStudent where <condition>;
+SELECT FROM <cps_attribute> from costPerStudent where <condition>;
+
+INSERT INTO Grade_Level values(<Level_values>);
+UPDATE Grade_Level set <Level_attribute> = <Level_values> where <condition>;
+DELETE FROM Grade_Level where <condition>;
+SELECT FROM <Level_attribute> from Grade_Level where <condition>;
+
+INSERT INTO Public_Elementary_School values(<PES_values>);
+UPDATE Public_Elementary_School set <PES_attribute> = <PES_values> where <condition>;
+DELETE FROM Public_Elementary_School where <condition>;
+SELECT FROM <PES_attribute> from Public_Elementary_School where <condition>;
+
+INSERT INTO Offers values(<Offers_values>);
+UPDATE Offers set <Offers_attribute> = <Offers_values> where <condition>;
+DELETE FROM Offers where <condition>;
+SELECT FROM <Offers_attribute> from Offers where <condition>;
+
 
 -- DEFINITIONS
 <imports_values> -> values that follow the data types of the attributes of the Imports table
@@ -679,5 +695,12 @@ CREATE VIEW suc_costPerStudent AS
 <Enrollment_attribute> -> attributes/columns of the Enrollment table
 <cps_values> -> values that follow the data types of the attributes of the costPerStudent table
 <cps_attribute> -> attributes/columns of the costPerStudent table
+<Level_values> -> values that follow the data types of the attributes of the Grade_Level table
+<Level_attribute> -> attributes/columns of the Grade_Level table
+<PES_values> -> values that follow the data types of the attributes of the Public_Elementary_School table
+<PES_attribute> -> attributes/columns of the Public_Elementary_School table
+<Offers_values> -> values that follow the data types of the attributes of the Offers table
+<Offers_attribute> -> attributes/columns of the Offers table
+
 <condition> -> 
 */
