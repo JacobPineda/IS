@@ -1,3 +1,6 @@
+-- DELETE DB IS EXIST
+DROP DATABASE if exists report_analytics_portal_db;
+
 -- CREATE DATABASE
 CREATE DATABASE report_analytics_portal_db;
 USE report_analytics_portal_db;
@@ -19,11 +22,11 @@ CREATE TABLE Enrollment(enrollment_id varchar(50), student_id varchar(50), num_u
 
 CREATE TABLE costPerStudent(school_id varchar(50), total_tuition real, num_students int, primary key (school_id), foreign key (school_id) references School(school_id) on update cascade on delete cascade);
 
-CREATE TABLE Public_Elementary_School(industry_id int, elementary_school_id int, school_name varchar(50), no_of_students int, index idx_elementary_school_id(elementary_school_id), primary key ( industry_id, elementary_school_id), foreign key (industry_id) references Industry(industry_id) on update cascade on delete cascade );
+CREATE TABLE Grade_Level(level_id varchar(50), level_name varchar(50), primary key (level_id));
 
-CREATE TABLE Grade_Level(level_name varchar(50), no_of_students int, primary key (level_name));
+CREATE TABLE Public_Elementary_School(industry_id int, elementary_school_id varchar(50), region_id varchar(50), school_name varchar(50), index idx_elementary_school_id(elementary_school_id), primary key (industry_id, elementary_school_id), foreign key (industry_id) references Industry(industry_id) on update cascade on delete cascade, foreign key (region_id) references Region(region_id) on update cascade on delete cascade);
 
-CREATE TABLE Offers(elementary_school_id int, level_name varchar(50), primary key (elementary_school_id,level_name), foreign key (elementary_school_id) references Public_Elementary_School(elementary_school_id) on update cascade on delete cascade );
+CREATE TABLE Offers(elementary_school_id varchar(50), level_id varchar(50), no_of_students int, primary key (elementary_school_id, level_id), foreign key (elementary_school_id) references Public_Elementary_School(elementary_school_id) on update cascade on delete cascade, foreign key (level_id) references Grade_Level(level_id) on update cascade on delete cascade );
 
 CREATE TABLE Trader(trader_no int, name varchar(50), primary key (trader_no), index idx_trader_no(trader_no));
 
@@ -316,7 +319,7 @@ INSERT INTO Course VALUES ('CID-009', 'Mathematics');
 INSERT INTO Course VALUES ('CID-010', 'Political Science');
 INSERT INTO Course VALUES ('CID-011', 'Sociology');
 
-INSERT INTO Student VALUES ('SID-00001', 'SCID-0001', 'CID-001', 'Lydia Ratledge', '2000-03-03', 'Male', '(971) 7055456', '9 Utah Avenue');
+INSERT INTO Student VALUES ('SID-00001', 'SCID-0001', 'CID-001', 'Lydia Ratledge', '2000-03-03', 'M', '(971) 7055456', '9 Utah Avenue');
 INSERT INTO Student VALUES ('SID-00002', 'SCID-0001', 'CID-002', 'Gratiana Skittle', '2001-06-10', 'Male', '(821) 5013564', '9714 Bayside Hill');
 INSERT INTO Student VALUES ('SID-00003', 'SCID-0001', 'CID-003', 'Justin Spratt', '1999-07-31', 'Male', '(111) 6355279', '64303 Harbort Way');
 INSERT INTO Student VALUES ('SID-00004', 'SCID-0002', 'CID-004', 'Tessie Littlefield', '1999-02-13', 'Male', '(923) 9614830', '89 Lindbergh Point');
