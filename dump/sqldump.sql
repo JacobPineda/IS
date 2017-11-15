@@ -524,7 +524,6 @@ INSERT INTO costPerStudent VALUES ('SCID-0021', '61000', '3');
 --UPDATE Region set <Region_attribute> = <Region_values> where <condition>;
 --DELETE FROM Region where <condition>;
 --SELECT FROM <Region_attribute> from Region where <condition>;
-
 --INSERT INTO School values(<School_values>);
 --UPDATE School set <School_attribute> = <School_values> where <condition>;
 --DELETE FROM School where <condition>;
@@ -571,5 +570,17 @@ INSERT INTO costPerStudent VALUES ('SCID-0021', '61000', '3');
 <Trades_attribute> -> attributes/columns of the Trades table
 <distributes_values> -> values that follow the data types of the attributes of the Distributes table
 <Distributes_attribute> -> attributes/columns of the Distributes table
+<Region_values> -> values that follow the data types of the attributes of the Region table
+<Region_attribute> -> attributes/columns of the Region table
+<School_values> -> values that follow the data types of the attributes of the School table
+<School_attribute> -> attributes/columns of the School table
+<Course_values> -> values that follow the data types of the attributes of the Course table
+<Course_attribute> -> attributes/columns of the Course table
+<Student_values> -> values that follow the data types of the attributes of the Student table
+<Student_attribute> -> attributes/columns of the Student table
+<Enrollment_values> -> values that follow the data types of the attributes of the Enrollment table
+<Enrollment_attribute> -> attributes/columns of the Enrollment table
+<cps_values> -> values that follow the data types of the attributes of the costPerStudent table
+<cps_attribute> -> attributes/columns of the costPerStudent table
 <condition> -> 
 */
