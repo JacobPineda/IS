@@ -9,12 +9,12 @@ session_start();
 <html lang="en">
 <head>
     <meta charset="utf-8">
-	<link href="../css/sidenav.css" rel="stylesheet">
+	<link   href="/IS/css/topnav.css" rel="stylesheet">
 </head>
  
 <body>
 	<?php
-	include("../sidenav.php");
+	include("../topnav.php");
 	$manuList = "<option value='null'></option>";
 	include('../connect.php');
 	$sql = "SELECT * FROM Manufacturer ORDER BY name";
@@ -26,7 +26,8 @@ session_start();
 		
 	mysqli_close($conn);
 	
-	$form ="<h3>Create a Drug</h3>
+	$form ="
+<center><h3>Create a Drug</h3>
                     
     <form action='create-drug.php' method='post'>
 		<table>
@@ -76,7 +77,8 @@ session_start();
 			</tr>
 		</table>
 
-    </form>";
+    </form>
+</center>";
 
 		if($_POST['create_drug']){
 			$cpr_no = $_POST['cpr_no'];
@@ -120,7 +122,6 @@ session_start();
 		}
 		
 	?>
-
 
 
 </body>

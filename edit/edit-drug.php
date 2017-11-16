@@ -8,13 +8,14 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link   href="/IS/css/sidenav.css" rel="stylesheet">
+	<link   href="/IS/css/topnav.css" rel="stylesheet">
     <meta charset="utf-8">
 </head>
  
 <body>
+
    <?php
-		include("../sidenav.php");
+		include("../topnav.php");
 		
 		function generateForm($cpr_no,  $curr_dr_no, $curr_country, $curr_rsn, $curr_validity_date, $curr_generic_name, $curr_brand_name,$curr_strength, $curr_form, $curr_manu){
 			
@@ -31,7 +32,7 @@ session_start();
 			mysqli_close($conn);
 			
 			
-			return "<h3>Edit a record</h3>
+			return "<center><h3>Edit a record</h3>
 		<form action = 'edit-drug.php?cpr_no=$cpr_no' method='post'>
 		<table>
         	<tr> 
@@ -78,7 +79,7 @@ session_start();
 				<td><input  type='submit' name='edit_drug' value='Save'/></td>
                 <td><a class='btn' href='/IS/reports/drug.php'>Back</a></td>
 			</tr>
-		</table> </form>";
+		</table> </form></center>";
 		}
    
 		$cpr_no = null;
@@ -148,9 +149,7 @@ session_start();
 		} else{
 			echo  generateForm($cpr_no, $curr_dr_no, $curr_country, $curr_rsn, $curr_validity_date, $curr_generic_name, $curr_brand_name,$curr_strength, $curr_form, $curr_manu);
 		}
-		
-			
-		
 	?>
+
   </body>
 </html>

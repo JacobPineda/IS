@@ -8,13 +8,14 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link   href="/IS/css/sidenav.css" rel="stylesheet">
+	<link   href="/IS/css/topnav.css" rel="stylesheet">
     <meta charset="utf-8">
 </head>
  
 <body>
+
    <?php
-		include("../sidenav.php");
+		include("../topnav.php");
 		
 		$cpr_no = null;
 		if ( !empty($_GET['cpr_no'])) {
@@ -46,7 +47,7 @@ session_start();
 		}
    
    
-		$form="<h3>View a record</h3>
+		$form="<center><h3>View a record</h3>
 			<table border='1'>
         	<tr> 
 	  			<td>CPR No.</td>
@@ -88,7 +89,7 @@ session_start();
    				<td>Manufacturer</td>
 				<td>".$manufacturer."</td>
             </tr>
-		</table><br/><a class='btn' href='/IS/reports/drug.php'>Back</a>";
+		</table><br/><a class='btn' href='/IS/reports/drug.php'>Back</a></center>";
 		
 		echo "$form";
 		
@@ -96,5 +97,6 @@ session_start();
 		mysqli_close($conn);
 		
 	?>
+
   </body>
 </html>

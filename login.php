@@ -12,11 +12,14 @@ session_start();
 <head>
 <title>Login</title>
 </head>
+	<link   href="/IS/css/topnav.css" rel="stylesheet">
 
 <body>
-
 	<?php	
-		$form="<div>
+		include("topnav.php");
+		
+		$form="
+			<center><div>
 			<form action='login.php' method='post'>
 				<table>
 					<tr>
@@ -31,11 +34,12 @@ session_start();
 					<tr>
 						<td></td>
 						<td><input type='submit' name='login_btn' value='Login'/></td>
+						<td><a class='btn' href='/IS/home.php'>Back</a></td>
 						<td></td>
 					</tr>
 				</table>
 			</form>
-		</div>";
+		</div></center>";
 		
 		if($_POST['login_btn']){
 			

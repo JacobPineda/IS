@@ -11,7 +11,7 @@ session_start();
 <html>
 <head>
     <meta charset="utf-8">
-	<link   href="/IS/css/sidenav.css" rel="stylesheet">
+	<link href="/IS/css/topnav.css" rel="stylesheet">
 <title>Drug Products Report</title>
 
 </head>
@@ -20,13 +20,13 @@ session_start();
 <body>
 
 	<?php	
-		include("../sidenav.php");
+		include("../topnav.php");
+		
 		if($_SESSION['isLoggedIn'] == true){
 			echo "<p> <a href='../create/create-drug.php' >Create</a><p>";
 		} 
 		
-		
-		$form="<div> 
+		$form="<center><div> 
 			<form action='drug.php' method='post'>
 				<input type='checkbox' name='check_list[]' value='industry_id'>Industry ID</input>		
 				<input type='checkbox' name='check_list[]' value='cpr_no'>CPR No.</input>			
@@ -42,28 +42,61 @@ session_start();
 				<input type='submit' name='generate' value='Generate'/>
 				
 			</form>
-		</div>";
+		</div></center>";
 		
 		$cols = "1";
 			
 		if($_POST['generate']){
+			
+			
+			if (!empty($_GET['p'])) {
+				$page = $_REQUEST['p'];
+			} else {
+				$page = 1;
+			}
 			echo "$form</br>";
 			$arrCheckBox = $_POST['check_list'];
-			if($arrCheckBox){
+		//	$_SESSION['checked'] = $_POST['check_list'];
 			
-				echo "<table border='1'><tr><th>action</th>";
+			include('../connect.php');
+			$totalSql = "SELECT count(*) as total_no from Drug WHERE cpr_no NOT IN ('0')";
+			$totalResult = $conn->query($totalSql);
+			$totalRow = mysqli_fetch_array($totalResult);		
+			$total_no = ($arrCheckBox)? $totalRow['total_no']: 0;
+			
+			$noOfPages = ceil($total_no/10);
+			$page_sub = $page - 1;			
+			$page_add = $page + 1;
+			
+			$prev = ($page > 1)? "<td><a href='drug.php?p={$page_sub}'>prev</a></td>": null;
+			$next = ($page < $noOfPages)? "<td><a href='drug.php?p={$page_add}'>next</a></td>" : null;
+				
+			echo "<center><table><tr> {$prev} <td>	Total no. of records: {$total_no}</td>  {$next} </tr></table></center>";
+			
+			if($arrCheckBox){
+				
+				$offset = $page * 10;
+				
+				echo "<center><table border='1'><tr><th>no.</th><th>action</th>";
 				foreach($arrCheckBox as $check) {
 					$cols = "$cols,$check"; 
 					echo "<th>$check</th>";
 				}
 				echo "</tr>";
 				
-				include('../connect.php');
-				$sql = "SELECT * from Drug WHERE cpr_no NOT IN ('0')";
+				
+				$totalSql = "SELECT count(*) as total_no from Drug WHERE cpr_no NOT IN ('0')"; 
+				$totalResult = $conn->query($totalSql);
+				$totalRow = mysqli_fetch_array($totalResult);		
+				$total_no = $totalRow['total_no'];
+			
+				$sql = "SELECT * from Drug WHERE cpr_no NOT IN ('0') LIMIT 10 OFFSET {$offset}";
 				$result = $conn->query($sql);
 				
+				$counter = 0;
 				while($row = mysqli_fetch_array($result)){
-					echo "<tr><td>";
+					$counter++;
+					echo "<tr><td>{$counter}</td><td>";
 					echo '<a href="../view/view-drug.php?cpr_no='.$row['cpr_no'].'">view</a>';
 					if($_SESSION['isLoggedIn'] == true){
 						echo' | <a href="../edit/edit-drug.php?cpr_no='.$row['cpr_no'].'">edit</a>
@@ -75,7 +108,7 @@ session_start();
 					echo "</tr>";
 				}
 				
-				echo "</table>";		
+				echo "</table></center>";		
 				
 				mysqli_close($conn);
 			}

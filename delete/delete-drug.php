@@ -9,12 +9,13 @@ session_start();
 <html lang="en">
 <head>
     <meta charset="utf-8">
-	<link   href="/IS/css/sidenav.css" rel="stylesheet">
+	<link   href="/IS/css/topnav.css" rel="stylesheet">
 </head>
  
 <body>
+
    <?php
-		include("../sidenav.php");
+		include("../topnav.php");
 		
 		$cpr_no = null;
 		if ( !empty($_GET['cpr_no'])) {
@@ -47,7 +48,7 @@ session_start();
 		}
    
    
-		$form="<h3>Delete a record</h3>
+		$form="<center><h3>Delete a record</h3>
 			<p class='alert alert-error'>Are you sure you want to delete this record?</p>
 			<form action = 'delete-drug.php?cpr_no=$cpr_no' method='post'>
 			<table>
@@ -100,7 +101,7 @@ session_start();
             </tr>
 		</table>
 		</form>
-		
+		</center>
 		";
 		
 		if($_POST['delete_drug']){		
@@ -116,9 +117,8 @@ session_start();
 		} else{
 			echo  "$form";
 		}
-		
-		
-		
+				
 	?>
+
   </body>
 </html>
