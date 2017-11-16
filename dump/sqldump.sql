@@ -675,6 +675,7 @@ INSERT INTO Region values(<Region_values>);
 UPDATE Region set <Region_attribute> = <Region_values> where <condition>;
 DELETE FROM Region where <condition>;
 SELECT FROM <Region_attribute> from Region where <condition>;
+
 INSERT INTO School values(<School_values>);
 UPDATE School set <School_attribute> = <School_values> where <condition>;
 DELETE FROM School where <condition>;
