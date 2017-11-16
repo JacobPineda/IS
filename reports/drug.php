@@ -25,6 +25,7 @@ session_start();
 			echo "<p> <a href='../create/create-drug.php' >Create</a><p>";
 		} 
 		
+		
 		$form="<div> 
 			<form action='drug.php' method='post'>
 				<input type='checkbox' name='check_list[]' value='industry_id'>Industry ID</input>		
@@ -58,7 +59,7 @@ session_start();
 				echo "</tr>";
 				
 				include('../connect.php');
-				$sql = "SELECT * from Drug";
+				$sql = "SELECT * from Drug WHERE cpr_no NOT IN ('0')";
 				$result = $conn->query($sql);
 				
 				while($row = mysqli_fetch_array($result)){

@@ -38,6 +38,11 @@ session_start();
 			$strength = $row['strength'];
 			$form1 = $row['form'];
 			
+			$manuSql = "SELECT name from Manufacturer WHERE manu_no = (SELECT manu_no FROM Manufactures WHERE drug_cpr_no = '{$cpr_no}')";
+			$manuResult = $conn->query($manuSql);
+			$manuRow = mysqli_fetch_array($manuResult);		
+			$manufacturer = $manuRow['name'];	
+			
 			mysqli_close($conn);
 		}
    
@@ -88,6 +93,10 @@ session_start();
 			<tr>                   
    				<td>Form</td>
 				<td>".$form1."</td>
+            </tr>
+			<tr>                   
+   				<td>Manufacturer</td>
+				<td>".$manufacturer."</td>
             </tr>
 		</table>
 		</form>

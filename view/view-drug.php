@@ -27,7 +27,12 @@ session_start();
 			
 			$sql = "SELECT * from Drug WHERE cpr_no = '{$cpr_no}'";
 			$result = $conn->query($sql);
-			$row = mysqli_fetch_array($result);
+			$row = mysqli_fetch_array($result);			
+			
+			$manuSql = "SELECT name from Manufacturer WHERE manu_no = (SELECT manu_no FROM Manufactures WHERE drug_cpr_no = '{$cpr_no}')";
+			$manuResult = $conn->query($manuSql);
+			$manuRow = mysqli_fetch_array($manuResult);			
+			
 			$cpr_no = $row['cpr_no'];
 			$dr_no = $row['dr_no'];
 			$country = $row['country'];
@@ -37,6 +42,7 @@ session_start();
 			$brand_name = $row['brand_name'];
 			$strength = $row['strength'];
 			$form1 = $row['form'];
+			$manufacturer = $manuRow['name'];
 		}
    
    
@@ -77,6 +83,10 @@ session_start();
 			<tr>                   
    				<td>Form</td>
 				<td>".$form1."</td>
+            </tr>
+			<tr>                   
+   				<td>Manufacturer</td>
+				<td>".$manufacturer."</td>
             </tr>
 		</table><br/><a class='btn' href='/IS/reports/drug.php'>Back</a>";
 		

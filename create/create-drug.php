@@ -15,7 +15,16 @@ session_start();
 <body>
 	<?php
 	include("../sidenav.php");
-	
+	$manuList = "<option value='null'></option>";
+	include('../connect.php');
+	$sql = "SELECT * FROM Manufacturer ORDER BY name";
+	$result = $conn->query($sql);
+		
+	while($row = mysqli_fetch_array($result)){
+		$manuList .= "<option value=".$row['manu_no'].">".$row['name']."</option>";
+	}
+		
+	mysqli_close($conn);
 	
 	$form ="<h3>Create a Drug</h3>
                     
@@ -27,7 +36,7 @@ session_start();
 			</tr>
 			<tr>                   
    				<td>DR No.</td>
-            	<td><input name='dr_no' type='text'  required></td>
+            	<td><input name='dr_no' type='text' ></td>
             </tr>
 			<tr>    
                 <td>Country</td>
@@ -58,6 +67,10 @@ session_start();
                 <td><input name='form' type='text'></td>
             </tr>
 			<tr>
+				<td>Manufacturer</td>
+				<td><select name='manu'>{$manuList}</select><td>
+			</tr>
+			<tr>
 				<td><input  type='submit' name='create_drug' value='Create'/></td>
                 <td><a class='btn' href='/IS/reports/drug.php'>Back</a></td>
 			</tr>
@@ -75,6 +88,7 @@ session_start();
 			$brand_name = $_POST['brand_name'];
 			$strength = $_POST['strength'];
 			$form1 = $_POST['form'];		
+			$manufacturer = $_POST['manu'];
 		
 			include('../connect.php');
 		
@@ -85,8 +99,18 @@ session_start();
 			if(!mysqli_query($conn, "INSERT INTO Drug VALUES ('{$industry_id}','{$cpr_no}','{$dr_no}','{$country}','{$rsn}','{$validity_date}','{$generic_name}','{$brand_name}','{$strength}','{$form1}')")){
 				echo "Error description: " . mysqli_error($conn) . "<br> $form";
 			} else {
-				echo "Successfully created a Product! <br> $form";
-			}	
+				if($manufacturer != 'null'){
+					if(!mysqli_query($conn, "INSERT INTO Manufactures VALUES ('{$cpr_no}','0','{$manufacturer}')")){
+						echo "Error description: " . mysqli_error($conn) . "<br> $form";
+					} else {
+						echo "Successfully created a Product! <br> $form";
+					}				
+				} else{
+					echo "Successfully created a Product! <br> $form";
+				}
+			}			
+			
+
 		
 			mysqli_close($conn);
 		
