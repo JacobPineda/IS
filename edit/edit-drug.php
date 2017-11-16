@@ -16,7 +16,21 @@ session_start();
    <?php
 		include("../sidenav.php");
 		
-		function generateForm($cpr_no,  $curr_dr_no, $curr_country, $curr_rsn, $curr_validity_date, $curr_generic_name, $curr_brand_name,$curr_strength, $curr_form){
+		function generateForm($cpr_no,  $curr_dr_no, $curr_country, $curr_rsn, $curr_validity_date, $curr_generic_name, $curr_brand_name,$curr_strength, $curr_form, $curr_manu){
+			
+			$manuList = "<option value='null'></option>";
+			include('../connect.php');
+			$sql = "SELECT * FROM Manufacturer ORDER BY name";
+			$result = $conn->query($sql);
+		
+			while($row = mysqli_fetch_array($result)){
+				$isSelected = ($curr_manu == $row['manu_no'])? "selected = 'selected'" : null;
+				$manuList .= "<option value=".$row['manu_no']. " ".$isSelected.">".$row['name']."</option>";
+			}
+		
+			mysqli_close($conn);
+			
+			
 			return "<h3>Edit a record</h3>
 		<form action = 'edit-drug.php?cpr_no=$cpr_no' method='post'>
 		<table>
@@ -30,7 +44,7 @@ session_start();
             </tr>
         	<tr> 
 	  			<td>Country</td>
-                <td><input name='new_country' type='text'  value='".$curr_country."' required></td>
+                <td><input name='new_country' type='text'  value='".$curr_country."' ></td>
 			</tr>
         	<tr> 
 	  			<td>RSN</td>
@@ -55,6 +69,10 @@ session_start();
 			<tr>                   
    				<td>Form</td>
             	<td><input name='new_form' type='text' value='".$curr_form."' ></td>
+            </tr>
+			<tr>                   
+   				<td>Manufacturer</td>
+            	<td><select name='new_manu'>{$manuList}</select></td>
             </tr>
 			<tr>
 				<td><input  type='submit' name='edit_drug' value='Save'/></td>
@@ -83,7 +101,14 @@ session_start();
 			$curr_brand_name = $row['brand_name'];
 			$curr_strength = $row['strength'];
 			$curr_form = $row['form'];
+			
+			
+			$manuSql = "SELECT manu_no FROM Manufactures WHERE drug_cpr_no = '{$cpr_no}'";
+			$manuResult = $conn->query($manuSql);
+			$manuRow = mysqli_fetch_array($manuResult);			
 		
+			$curr_manu = $manuRow['manu_no'];
+			
 			mysqli_close($conn);
 		}
    
@@ -96,6 +121,7 @@ session_start();
 			$new_brand_name = $_POST['new_brand_name'];
 			$new_strength = $_POST['new_strength'];
 			$new_form = $_POST['new_form'];
+			$new_manu = $_POST['new_manu'];
 			
 			include('../connect.php');
 		
@@ -108,14 +134,19 @@ session_start();
 					, strength = '{$new_strength}'
 					, form = '{$new_form}' 
 					WHERE cpr_no = '{$cpr_no}'")){
-				echo "Error description: " . mysqli_error($conn) . "<br>". generateForm($cpr_no, $new_dr_no, $new_country, $new_rsn, $new_validity_date, $new_generic_name, $new_brand_name,$new_strength, $new_form);
+				echo "Error description: " . mysqli_error($conn) . "<br>". generateForm($cpr_no, $new_dr_no, $new_country, $new_rsn, $new_validity_date, $new_generic_name, $new_brand_name,$new_strength, $new_form, $new_manu);
+				
 			} else { 
-				echo "Successfully edited a drug! <br/>" . generateForm($cpr_no, $new_dr_no, $new_country, $new_rsn, $new_validity_date, $new_generic_name, $new_brand_name,$new_strength, $new_form);
+				if($curr_manu != $new_manu){
+					mysqli_query($conn, "DELETE FROM Manufactures WHERE drug_cpr_no = '{$cpr_no}' AND manu_no = '{$curr_manu}'");
+					mysqli_query($conn, "INSERT INTO Manufactures VALUES ('{$cpr_no}', '0', '{$new_manu}')");
+				}
+				echo "Successfully edited a drug! <br/>" . generateForm($cpr_no, $new_dr_no, $new_country, $new_rsn, $new_validity_date, $new_generic_name, $new_brand_name,$new_strength, $new_form, $new_manu);
 			}
 		
 			mysqli_close($conn);
 		} else{
-			echo  generateForm($cpr_no, $curr_dr_no, $curr_country, $curr_rsn, $curr_validity_date, $curr_generic_name, $curr_brand_name,$curr_strength, $curr_form);
+			echo  generateForm($cpr_no, $curr_dr_no, $curr_country, $curr_rsn, $curr_validity_date, $curr_generic_name, $curr_brand_name,$curr_strength, $curr_form, $curr_manu);
 		}
 		
 			
