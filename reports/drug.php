@@ -1,7 +1,6 @@
 <?php
 error_reporting (E_ALL ^ E_NOTICE);
 session_start();
-
 ?>
 
 
@@ -25,99 +24,114 @@ session_start();
 		if($_SESSION['isLoggedIn'] == true){
 			echo "<p> <a href='../create/create-drug.php' >Create</a><p>";
 		} 
-		
-		$form="<center><div> 
-			<form action='drug.php' method='post'>
-				<input type='checkbox' name='check_list[]' value='industry_id'>Industry ID</input>		
-				<input type='checkbox' name='check_list[]' value='cpr_no'>CPR No.</input>			
-				<input type='checkbox' name='check_list[]' value='dr_no'>DR No.</input>	
-				<input type='checkbox' name='check_list[]' value='country'>Country</input>	
-				<input type='checkbox' name='check_list[]' value='rsn'>RSN</input>	
-				<input type='checkbox' name='check_list[]' value='validity_date'>Validity Date</input>	
-				<input type='checkbox' name='check_list[]' value='generic_name'>Generic Name</input>	
-				<input type='checkbox' name='check_list[]' value='brand_name'>Brand Name</input>
-				<input type='checkbox' name='check_list[]' value='strength'>Strength</input>	
-				<input type='checkbox' name='check_list[]' value='form'>Form</input>		
 				
-				<input type='submit' name='generate' value='Generate'/>
-				
-			</form>
-		</div></center>";
+		$arrColValues = array('industry_id','cpr_no','dr_no','country','rsn','validity_date','generic_name','brand_name','strength','form','manufacturers');
+		$arrColLabels = array('Industry ID','CPR No.','DR No.','Country','RSN','Validity Date','Generic Name','Brand Name','Strength','Form','Manufacturers');
 		
-		$cols = "1";
+		function generateForm($arrColValues, $arrColLabels){
+			$form="<center><div> <form action='drug.php' method='post'>";
+			
+			for($i = 0; $i < count($arrColValues); $i++){
+				for($j = 0; $j < count($_SESSION['arrCheckedVals']); $j++){
+					if($_SESSION['arrCheckedVals'][$j] == $arrColValues[$i]){
+						$isChecked = 'checked';
+						break;
+					}else{						
+						$isChecked = null;
+					}
+				}				
+				$form .= "<input type='checkbox' name='check_list[]' value='{$arrColValues[$i]}' $isChecked>{$arrColLabels[$i]}</input>";
+			}
+			$form .= "<input type='submit' name='generate' value='Generate'/></form></div></center>";
+			return $form;
+		}
+		
+		function generateTable($arrCheckBox, $offset){
+			
+				$cols = "1";
+				include('../connect.php');
+				$totalSql = "SELECT count(*) as total_no from Drug WHERE cpr_no NOT IN ('0')";
+				$totalResult = $conn->query($totalSql);
+				$totalRow = mysqli_fetch_array($totalResult);		
+				$total_no = ($arrCheckBox)? $totalRow['total_no']: 0;			
+				$noOfPages = ceil($total_no/10);
+				
+				$prev = ($_SESSION['page'] > 1)?
+					"<td> <form action='drug.php' method='post'><input type='submit' name='prev_table' value='prev'/></form></td>": null;
+				$next = ($_SESSION['page'] < $noOfPages)? "<td> <form action='drug.php' method='post'><input type='submit' name='next_table' value='next'/></form></td>" : null;				
+			
+				$table = "<center><table><tr> {$prev} <td>	Total no. of records: {$total_no}</td>  {$next} </tr></table></center>";
+				$table .= "<center><table border='1'><tr><th>no.</th><th>action</th>";
+				foreach($arrCheckBox as $check) {
+					$cols = "$cols,$check"; 
+					$table .= "<th>$check</th>";
+				}
+				$table .= "</tr>";
+				
+				$totalSql = "SELECT count(*) as total_no from Drug WHERE cpr_no NOT IN ('0')"; 
+				$totalResult = $conn->query($totalSql);
+				$totalRow = mysqli_fetch_array($totalResult);		
+				$total_no = $totalRow['total_no'];
+				
+				$counter = $offset - 10;
+				$sql = "SELECT * from Drug WHERE cpr_no NOT IN ('0') LIMIT 10 OFFSET {$counter}";
+				$result = $conn->query($sql);				
+				
+				while($row = mysqli_fetch_array($result)){
+					$counter++;
+					$table .= "<tr><td>{$counter}</td><td>";
+					$table .= '<a href="../view/view-drug.php?cpr_no='.$row['cpr_no'].'">view</a>';
+					if($_SESSION['isLoggedIn'] == true){
+						$table .=' | <a href="../edit/edit-drug.php?cpr_no='.$row['cpr_no'].'">edit</a>
+						| <a href="../delete/delete-drug.php?cpr_no='.$row['cpr_no'].'">delete</a></td>';
+					}
+					foreach($arrCheckBox as $rowVal){
+						$table .= "<td>" . $row[$rowVal] . "</td>";
+					}
+					$table .= "</tr>";
+				}
+				
+				$table .= "</table></center>";	
+
+				mysqli_close($conn);
+				return $table;
+		}
+		
+		
 			
 		if($_POST['generate']){
-			
 			
 			if (!empty($_GET['p'])) {
 				$page = $_REQUEST['p'];
 			} else {
 				$page = 1;
 			}
-			echo "$form</br>";
+			$_SESSION['arrCheckedVals'] = $_POST['check_list'];
+			echo generateForm($arrColValues, $arrColLabels)."</br>";
+			
 			$arrCheckBox = $_POST['check_list'];
-		//	$_SESSION['checked'] = $_POST['check_list'];
-			
-			include('../connect.php');
-			$totalSql = "SELECT count(*) as total_no from Drug WHERE cpr_no NOT IN ('0')";
-			$totalResult = $conn->query($totalSql);
-			$totalRow = mysqli_fetch_array($totalResult);		
-			$total_no = ($arrCheckBox)? $totalRow['total_no']: 0;
-			
-			$noOfPages = ceil($total_no/10);
-			$page_sub = $page - 1;			
-			$page_add = $page + 1;
-			
-			$prev = ($page > 1)? "<td><a href='drug.php?p={$page_sub}'>prev</a></td>": null;
-			$next = ($page < $noOfPages)? "<td><a href='drug.php?p={$page_add}'>next</a></td>" : null;
-				
-			echo "<center><table><tr> {$prev} <td>	Total no. of records: {$total_no}</td>  {$next} </tr></table></center>";
 			
 			if($arrCheckBox){
-				
-				$offset = $page * 10;
-				
-				echo "<center><table border='1'><tr><th>no.</th><th>action</th>";
-				foreach($arrCheckBox as $check) {
-					$cols = "$cols,$check"; 
-					echo "<th>$check</th>";
-				}
-				echo "</tr>";
-				
-				
-				$totalSql = "SELECT count(*) as total_no from Drug WHERE cpr_no NOT IN ('0')"; 
-				$totalResult = $conn->query($totalSql);
-				$totalRow = mysqli_fetch_array($totalResult);		
-				$total_no = $totalRow['total_no'];
-			
-				$sql = "SELECT * from Drug WHERE cpr_no NOT IN ('0') LIMIT 10 OFFSET {$offset}";
-				$result = $conn->query($sql);
-				
-				$counter = 0;
-				while($row = mysqli_fetch_array($result)){
-					$counter++;
-					echo "<tr><td>{$counter}</td><td>";
-					echo '<a href="../view/view-drug.php?cpr_no='.$row['cpr_no'].'">view</a>';
-					if($_SESSION['isLoggedIn'] == true){
-						echo' | <a href="../edit/edit-drug.php?cpr_no='.$row['cpr_no'].'">edit</a>
-						| <a href="../delete/delete-drug.php?cpr_no='.$row['cpr_no'].'">delete</a></td>';
-					}
-					foreach($_POST['check_list'] as $rowVal){
-						echo "<td>" . $row[$rowVal] . "</td>";
-					}
-					echo "</tr>";
-				}
-				
-				echo "</table></center>";		
-				
-				mysqli_close($conn);
+				$offset = $_SESSION['page'] * 10;
+				echo generateTable($arrCheckBox,$offset);
 			}
 
 			
 		} else {
-			echo "$form";
+			echo generateForm($arrColValues, $arrColLabels);
 		}
-		
+		if($_POST['next_table']){
+			$arrCheckBox = $_SESSION['arrCheckedVals'];
+			$_SESSION['page'] ++;
+			$offset = $_SESSION['page'] * 10;
+			echo generateTable($arrCheckBox,$offset);
+		}
+		if($_POST['prev_table']){
+			$arrCheckBox = $_SESSION['arrCheckedVals'];
+			$_SESSION['page']--;
+			$offset = $_SESSION['page'] * 10;
+			echo generateTable($arrCheckBox,$offset);
+		}
 		
 	
 	?>
