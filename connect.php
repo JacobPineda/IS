@@ -1,6 +1,10 @@
 <?php
+/* 
+For Database connection
+*/
 
-$server = "127.0.0.1:3307";
+
+$server = "127.0.0.1:3306";
 $user = "root";
 $password_db = "";
 $db = "report_analytics_portal_db";

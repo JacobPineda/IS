@@ -17,6 +17,7 @@ session_start();
    <?php
 		include("../topnav.php");
 		
+		//get param cpr_no - selected record from the generated table 
 		$cpr_no = null;
 		if ( !empty($_GET['cpr_no'])) {
 			$cpr_no = $_REQUEST['cpr_no'];
@@ -26,6 +27,7 @@ session_start();
 		}else{
 			include("../connect.php");
 			
+			//get all field values of the selected record
 			$sql = "SELECT * from Drug WHERE cpr_no = '{$cpr_no}'";
 			$result = $conn->query($sql);
 			$row = mysqli_fetch_array($result);
@@ -39,6 +41,7 @@ session_start();
 			$strength = $row['strength'];
 			$form1 = $row['form'];
 			
+			//get name of manufacturer
 			$manuSql = "SELECT name from Manufacturer WHERE manu_no = (SELECT manu_no FROM Manufactures WHERE drug_cpr_no = '{$cpr_no}')";
 			$manuResult = $conn->query($manuSql);
 			$manuRow = mysqli_fetch_array($manuResult);		
@@ -46,8 +49,8 @@ session_start();
 			
 			mysqli_close($conn);
 		}
-   
-   
+		
+		//form to be displayed
 		$form="<center><h3>Delete a record</h3>
 			<p class='alert alert-error'>Are you sure you want to delete this record?</p>
 			<form action = 'delete-drug.php?cpr_no=$cpr_no' method='post'>
@@ -104,6 +107,8 @@ session_start();
 		</center>
 		";
 		
+		
+		//delete record when record is confirmed to be deleted
 		if($_POST['delete_drug']){		
 			include('../connect.php');
 		

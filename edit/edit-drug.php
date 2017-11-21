@@ -17,19 +17,26 @@ session_start();
    <?php
 		include("../topnav.php");
 		
-		function generateForm($cpr_no,  $curr_dr_no, $curr_country, $curr_rsn, $curr_validity_date, $curr_generic_name, $curr_brand_name,$curr_strength, $curr_form, $curr_manu){
+		/*
+		*generate forms
+		*@params - too many parameters, planning to insert them into an array instead
+		*parameters are columns of the table
+		*/
+		function generateForm($cpr_no, $curr_dr_no, $curr_country, $curr_rsn, $curr_validity_date, $curr_generic_name, $curr_brand_name,$curr_strength, $curr_form, $curr_manu){
 			
 			$manuList = "<option value='null'></option>";
 			include('../connect.php');
 			$sql = "SELECT * FROM Manufacturer ORDER BY name";
 			$result = $conn->query($sql);
-		
+			
+			//default value of manufacturer will be set here
 			while($row = mysqli_fetch_array($result)){
 				$isSelected = ($curr_manu == $row['manu_no'])? "selected = 'selected'" : null;
 				$manuList .= "<option value=".$row['manu_no']. " ".$isSelected.">".$row['name']."</option>";
 			}
 		
 			mysqli_close($conn);
+			
 			
 			
 			return "<center><h3>Edit a record</h3>
@@ -81,7 +88,8 @@ session_start();
 			</tr>
 		</table> </form></center>";
 		}
-   
+		
+		//get cpr_no of selected record from the generated table
 		$cpr_no = null;
 		if ( !empty($_GET['cpr_no'])) {
 			$cpr_no = $_REQUEST['cpr_no'];
@@ -91,6 +99,7 @@ session_start();
 		}else{
 			include("../connect.php");
 			
+			//get current values 
 			$sql = "SELECT * from Drug WHERE cpr_no = '{$cpr_no}'";
 			$result = $conn->query($sql);
 			$row = mysqli_fetch_array($result);
@@ -103,7 +112,6 @@ session_start();
 			$curr_strength = $row['strength'];
 			$curr_form = $row['form'];
 			
-			
 			$manuSql = "SELECT manu_no FROM Manufactures WHERE drug_cpr_no = '{$cpr_no}'";
 			$manuResult = $conn->query($manuSql);
 			$manuRow = mysqli_fetch_array($manuResult);			
@@ -113,7 +121,9 @@ session_start();
 			mysqli_close($conn);
 		}
    
+		//when form is submitted or saved, record will be updated with new values
 		if($_POST['edit_drug']){
+			//get new values
 			$new_dr_no = $_POST['new_dr_no'];
 			$new_country = $_POST['new_country'];
 			$new_rsn = $_POST['new_rsn'];
@@ -126,6 +136,7 @@ session_start();
 			
 			include('../connect.php');
 		
+			//update record
 			if(!mysqli_query($conn, "UPDATE Drug SET dr_no = '{$new_dr_no}'
 					, country = '{$new_country}' 
 					, rsn = '{$new_rsn}'
@@ -142,6 +153,7 @@ session_start();
 					mysqli_query($conn, "DELETE FROM Manufactures WHERE drug_cpr_no = '{$cpr_no}' AND manu_no = '{$curr_manu}'");
 					mysqli_query($conn, "INSERT INTO Manufactures VALUES ('{$cpr_no}', '0', '{$new_manu}')");
 				}
+				//echo updated form
 				echo "Successfully edited a drug! <br/>" . generateForm($cpr_no, $new_dr_no, $new_country, $new_rsn, $new_validity_date, $new_generic_name, $new_brand_name,$new_strength, $new_form, $new_manu);
 			}
 		

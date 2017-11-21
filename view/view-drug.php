@@ -26,6 +26,7 @@ session_start();
 		}else{
 			include("../connect.php");
 			
+			//get all field values of selected record			
 			$sql = "SELECT * from Drug WHERE cpr_no = '{$cpr_no}'";
 			$result = $conn->query($sql);
 			$row = mysqli_fetch_array($result);			

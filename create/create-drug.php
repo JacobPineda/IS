@@ -15,17 +15,23 @@ session_start();
 <body>
 	<?php
 	include("../topnav.php");
-	$manuList = "<option value='null'></option>";
+	//connect to database
 	include('../connect.php');
+	
+	//generate query
 	$sql = "SELECT * FROM Manufacturer ORDER BY name";
 	$result = $conn->query($sql);
-		
+	
+	// get list of manufacturers and place them to <option> tags
+	$manuList = "<option value='null'></option>";
 	while($row = mysqli_fetch_array($result)){
 		$manuList .= "<option value=".$row['manu_no'].">".$row['name']."</option>";
 	}
-		
+	
+	//disconnect to db
 	mysqli_close($conn);
 	
+	//form to be displayed
 	$form ="
 <center><h3>Create a Drug</h3>
                     
@@ -80,6 +86,8 @@ session_start();
     </form>
 </center>";
 
+		
+		//when form is submitted, get all values of each fields
 		if($_POST['create_drug']){
 			$cpr_no = $_POST['cpr_no'];
 			$dr_no = $_POST['dr_no'];	
@@ -98,6 +106,7 @@ session_start();
 			$result = $conn->query($newIdSql);
 			$industry_id = mysqli_fetch_array($result)['industry_id'];
 			
+			//insert values into the table
 			if(!mysqli_query($conn, "INSERT INTO Drug VALUES ('{$industry_id}','{$cpr_no}','{$dr_no}','{$country}','{$rsn}','{$validity_date}','{$generic_name}','{$brand_name}','{$strength}','{$form1}')")){
 				echo "Error description: " . mysqli_error($conn) . "<br> $form";
 			} else {
@@ -105,10 +114,10 @@ session_start();
 					if(!mysqli_query($conn, "INSERT INTO Manufactures VALUES ('{$cpr_no}','0','{$manufacturer}')")){
 						echo "Error description: " . mysqli_error($conn) . "<br> $form";
 					} else {
-						echo "Successfully created a Product! <br> $form";
+						echo "<center>Successfully created a Product! </center><br> $form";
 					}				
 				} else{
-					echo "Successfully created a Product! <br> $form";
+					echo "<center>Successfully created a Product! </center><br> $form";
 				}
 			}			
 			
@@ -116,8 +125,7 @@ session_start();
 		
 			mysqli_close($conn);
 		
-		}
-		else{
+		}else{
 			echo "$form";
 		}
 		

@@ -1,6 +1,12 @@
-<?php
+<?php/
+
 error_reporting (E_ALL ^ E_NOTICE);
 session_start();
+/*
+*Setting up session variables
+*arrCheckedVals - contains all values of selected columns in each industry
+*page - current page of the generated table
+*/
 $_SESSION['arrCheckedVals'] =  null;
 $_SESSION['page'] = 1;
 
