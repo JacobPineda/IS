@@ -1,4 +1,4 @@
-<?php/
+<?php
 
 error_reporting (E_ALL ^ E_NOTICE);
 session_start();
@@ -7,6 +7,7 @@ session_start();
 *arrCheckedVals - contains all values of selected columns in each industry
 *page - current page of the generated table
 */
+
 $_SESSION['arrCheckedVals'] =  null;
 $_SESSION['page'] = 1;
 
@@ -20,7 +21,6 @@ $_SESSION['page'] = 1;
 <title>Home</title>
 </head>
 	<link   href="/IS/css/topnav.css" rel="stylesheet">
-
 
 <body>
 
