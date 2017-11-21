@@ -10,7 +10,10 @@ session_start();
 <html>
 <head>
     <meta charset="utf-8">
-	<link href="/IS/css/topnav.css" rel="stylesheet">
+	<link href="/IS/css/topnav.css" rel="stylesheet">		
+	<script type="text/javascript" src="/IS/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/IS/js/Chart.min.js"></script>
+	<script type="text/javascript" src="/IS/js/generate_graph.js"></script>
 <title>Drug Products Report</title>
 
 </head>
@@ -49,7 +52,8 @@ session_start();
 				}				
 				$form .= "<input type='checkbox' name='check_list[]' value='{$arrColValues[$i]}' $isChecked>{$arrColLabels[$i]}</input>";
 			}
-			$form .= " <input type='submit' name='generate' value='Generate'/></form></div></center>";
+			$form .= " <input type='submit' name='generate' value='Generate'/></form></div></center>
+			";
 			return $form;
 		}
 		
@@ -104,7 +108,7 @@ session_start();
 					$table .= "</tr>";
 				}
 				
-				$table .= "</table></center>";	
+				$table .= "</table></center><br><canvas id='graph_canvas'></canvas>";	
 
 				mysqli_close($conn);
 				return $table;
@@ -125,6 +129,7 @@ session_start();
 				//number of records will be displayed at most 10 each page
 				$offset = $_SESSION['page'] * 10;
 				echo generateTable($arrCheckBox,$offset);
+				
 			}
 
 			
