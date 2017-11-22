@@ -30,8 +30,8 @@ session_start();
 		} 
 				
 		//list of displayed column names and ids/db column name
-		$arrColValues = array('industry_id','cpr_no','dr_no','country','rsn','validity_date','generic_name','brand_name','strength','form','manufacturers');
-		$arrColLabels = array('Industry ID','CPR No.','DR No.','Country','RSN','Validity Date','Generic Name','Brand Name','Strength','Form','Manufacturers');
+		$arrColValues = array('industry_id','cpr_no','dr_no','country','rsn','validity_date','generic_name','brand_name','strength','form');
+		$arrColLabels = array('Industry ID','CPR No.','DR No.','Country','RSN','Validity Date','Generic Name','Brand Name','Strength','Form');
 		
 		/*
 		*generate form/ selection of columns
@@ -52,8 +52,7 @@ session_start();
 				}				
 				$form .= "<input type='checkbox' name='check_list[]' value='{$arrColValues[$i]}' $isChecked>{$arrColLabels[$i]}</input>";
 			}
-			$form .= " <input type='submit' name='generate' value='Generate'/></form></div></center>
-			";
+			$form .= " <input type='submit' name='generate' value='Generate'/></form></div></center>			";
 			return $form;
 		}
 		
@@ -107,13 +106,25 @@ session_start();
 					}
 					$table .= "</tr>";
 				}
-				
-				$table .= "</table></center><br><canvas id='graph_canvas'></canvas>";	
+				$table .= "</table>";
 
 				mysqli_close($conn);
 				return $table;
 		}
-		
+		/*
+		*generate graph based from selected columns
+		*graph_type - type of graph to be displayed
+		*/		
+		function generateGraph($graph_type){
+			 $graph = "<br><br><br><form action='drug.php' method='post'>
+				<input type='submit' name='bar' value='Bar'/> 
+				<input type='submit' name='line' value='Line'/>
+				<input type='submit' name='doughnut' value='Doughnut'/>
+				<input type='submit' name='radar' value='Radar'/>
+				<input type='submit' name='polarArea' value='Polar Area'/>
+				<br></center><br><canvas id='{$graph_type}'></canvas></form>";
+			 return $graph;
+		}
 		
 		//when form is submitted/or generate table
 		if($_POST['generate']){
@@ -129,6 +140,7 @@ session_start();
 				//number of records will be displayed at most 10 each page
 				$offset = $_SESSION['page'] * 10;
 				echo generateTable($arrCheckBox,$offset);
+				echo generateGraph('bar_graph');
 				
 			}
 
@@ -143,6 +155,7 @@ session_start();
 			$_SESSION['page'] ++;
 			$offset = $_SESSION['page'] * 10;
 			echo generateTable($arrCheckBox,$offset);
+			echo generateGraph('bar_graph');
 		}
 		//if previous page is selected
 		if($_POST['prev_table']){
@@ -150,7 +163,41 @@ session_start();
 			$_SESSION['page']--;
 			$offset = $_SESSION['page'] * 10;
 			echo generateTable($arrCheckBox,$offset);
+			echo generateGraph('bar_graph');
 		}
+		
+		//if a graph is selected
+		if($_POST['bar']){
+			$arrCheckBox = $_SESSION['arrCheckedVals'];
+			$offset = $_SESSION['page'] * 10;
+			echo generateTable($arrCheckBox,$offset);
+			echo generateGraph('bar_graph');
+		}
+		if($_POST['line']){
+			$arrCheckBox = $_SESSION['arrCheckedVals'];
+			$offset = $_SESSION['page'] * 10;
+			echo generateTable($arrCheckBox,$offset);
+			echo generateGraph('line_graph');
+		}
+		if($_POST['radar']){
+			$arrCheckBox = $_SESSION['arrCheckedVals'];
+			$offset = $_SESSION['page'] * 10;
+			echo generateTable($arrCheckBox,$offset);
+			echo generateGraph('radar_graph');
+		}
+		if($_POST['polarArea']){
+			$arrCheckBox = $_SESSION['arrCheckedVals'];
+			$offset = $_SESSION['page'] * 10;
+			echo generateTable($arrCheckBox,$offset);
+			echo generateGraph('polarArea_graph');
+		}
+		if($_POST['doughnut']){
+			$arrCheckBox = $_SESSION['arrCheckedVals'];
+			$offset = $_SESSION['page'] * 10;
+			echo generateTable($arrCheckBox,$offset);
+			echo generateGraph('doughnut_graph');
+		}
+		
 		
 	
 	?>

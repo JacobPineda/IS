@@ -1,22 +1,37 @@
 <?php
+session_start();
 //setting header to json
 header('Content-Type: application/json');
+include("../connect.php");
 
-//database
 
-$server = "127.0.0.1:3306";
-$user = "root";
-$password_db = "";
-$db = "report_analytics_portal_db";
+function isNotFromDrug($value){
 
-$conn = mysqli_connect($server, $user, $password_db, $db);
-if (mysqli_connect_errno()){
-	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	$arrColsNotFromDrug = array('manufacturers');
+	
+	for($i = 0; $i < count($arrColsNotFromDrug); $i++){
+		if($arrColsNotFromDrug[$i] == $value){
+			return false;
+		}
+	}
+	return true;
 }
 
 
+
+$asColumns = "Total records";
+for ($i = 0; $i < count($_SESSION['arrCheckedVals']); $i++){
+	$asColumns .= (isNotFromDrug($_SESSION['arrCheckedVals'][$i]))? ",{$_SESSION['arrCheckedVals'][$i]}" : null;
+}
+$asColumns .= ",dummy";
+
+$remainingCols = "";
+for ($i = 0; $i < count($_SESSION['arrCheckedVals']); $i++){
+	$remainingCols .= (isNotFromDrug($_SESSION['arrCheckedVals'][$i]))? ",count(*) -1 -  sum(case when {$_SESSION['arrCheckedVals'][$i]} is null then 1 else 0 end) as {$_SESSION['arrCheckedVals'][$i]}" : null;
+}
+
 //query to get data from the table
-$query = sprintf("SELECT 'Total records,cpr_no,country,dummy' as columns,  count(*) - 1 as 'Total records',  count(*) - 1 - sum(case when cpr_no is null then 1 else 0 end) as cpr_no, count(*) -1 -  sum(case when country is null then 1 else 0 end) as country, 0 as 'dummy' FROM drug ");
+$query = sprintf("SELECT '{$asColumns}' as columns,  count(*) - 1 as 'Total records' {$remainingCols}, 0 as 'dummy' FROM drug ");
 
 //execute query
 $result = $conn->query($query);
