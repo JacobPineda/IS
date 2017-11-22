@@ -9,15 +9,13 @@ $(document).ready(function(){
 			var total = [];
 			var doughnutCols = [];
 			
-			var arrCols = data[0].columns.split(',');
-			for (var i = 0; i < arrCols.length ; i++){
-				console.log('that'+columnLabel);
-				var columnLabel = ((arrCols[i] != 'dummy')? arrCols[i] + " : " + data[0][arrCols[i]] : ' ');
+			for (var i in data){
+				var columnLabel = (data[i].country)? data[i].country + " : " + data[i].total : 'Null' + " : " + data[i].total;
 				column.push(columnLabel);
-				doughnutCols.push(arrCols[i]);
-				total.push(data[0][arrCols[i]]);
+				doughnutCols.push((data[i].country)? data[i].country : 'Null');
+				total.push(data[i].total);
 			}
-			var labelTable = data[1].tableName;
+			var labelTable = 'No of Drug Products per Country';
 			var bgColor = ['rgba(54, 162, 235, 0.5)',
 							'rgba(255, 206, 86, 0.5)',
 							'rgba(153, 102, 255, 0.5)',

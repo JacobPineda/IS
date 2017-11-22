@@ -10,6 +10,7 @@ session_start();
 
 $_SESSION['arrCheckedVals'] =  null;
 $_SESSION['page'] = 1;
+$_SESSION['selected_report'] = 'default';
 
 ?>
 
@@ -28,6 +29,7 @@ $_SESSION['page'] = 1;
 
 <?php
 	include("topnav.php");
+	echo "<center><h1>Welcome!</h1></center>";
 
 ?>
 

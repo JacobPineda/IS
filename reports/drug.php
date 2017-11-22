@@ -1,6 +1,8 @@
 <?php
 error_reporting (E_ALL ^ E_NOTICE);
 session_start();
+$_SESSION['table'] = Drug;
+$_SESSION['graph_type'] = null;
 ?>
 
 
@@ -13,7 +15,25 @@ session_start();
 	<link href="/IS/css/topnav.css" rel="stylesheet">		
 	<script type="text/javascript" src="/IS/js/jquery.min.js"></script>
 	<script type="text/javascript" src="/IS/js/Chart.min.js"></script>
-	<script type="text/javascript" src="/IS/js/generate_graph.js"></script>
+	<?php
+	function setBarScript(){		
+		switch($_SESSION['selected_report']){
+			case 'default':  
+				$path= '/IS/js/generate_graph.js';
+				break;
+			case 'no_of_drug_country':
+				$path= '/IS/js/preconf_graphs/no_of_drug_country.js';
+				break;
+			default:
+				$path= '/IS/js/generate_graph.js';
+				break;
+		}
+	
+		return "<script type='text/javascript' src='{$path}'></script>";
+	}
+	echo setBarScript();
+	?>
+	
 <title>Drug Products Report</title>
 
 </head>
@@ -30,8 +50,8 @@ session_start();
 		} 
 				
 		//list of displayed column names and ids/db column name
-		$arrColValues = array('industry_id','cpr_no','dr_no','country','rsn','validity_date','generic_name','brand_name','strength','form');
-		$arrColLabels = array('Industry ID','CPR No.','DR No.','Country','RSN','Validity Date','Generic Name','Brand Name','Strength','Form');
+		$arrColValues = array('cpr_no','dr_no','country','rsn','validity_date','generic_name','brand_name','strength','form');
+		$arrColLabels = array('CPR No.','DR No.','Country','RSN','Validity Date','Generic Name','Brand Name','Strength','Form');
 		
 		/*
 		*generate form/ selection of columns
@@ -126,11 +146,25 @@ session_start();
 			 return $graph;
 		}
 		
+		
+		/*
+		*generate graph based from selected columns
+		*graph_type - type of graph to be displayed
+		*/		
+		function generateAdHocReports(){
+			$options = "<br><br><br><center><form action='drug.php' method='post'>
+				<p>Pre-Configured Reports</p>
+				<input type='submit' name='no_of_drug_country' value='Number of products per country'/> 
+				</form></center>";
+			 return $options;
+		}
+		
 		//when form is submitted/or generate table
 		if($_POST['generate']){
 			
 			//set list of selected columns to the session variable so that checkboxes will remain checked after submitting the form
 			$_SESSION['arrCheckedVals'] = $_POST['check_list'];
+			$_SESSION['selected_report'] = 'default';
 			echo generateForm($arrColValues, $arrColLabels);
 			
 			
@@ -141,6 +175,7 @@ session_start();
 				$offset = $_SESSION['page'] * 10;
 				echo generateTable($arrCheckBox,$offset);
 				echo generateGraph('bar_graph');
+				echo generateAdHocReports();
 				
 			}
 
@@ -156,6 +191,7 @@ session_start();
 			$offset = $_SESSION['page'] * 10;
 			echo generateTable($arrCheckBox,$offset);
 			echo generateGraph('bar_graph');
+			echo generateAdHocReports();
 		}
 		//if previous page is selected
 		if($_POST['prev_table']){
@@ -164,41 +200,63 @@ session_start();
 			$offset = $_SESSION['page'] * 10;
 			echo generateTable($arrCheckBox,$offset);
 			echo generateGraph('bar_graph');
+			echo generateAdHocReports();
 		}
 		
 		//if a graph is selected
 		if($_POST['bar']){
+			$_SESSION['graph_type'] = 'bar_graph';
 			$arrCheckBox = $_SESSION['arrCheckedVals'];
 			$offset = $_SESSION['page'] * 10;
 			echo generateTable($arrCheckBox,$offset);
 			echo generateGraph('bar_graph');
+			echo generateAdHocReports();
 		}
 		if($_POST['line']){
+			$_SESSION['graph_type'] = 'line_graph';
 			$arrCheckBox = $_SESSION['arrCheckedVals'];
 			$offset = $_SESSION['page'] * 10;
 			echo generateTable($arrCheckBox,$offset);
 			echo generateGraph('line_graph');
+			echo generateAdHocReports();
 		}
 		if($_POST['radar']){
+			$_SESSION['graph_type'] = 'radar_graph';
 			$arrCheckBox = $_SESSION['arrCheckedVals'];
 			$offset = $_SESSION['page'] * 10;
 			echo generateTable($arrCheckBox,$offset);
 			echo generateGraph('radar_graph');
+			echo generateAdHocReports();
 		}
 		if($_POST['polarArea']){
+			$_SESSION['graph_type'] = 'polarArea_graph';
 			$arrCheckBox = $_SESSION['arrCheckedVals'];
 			$offset = $_SESSION['page'] * 10;
 			echo generateTable($arrCheckBox,$offset);
 			echo generateGraph('polarArea_graph');
+			echo generateAdHocReports();
 		}
 		if($_POST['doughnut']){
+			$_SESSION['graph_type'] = 'doughnut_graph';
 			$arrCheckBox = $_SESSION['arrCheckedVals'];
 			$offset = $_SESSION['page'] * 10;
 			echo generateTable($arrCheckBox,$offset);
 			echo generateGraph('doughnut_graph');
+			echo generateAdHocReports();
 		}
 		
+		//if a preconfigured report is selected
+		if($_POST['no_of_drug_country']){
+			$arrCheckBox = $_SESSION['arrCheckedVals'];
+			$_SESSION['selected_report'] = 'no_of_drug_country';
+			$offset = $_SESSION['page'] * 10;
+
+			echo setBarScript();	
+			echo generateTable($arrCheckBox,$offset);
+			echo generateGraph('bar_graph');
+			echo generateAdHocReports();
 		
+		}
 	
 	?>
 
