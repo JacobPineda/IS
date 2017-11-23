@@ -23,7 +23,10 @@ $_SESSION['graph_type'] = null;
 				break;
 			case 'no_of_drug_country':
 				$path= '/IS/js/preconf_graphs/no_of_drug_country.js';
-				break;
+				break;	
+			case 'no_of_generic_name':
+				$path= '/IS/js/preconf_graphs/no_of_generic_name.js';
+				break;	
 			default:
 				$path= '/IS/js/generate_graph.js';
 				break;
@@ -155,6 +158,7 @@ $_SESSION['graph_type'] = null;
 			$options = "<br><br><br><center><form action='drug.php' method='post'>
 				<p>Pre-Configured Reports</p>
 				<input type='submit' name='no_of_drug_country' value='Number of products per country'/> 
+				<input type='submit' name='no_of_generic_name' value='Number of Generic Names'/> 
 				</form></center>";
 			 return $options;
 		}
@@ -254,6 +258,18 @@ $_SESSION['graph_type'] = null;
 			echo setBarScript();	
 			echo generateTable($arrCheckBox,$offset);
 			echo generateGraph('bar_graph');
+			echo generateAdHocReports();
+		
+		}
+		
+		if($_POST['no_of_generic_name']){
+			$arrCheckBox = $_SESSION['arrCheckedVals'];
+			$_SESSION['selected_report'] = 'no_of_generic_name';
+			$offset = $_SESSION['page'] * 10;
+
+			echo setBarScript();	
+			echo generateTable($arrCheckBox,$offset);
+			echo generateGraph('radar_graph');
 			echo generateAdHocReports();
 		
 		}

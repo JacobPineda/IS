@@ -34,7 +34,23 @@ function generateDefaultResult($conn){
 
 function generate_Drug_vs_Country($conn){
 	
-	$query = sprintf("SELECT country, count(*) as total FROM {$_SESSION['table']} GROUP BY country");
+	$query = sprintf("SELECT country, count(*) as total FROM {$_SESSION['table']} where cpr_no not in ('0') GROUP BY country");
+	$result = $conn->query($query);
+	
+	$data = array();
+	foreach ($result as $row) {
+		$data[] = $row;
+	}
+	
+	$result->close();
+	
+	return $data;	
+		
+}
+
+function generate_no_of_generic_name($conn){
+	
+	$query = sprintf("SELECT generic_name, count(*) as total FROM {$_SESSION['table']} where cpr_no not in ('0') GROUP BY generic_name ");
 	$result = $conn->query($query);
 	
 	$data = array();
@@ -55,6 +71,10 @@ switch($_SESSION['selected_report']){
 	case 'no_of_drug_country':
 		$data = generate_Drug_vs_Country($conn);
 		break;		
+	case 'no_of_generic_name':
+		$data = generate_no_of_generic_name($conn);
+		break;		
+		
 		
 	default: 
 		$data = generateDefaultResult($conn);
