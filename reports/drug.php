@@ -13,6 +13,7 @@ $_SESSION['graph_type'] = null;
 <head>
     <meta charset="utf-8">
 	<link href="/IS/css/topnav.css" rel="stylesheet">		
+	<link href="/IS/css/styles.css" rel="stylesheet">		
 	<script type="text/javascript" src="/IS/js/jquery.min.js"></script>
 	<script type="text/javascript" src="/IS/js/Chart.min.js"></script>
 	<?php
@@ -53,8 +54,8 @@ $_SESSION['graph_type'] = null;
 		} 
 				
 		//list of displayed column names and ids/db column name
-		$arrColValues = array('cpr_no','dr_no','country','rsn','validity_date','generic_name','brand_name','strength','form');
-		$arrColLabels = array('CPR No.','DR No.','Country','RSN','Validity Date','Generic Name','Brand Name','Strength','Form');
+		$arrColValues = array('cpr_no','dr_no','country','rsn','validity_date','generic_name','brand_name','strength','form','manufacturer');
+		$arrColLabels = array('CPR No.','DR No.','Country','RSN','Validity Date','Generic Name','Brand Name','Strength','Form','Manufacturer');
 		
 		/*
 		*generate form/ selection of columns
@@ -73,7 +74,7 @@ $_SESSION['graph_type'] = null;
 						$isChecked = null;
 					}
 				}				
-				$form .= "<input type='checkbox' name='check_list[]' value='{$arrColValues[$i]}' $isChecked>{$arrColLabels[$i]}</input>";
+				$form .= "<input type='checkbox' name='check_list[]' value='{$arrColValues[$i]}' id='cbox_columns' $isChecked>{$arrColLabels[$i]}</input>";
 			}
 			$form .= " <input type='submit' name='generate' value='Generate'/></form></div></center>			";
 			return $form;
@@ -112,7 +113,8 @@ $_SESSION['graph_type'] = null;
 				
 				//get number of first record to be displayed
 				$counter = $offset - 10;
-				$sql = "SELECT * from Drug WHERE cpr_no NOT IN ('0') LIMIT 10 OFFSET {$counter}";
+				//$sql = "SELECT * from Drug WHERE cpr_no NOT IN ('0') ORDER BY cpr_no ASC LIMIT 10 OFFSET {$counter} ";
+				$sql = "SELECT cpr_no,dr_no,country,rsn,validity_date,generic_name,brand_name,strength,form, (select name from Manufacturer where manu_no = (select manu_no from manufactures where drug_cpr_no = d.cpr_no)) as manufacturer From drug d where cpr_no <> '0' ORDER BY cpr_no ASC LIMIT 10 OFFSET {$counter}";
 				$result = $conn->query($sql);				
 				
 				//add action column to the table, i.e., view, edit, and delete actions

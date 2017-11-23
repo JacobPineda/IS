@@ -101,27 +101,35 @@ session_start();
 			$manufacturer = $_POST['manu'];
 		
 			include('../connect.php');
-		
-			$newIdSql = "SELECT DISTINCT industry_id from Industry where name = 'Drug'";
-			$result = $conn->query($newIdSql);
-			$industry_id = mysqli_fetch_array($result)['industry_id'];
+			
+			$if_cpr_exists = "SELECT cpr_no from Drug where cpr_no = '{$cpr_no}'";
+			$result = $conn->query($if_cpr_exists);
+			$data = mysqli_fetch_array($result)['cpr_no'];
+			
+			if($data){
+				echo "<center>CPR No. already exists</center>" . $form;
+			}else{
+				$newIdSql = "SELECT DISTINCT industry_id from Industry where name = 'Drug'";
+				$result = $conn->query($newIdSql);
+				$industry_id = mysqli_fetch_array($result)['industry_id'];
 			
 			//insert values into the table
-			if(!mysqli_query($conn, "INSERT INTO Drug VALUES ('{$industry_id}','{$cpr_no}','{$dr_no}','{$country}','{$rsn}','{$validity_date}','{$generic_name}','{$brand_name}','{$strength}','{$form1}')")){
-				echo "Error description: " . mysqli_error($conn) . "<br> $form";
-			} else {
-				if($manufacturer != 'null'){
-					if(!mysqli_query($conn, "INSERT INTO Manufactures VALUES ('{$cpr_no}','0','{$manufacturer}')")){
-						echo "Error description: " . mysqli_error($conn) . "<br> $form";
-					} else {
+				if(!mysqli_query($conn, "INSERT INTO Drug VALUES ('{$industry_id}','{$cpr_no}','{$dr_no}','{$country}','{$rsn}','{$validity_date}','{$generic_name}','{$brand_name}','{$strength}','{$form1}')")){
+					echo "Error description: " . mysqli_error($conn) . "<br> $form";
+				} else {
+					if($manufacturer != 'null'){
+						if(!mysqli_query($conn, "INSERT INTO Manufactures VALUES ('{$cpr_no}','0','{$manufacturer}')")){
+							echo "Error description: " . mysqli_error($conn) . "<br> $form";
+						} else {
+							echo "<center>Successfully created a Product! </center><br> $form";
+						}				
+					} else{
 						echo "<center>Successfully created a Product! </center><br> $form";
-					}				
-				} else{
-					echo "<center>Successfully created a Product! </center><br> $form";
+					}
 				}
-			}			
+			}
 			
-
+	
 		
 			mysqli_close($conn);
 		
