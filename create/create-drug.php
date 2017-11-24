@@ -107,7 +107,7 @@ session_start();
 			$data = mysqli_fetch_array($result)['cpr_no'];
 			
 			if($data){
-				echo "<center>CPR No. already exists</center>" . $form;
+				echo "<center>CPR No. already exists!</center>" . $form;
 			}else{
 				$newIdSql = "SELECT DISTINCT industry_id from Industry where name = 'Drug'";
 				$result = $conn->query($newIdSql);

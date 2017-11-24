@@ -1,7 +1,7 @@
 <?php
 error_reporting (E_ALL ^ E_NOTICE);
 session_start();
-$_SESSION['table'] = Drug;
+$_SESSION['table'] = 'Drug';
 $_SESSION['graph_type'] = null;
 ?>
 
@@ -28,6 +28,21 @@ $_SESSION['graph_type'] = null;
 			case 'no_of_generic_name':
 				$path= '/IS/js/preconf_graphs/no_of_generic_name.js';
 				break;	
+			case 'no_of_branded_prod':
+				$path= '/IS/js/preconf_graphs/no_of_branded_prod.js';
+				break;	
+			case 'no_of_manufacturer':
+				$path= '/IS/js/preconf_graphs/no_of_drug_food_entities.js';
+				break;	
+			case 'no_of_importer':
+				$path= '/IS/js/preconf_graphs/no_of_drug_food_entities.js';
+				break;	
+			case 'no_of_trader':
+				$path= '/IS/js/preconf_graphs/no_of_drug_food_entities.js';
+				break;	
+			case 'no_of_distributor':
+				$path= '/IS/js/preconf_graphs/no_of_drug_food_entities.js';
+				break;	
 			default:
 				$path= '/IS/js/generate_graph.js';
 				break;
@@ -52,10 +67,9 @@ $_SESSION['graph_type'] = null;
 		if($_SESSION['isLoggedIn'] == true){
 			echo "<p> <a href='../create/create-drug.php' >Create</a><p>";
 		} 
-				
 		//list of displayed column names and ids/db column name
-		$arrColValues = array('cpr_no','dr_no','country','rsn','validity_date','generic_name','brand_name','strength','form','manufacturer');
-		$arrColLabels = array('CPR No.','DR No.','Country','RSN','Validity Date','Generic Name','Brand Name','Strength','Form','Manufacturer');
+		$arrColValues = array('cpr_no','dr_no','country','rsn','validity_date','generic_name','brand_name','strength','form','manufacturer', 'importer','trader','distributor');
+		$arrColLabels = array('CPR No.','DR No.','Country','RSN','Validity Date','Generic Name','Brand Name','Strength','Form','Manufacturer', 'Importer','Trader','Distributor');
 		
 		/*
 		*generate form/ selection of columns
@@ -76,7 +90,7 @@ $_SESSION['graph_type'] = null;
 				}				
 				$form .= "<input type='checkbox' name='check_list[]' value='{$arrColValues[$i]}' id='cbox_columns' $isChecked>{$arrColLabels[$i]}</input>";
 			}
-			$form .= " <input type='submit' name='generate' value='Generate'/></form></div></center>			";
+			$form .= " <input type='submit' name='generate' value='Generate'/></form></div></center>";
 			return $form;
 		}
 		
@@ -97,6 +111,9 @@ $_SESSION['graph_type'] = null;
 
 				//get number of pages
 				$noOfPages = ceil($total_no/10);
+				if($noOfPages < $_SESSION['page']){
+					$_SESSION['page'] = 1;
+				}
 				
 				//display prev and next button based on the current page
 				$prev = ($_SESSION['page'] > 1)?
@@ -114,7 +131,12 @@ $_SESSION['graph_type'] = null;
 				//get number of first record to be displayed
 				$counter = $offset - 10;
 				//$sql = "SELECT * from Drug WHERE cpr_no NOT IN ('0') ORDER BY cpr_no ASC LIMIT 10 OFFSET {$counter} ";
-				$sql = "SELECT cpr_no,dr_no,country,rsn,validity_date,generic_name,brand_name,strength,form, (select name from Manufacturer where manu_no = (select manu_no from manufactures where drug_cpr_no = d.cpr_no)) as manufacturer From drug d where cpr_no <> '0' ORDER BY cpr_no ASC LIMIT 10 OFFSET {$counter}";
+				$sql = "SELECT cpr_no,dr_no,country,rsn,validity_date,generic_name,brand_name,strength,form
+				,(select name from Manufacturer where manu_no = (select manu_no from manufactures where drug_cpr_no = d.cpr_no)) as manufacturer
+				,(select name from Importer where importer_no = (select importer_no from imports where drug_cpr_no = d.cpr_no)) as importer
+				,(select name from Trader where trader_no = (select trader_no from trades where drug_cpr_no = d.cpr_no)) as trader
+				,(select name from Distributor where dist_no = (select dist_no from distributes where drug_cpr_no = d.cpr_no)) as distributor
+				From drug d where cpr_no <> '0' ORDER BY cpr_no ASC LIMIT 10 OFFSET {$counter}";
 				$result = $conn->query($sql);				
 				
 				//add action column to the table, i.e., view, edit, and delete actions
@@ -159,8 +181,19 @@ $_SESSION['graph_type'] = null;
 		function generateAdHocReports(){
 			$options = "<br><br><br><center><form action='drug.php' method='post'>
 				<p>Pre-Configured Reports</p>
-				<input type='submit' name='no_of_drug_country' value='Number of products per country'/> 
-				<input type='submit' name='no_of_generic_name' value='Number of Generic Names'/> 
+				<table>
+				<tr>
+					<td><input type='submit' name='no_of_drug_country' value='Number of products per country'/></td>
+					<td><input type='submit' name='no_of_generic_name' value='Number of Generic Names'/> </td>
+					<td><input type='submit' name='no_of_branded_prod' value='Number of Branded Drug'/> </td>
+				</tr>
+				<tr>
+					<td><input type='submit' name='no_of_manufacturer' value='Number of Manufacturers'/></td>
+					<td><input type='submit' name='no_of_importer' value='Number of Importers'/></td>
+					<td><input type='submit' name='no_of_trader' value='Number of Traders'/></td>
+					<td><input type='submit' name='no_of_distributor' value='Number of Distributors'/></td>
+				</tr>
+				</table>
 				</form></center>";
 			 return $options;
 		}
@@ -179,6 +212,8 @@ $_SESSION['graph_type'] = null;
 			if($arrCheckBox){
 				//number of records will be displayed at most 10 each page
 				$offset = $_SESSION['page'] * 10;
+				$_SESSION['selected_report'] = 'default';
+				echo setBarScript();	
 				echo generateTable($arrCheckBox,$offset);
 				echo generateGraph('bar_graph');
 				echo generateAdHocReports();
@@ -210,71 +245,80 @@ $_SESSION['graph_type'] = null;
 		}
 		
 		//if a graph is selected
-		if($_POST['bar']){
-			$_SESSION['graph_type'] = 'bar_graph';
+		if($_POST['bar'] || $_POST['line'] || $_POST['doughnut'] || $_POST['radar'] || $_POST['polarArea']){
+			$graphType = 'bar_graph';
 			$arrCheckBox = $_SESSION['arrCheckedVals'];
 			$offset = $_SESSION['page'] * 10;
+			if($_POST['bar']){				
+				$_SESSION['graph_type'] = 'bar_graph';
+				$graphType = 'bar_graph';
+			}
+			if($_POST['line']){
+				$_SESSION['graph_type'] = 'line_graph';
+				$graphType = 'line_graph';				
+			}
+			if($_POST['doughnut']){
+				$_SESSION['graph_type'] = 'doughnut_graph';
+				$graphType = 'doughnut_graph';				
+			}
+			if($_POST['radar']){
+				$_SESSION['graph_type'] = 'radar_graph';
+				$graphType = 'radar_graph';				
+			}
+			if($_POST['polarArea']){
+				$_SESSION['graph_type'] = 'polarArea_graph';
+				$graphType = 'polarArea_graph';				
+			}
 			echo generateTable($arrCheckBox,$offset);
-			echo generateGraph('bar_graph');
-			echo generateAdHocReports();
-		}
-		if($_POST['line']){
-			$_SESSION['graph_type'] = 'line_graph';
-			$arrCheckBox = $_SESSION['arrCheckedVals'];
-			$offset = $_SESSION['page'] * 10;
-			echo generateTable($arrCheckBox,$offset);
-			echo generateGraph('line_graph');
-			echo generateAdHocReports();
-		}
-		if($_POST['radar']){
-			$_SESSION['graph_type'] = 'radar_graph';
-			$arrCheckBox = $_SESSION['arrCheckedVals'];
-			$offset = $_SESSION['page'] * 10;
-			echo generateTable($arrCheckBox,$offset);
-			echo generateGraph('radar_graph');
-			echo generateAdHocReports();
-		}
-		if($_POST['polarArea']){
-			$_SESSION['graph_type'] = 'polarArea_graph';
-			$arrCheckBox = $_SESSION['arrCheckedVals'];
-			$offset = $_SESSION['page'] * 10;
-			echo generateTable($arrCheckBox,$offset);
-			echo generateGraph('polarArea_graph');
-			echo generateAdHocReports();
-		}
-		if($_POST['doughnut']){
-			$_SESSION['graph_type'] = 'doughnut_graph';
-			$arrCheckBox = $_SESSION['arrCheckedVals'];
-			$offset = $_SESSION['page'] * 10;
-			echo generateTable($arrCheckBox,$offset);
-			echo generateGraph('doughnut_graph');
+			echo generateGraph($graphType);
 			echo generateAdHocReports();
 		}
 		
 		//if a preconfigured report is selected
-		if($_POST['no_of_drug_country']){
+		if($_POST['no_of_drug_country'] || $_POST['no_of_generic_name'] || $_POST['no_of_branded_prod']
+				|| $_POST['no_of_manufacturer'] || $_POST['no_of_importer'] || $_POST['no_of_trader'] || $_POST['no_of_distributor'] ){
+			$graphType = 'bar_graph';	
 			$arrCheckBox = $_SESSION['arrCheckedVals'];
-			$_SESSION['selected_report'] = 'no_of_drug_country';
 			$offset = $_SESSION['page'] * 10;
+			
+			if($_POST['no_of_drug_country']){
+				$_SESSION['selected_report'] = 'no_of_drug_country';
+				$graphType = 'bar_graph';				
+			}
+			if($_POST['no_of_generic_name']){
+				$_SESSION['selected_report'] = 'no_of_generic_name';
+				$graphType = 'radar_graph';				
+			}
+			if($_POST['no_of_branded_prod']){
+				$_SESSION['selected_report'] = 'no_of_branded_prod';
+				$graphType = 'radar_graph';				
+			}
+			if($_POST['no_of_manufacturer']){
+				$_SESSION['selected_report'] = 'no_of_manufacturer';
+				$graphType = 'bar_graph';				
+			}
+			if($_POST['no_of_importer']){
+				$_SESSION['selected_report'] = 'no_of_importer';
+				$graphType = 'radar_graph';				
+			}
+			if($_POST['no_of_trader']){
+				$_SESSION['selected_report'] = 'no_of_trader';
+				$graphType = 'polarArea_graph';				
+			}
+			if($_POST['no_of_distributor']){
+				$_SESSION['selected_report'] = 'no_of_distributor';
+				$graphType = 'radar_graph';				
+			}
 
+							
+			
 			echo setBarScript();	
 			echo generateTable($arrCheckBox,$offset);
-			echo generateGraph('bar_graph');
+			echo generateGraph($graphType);
 			echo generateAdHocReports();
 		
 		}
 		
-		if($_POST['no_of_generic_name']){
-			$arrCheckBox = $_SESSION['arrCheckedVals'];
-			$_SESSION['selected_report'] = 'no_of_generic_name';
-			$offset = $_SESSION['page'] * 10;
-
-			echo setBarScript();	
-			echo generateTable($arrCheckBox,$offset);
-			echo generateGraph('radar_graph');
-			echo generateAdHocReports();
-		
-		}
 	
 	?>
 

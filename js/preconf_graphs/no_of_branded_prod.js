@@ -10,9 +10,9 @@ $(document).ready(function(){
 			var doughnutCols = [];
 			
 			for (var i in data){
-				var columnLabel = (data[i].country)? data[i].country + " : " + data[i].total : 'Null' + " : " + data[i].total;
+				var columnLabel = (data[i].brand_name)? data[i].brand_name + " : " + data[i].total : 'Null' + " : " + data[i].total;
 				column.push(columnLabel);
-				doughnutCols.push((data[i].country)? data[i].country : 'Null');
+				doughnutCols.push((data[i].brand_name)? data[i].brand_name : 'Null');
 				total.push(data[i].total);
 			}
 			var labelTable = 'No of Drug Products per Country';

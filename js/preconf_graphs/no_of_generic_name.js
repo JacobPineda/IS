@@ -65,7 +65,7 @@ $(document).ready(function(){
 				]
 			};
 
-
+		try{
 			var barGraph = new Chart($("#bar_graph"), {
 				type: 'bar',
 				data: chartdata,
@@ -105,6 +105,7 @@ $(document).ready(function(){
 				type: 'polarArea',
 				data: doughnutData
 			});	
+		}catch(e){console.log(e)}
 		},
 		error: function(data) {
 			console.log(data);

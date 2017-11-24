@@ -35,6 +35,18 @@ session_start();
 			$manuResult = $conn->query($manuSql);
 			$manuRow = mysqli_fetch_array($manuResult);			
 			
+			$impSql = "SELECT name from Importer WHERE importer_no = (SELECT importer_no FROM Imports WHERE drug_cpr_no = '{$cpr_no}')";
+			$impResult = $conn->query($impSql);
+			$impRow = mysqli_fetch_array($impResult);			
+			
+			$trdSql = "SELECT name from Trader WHERE trader_no = (SELECT trader_no FROM Trades WHERE drug_cpr_no = '{$cpr_no}')";
+			$trdResult = $conn->query($trdSql);
+			$trdRow = mysqli_fetch_array($trdResult);				
+			
+			$distSql = "SELECT name from Distributor WHERE dist_no = (SELECT dist_no FROM Distributes WHERE drug_cpr_no = '{$cpr_no}')";
+			$distResult = $conn->query($distSql);
+			$distRow = mysqli_fetch_array($distResult);	
+			
 			$cpr_no = $row['cpr_no'];
 			$dr_no = $row['dr_no'];
 			$country = $row['country'];
@@ -45,10 +57,14 @@ session_start();
 			$strength = $row['strength'];
 			$form1 = $row['form'];
 			$manufacturer = $manuRow['name'];
+			$importer = $impRow['name'];
+			$trader = $trdRow['name'];
+			$distributor = $distRow['name'];
 		}
    
-   
-		$form="<center><h3>View a record</h3>
+		$edit_delete = ($_SESSION['isLoggedIn'] == true)? "<a href='../edit/edit-drug.php?cpr_no=$cpr_no'>Edit</a>     <a href='../delete/delete-drug.php?cpr_no=$cpr_no'>Delete</a>": null;
+		$form=" {$edit_delete}
+		<center><h3>View a record</h3>
 			<table border='1'>
         	<tr> 
 	  			<td>CPR No.</td>
@@ -89,6 +105,18 @@ session_start();
 			<tr>                   
    				<td>Manufacturer</td>
 				<td>".$manufacturer."</td>
+            </tr>
+			<tr>                   
+   				<td>Importer</td>
+				<td>".$importer."</td>
+            </tr>
+			<tr>                   
+   				<td>Trader</td>
+				<td>".$trader."</td>
+            </tr>
+			<tr>                   
+   				<td>Distributor</td>
+				<td>".$distributor."</td>
             </tr>
 		</table><br/><a class='btn' href='/IS/reports/drug.php'>Back</a></center>";
 		
