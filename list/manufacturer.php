@@ -57,7 +57,6 @@ $_SESSION['table'] = 'Manufacturer';
 				if($noOfPages < $_SESSION['page']){
 					$_SESSION['page'] = 1;
 				}
-        //$offset = $_SESSION['page'] * 20;
 
 				//display prev and next button based on the current page
 				$prev = ($_SESSION['page'] > 1)?
@@ -71,7 +70,6 @@ $_SESSION['table'] = 'Manufacturer';
 
 				//get number of first record to be displayed
 				$counter = $offset - 20;
-				//$sql = "SELECT * from Drug WHERE cpr_no NOT IN ('0') ORDER BY cpr_no ASC LIMIT 10 OFFSET {$counter} ";
 				$sql = "SELECT * from Manufacturer ORDER BY manu_no ASC LIMIT 20 OFFSET {$counter}";
 				$result = $conn->query($sql);
 
@@ -92,22 +90,22 @@ $_SESSION['table'] = 'Manufacturer';
 				return $table;
 		}
 
+	
+    if($_POST['next_table'] || $_POST['prev_table']){
+		if($_POST['next_table']){
+			$_SESSION['page'] ++;
+		}
+		if($_POST['prev_table']){
+			$_SESSION['page'] --;
+		}
+		$offset = $_SESSION['page'] * 20;
+     
+		echo generateTable($offset);
+    }else{
+		$offset = $_SESSION['page'] * 20;
+		echo generateTable($offset);
+	}
 
-    if($_POST['next_table']){
-      $_SESSION['page'] ++;
-      $offset = $_SESSION['page'] * 20;
-      echo generateTable($offset);
-      //echo generateGraph('bar_graph');
-      //echo generateAdHocReports();
-    }
-    //if previous page is selected
-    if($_POST['prev_table']){
-      $_SESSION['page']--;
-      $offset = $_SESSION['page'] * 20;
-      echo generateTable($offset);
-      //echo generateGraph('bar_graph');
-      //echo generateAdHocReports();
-    }
 	?>
 
 
