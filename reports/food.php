@@ -1,6 +1,9 @@
 <?php
 error_reporting (E_ALL ^ E_NOTICE);
 session_start();
+if($_SESSION['table'] != 'Food'){
+	$_SESSION['page'] = 1;
+}
 $_SESSION['table'] = 'Food';
 $_SESSION['graph_type'] = null;
 ?>
@@ -112,10 +115,10 @@ $_SESSION['graph_type'] = null;
 				//get number of first record to be displayed
 				$counter = $offset - 10;
 				$sql = "SELECT cpr_no,dr_no,country,rsn,validity_date,food_name
-				,(select name from Manufacturer where manu_no = (select manu_no from manufactures where food_cpr_no = f.cpr_no LIMIT 1)) as manufacturer
-				,(select name from Trader where trader_no = (select trader_no from trades where food_cpr_no = f.cpr_no LIMIT 1)) as trader
-				,(select name from Distributor where dist_no = (select dist_no from distributes where food_cpr_no = f.cpr_no LIMIT 1)) as distributor
-				From food f where cpr_no <> '0' ORDER BY cpr_no ASC LIMIT 10 OFFSET {$counter}";
+				,(select name from Manufacturer where manu_no = (select manu_no from Manufactures where food_cpr_no = f.cpr_no LIMIT 1)) as manufacturer
+				,(select name from Trader where trader_no = (select trader_no from Trades where food_cpr_no = f.cpr_no LIMIT 1)) as trader
+				,(select name from Distributor where dist_no = (select dist_no from Distributes where food_cpr_no = f.cpr_no LIMIT 1)) as distributor
+				From Food f where cpr_no <> '0' ORDER BY cpr_no ASC LIMIT 10 OFFSET {$counter}";
 				$result = $conn->query($sql);
 
 				//add action column to the table, i.e., view, edit, and delete actions

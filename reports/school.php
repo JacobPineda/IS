@@ -1,10 +1,10 @@
 <?php
 error_reporting (E_ALL ^ E_NOTICE);
 session_start();
-if($_SESSION['table'] != 'Drug'){
+if($_SESSION['table'] != 'School'){
 	$_SESSION['page'] = 1;
 }
-$_SESSION['table'] = 'Drug';
+$_SESSION['table'] = 'School';
 $_SESSION['graph_type'] = null;
 ?>
 
@@ -56,7 +56,7 @@ $_SESSION['graph_type'] = null;
 	echo setGraphScript();
 	?>
 
-<title>Drug Products Report</title>
+<title>School Report</title>
 
 </head>
 
@@ -68,11 +68,11 @@ $_SESSION['graph_type'] = null;
 
 		//check if logged in
 		if($_SESSION['isLoggedIn'] == true){
-			echo "<p> <a href='../create/create-drug.php' >Create</a><p>";
+			echo "<p> <a href='../create/create-school.php' >Create</a><p>";
 		}
 		//list of displayed column names and ids/db column name
-		$arrColValues = array('cpr_no','dr_no','country','rsn','validity_date','generic_name','brand_name','strength','form','manufacturer', 'importer','trader','distributor');
-		$arrColLabels = array('CPR No.','DR No.','Country','RSN','Validity Date','Generic Name','Brand Name','Strength','Form','Manufacturer', 'Importer','Trader','Distributor');
+		$arrColValues = array('school_id', 'name','region_id', 'contact', 'email');
+		$arrColLabels = array('School ID', 'Name','Region', 'Contact', 'Email');
 
 		/*
 		*generate form/ selection of columns
@@ -80,7 +80,7 @@ $_SESSION['graph_type'] = null;
 		*arrColLabels - list of column labels to be displayed
 		*/
 		function generateForm($arrColValues, $arrColLabels){
-			$form="<center><div> <form action='drug.php' method='post'>";
+			$form="<center><div> <form action='school.php' method='post'>";
 
 			for($i = 0; $i < count($arrColValues); $i++){
 				for($j = 0; $j < count($_SESSION['arrCheckedVals']); $j++){
@@ -107,7 +107,7 @@ $_SESSION['graph_type'] = null;
 				include('../connect.php');
 
 				//get total number of record
-				$totalSql = "SELECT count(*) as total_no from Drug WHERE cpr_no NOT IN ('0')";
+				$totalSql = "SELECT count(*) as total_no from School";
 				$totalResult = $conn->query($totalSql);
 				$totalRow = mysqli_fetch_array($totalResult);
 				$total_no = ($arrCheckBox)? $totalRow['total_no']: 0;
@@ -120,8 +120,8 @@ $_SESSION['graph_type'] = null;
 
 				//display prev and next button based on the current page
 				$prev = ($_SESSION['page'] > 1)?
-					"<td> <form action='drug.php' method='post'><input type='submit' name='prev_table' value='prev'/></form></td>": null;
-				$next = ($_SESSION['page'] < $noOfPages)? "<td> <form action='drug.php' method='post'><input type='submit' name='next_table' value='next'/></form></td>" : null;
+					"<td> <form action='school.php' method='post'><input type='submit' name='prev_table' value='prev'/></form></td>": null;
+				$next = ($_SESSION['page'] < $noOfPages)? "<td> <form action='school.php' method='post'><input type='submit' name='next_table' value='next'/></form></td>" : null;
 
 				//table to be generated
 				$table = "<br/><center><table><tr> {$prev} <td>	Total no. of records: {$total_no}</td>  {$next} </tr></table></center>";
@@ -133,22 +133,20 @@ $_SESSION['graph_type'] = null;
 
 				//get number of first record to be displayed
 				$counter = $offset - 10;
-				$sql = "SELECT cpr_no,dr_no,country,rsn,validity_date,generic_name,brand_name,strength,form
-				,(select name from Manufacturer where manu_no = (select manu_no from Manufactures where drug_cpr_no = d.cpr_no LIMIT 1)) as manufacturer
-				,(select name from Importer where importer_no = (select importer_no from Imports where drug_cpr_no = d.cpr_no LIMIT 1)) as importer
-				,(select name from Trader where trader_no = (select trader_no from Trades where drug_cpr_no = d.cpr_no LIMIT 1)) as trader
-				,(select name from Distributor where dist_no = (select dist_no from Distributes where drug_cpr_no = d.cpr_no LIMIT 1)) as distributor
-				From Drug d where cpr_no <> '0' ORDER BY cpr_no ASC LIMIT 10 OFFSET {$counter}";
+				$sql = "SELECT school_id, name
+				,(select region_name from Region where region_id = s.region_id) as region_id
+				, contact, email
+				From School s ORDER BY school_id ASC LIMIT 10 OFFSET {$counter}";
 				$result = $conn->query($sql);
 
 				//add action column to the table, i.e., view, edit, and delete actions
 				while($row = mysqli_fetch_array($result)){
 					$counter++;
 					$table .= "<tr><td>{$counter}</td><td>";
-					$table .= '<a href="../view/view-drug.php?cpr_no='.$row['cpr_no'].'">view</a>';
+					$table .= '<a href="../view/view-school.php?id='.$row['school_id'].'">view</a>';
 					if($_SESSION['isLoggedIn'] == true){
-						$table .=' | <a href="../edit/edit-drug.php?cpr_no='.$row['cpr_no'].'">edit</a>
-						| <a href="../delete/delete-drug.php?cpr_no='.$row['cpr_no'].'">delete</a></td>';
+						$table .=' | <a href="../edit/edit-school.php?id='.$row['school_id'].'">edit</a>
+						| <a href="../delete/delete-school.php?id='.$row['school_id'].'">delete</a></td>';
 					}
 					foreach($arrCheckBox as $rowVal){
 						$table .= "<td>" . $row[$rowVal] . "</td>";
@@ -165,7 +163,7 @@ $_SESSION['graph_type'] = null;
 		*graph_type - type of graph to be displayed
 		*/
 		function generateGraph($graph_type){
-			 $graph = "<br><br><br><form action='drug.php' method='post'>
+			 $graph = "<br><br><br><form action='school.php' method='post'>
 				<input type='submit' name='bar' value='Bar'/>
 				<input type='submit' name='line' value='Line'/>
 				<input type='submit' name='doughnut' value='Doughnut'/>
@@ -181,11 +179,11 @@ $_SESSION['graph_type'] = null;
 		*graph_type - type of graph to be displayed
 		*/
 		function generateAdHocReports(){
-			$options = "<br><br><br><center><form action='drug.php' method='post'>
+			$options = "<br><br><br><center><form action='school.php' method='post'>
 				<p>Pre-Configured Reports</p>
 				<table>
 				<tr>
-					<td><input type='submit' name='no_of_prod_country' value='Number of products per country'/></td>
+					<td><input type='submit' name='no_of_school_region' value='Number of schools per region'/></td>
 					<td><input type='submit' name='no_of_generic_name' value='Number of Generic Names'/> </td>
 					<td><input type='submit' name='no_of_branded_prod' value='Number of Branded Drug'/> </td>
 				</tr>

@@ -1,6 +1,9 @@
 <?php
 error_reporting (E_ALL ^ E_NOTICE);
 session_start();
+if($_SESSION['table'] != 'Importer'){
+	$_SESSION['page'] = 1;
+}
 $_SESSION['table'] = 'Importer';
 ?>
 
@@ -31,18 +34,6 @@ $_SESSION['table'] = 'Importer';
 			echo "<p> <a href='create/create-importer.php' >Create</a><p>";
 		}
 
-		function getPage($conn){
-			//get total number of record
-			$totalSql = "SELECT count(*) as total_no from Importer";
-			$totalResult = $conn->query($totalSql);
-			$totalRow = mysqli_fetch_array($totalResult);
-			$total_no = $totalRow['total_no'];
-
-			//get number of pages
-			return $total_no ;
-
-		}
-
 		/*
 		*generate table based from selected columns
 		*offset - number of last record displayed
@@ -50,13 +41,6 @@ $_SESSION['table'] = 'Importer';
 		function generateTable($offset){
 
 				include('../connect.php');
-
-				$total_no = getPage($conn);
-				$noOfPages = ceil($total_no/20);
-
-				if($noOfPages < $_SESSION['page']){
-					$_SESSION['page'] = 1;
-				}
 
 				//display prev and next button based on the current page
 				$prev = ($_SESSION['page'] > 1)?
@@ -89,12 +73,6 @@ $_SESSION['table'] = 'Importer';
 
 				mysqli_close($conn);
 				return $table;
-		}
-		include('../connect.php');
-		$total_no = getPage($conn);
-		$noOfPages = ceil($total_no/20);
-		if($noOfPages < $_SESSION['page']){
-			$_SESSION['page'] = 1;
 		}
 
     if($_POST['next_table'] || $_POST['prev_table']){

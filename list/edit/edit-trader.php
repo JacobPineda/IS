@@ -75,7 +75,7 @@ session_start();
 			$data = mysqli_fetch_array($result)['name'];
 
 			if($data){
-				echo "<center>Trader name already exists!</center>" . $form;
+				echo "<center>Trader name already exists!</center>" . generateForm($id, $curr_name);
 			}else{
 				if(!mysqli_query($conn, "UPDATE Trader SET name = '{$new_name}'
 					WHERE trader_no = '{$id}'")){
