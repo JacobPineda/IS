@@ -46,19 +46,19 @@ function getQryFromOtherTable($column){
 	
 	switch($column){
 		case 'manufacturer':
-			$relTable = 'manufactures';
+			$relTable = 'Manufactures';
 			$criteria = "{$col} in (select {$priKey} from {$_SESSION['table']}) and {$col} not in ('0'))";
 			break;
 		case 'importer':
-			$relTable = 'imports';
+			$relTable = 'Imports';
 			$criteria =  "{$col} in (select {$priKey} from {$_SESSION['table']}) and {$col} not in ('0'))";
 			break;
 		case 'trader':
-			$relTable = 'trades';
+			$relTable = 'Trades';
 			$criteria =  "{$col} in (select {$priKey} from {$_SESSION['table']}) and {$col} not in ('0'))";
 			break;
 		case 'distributor':
-			$relTable = 'distributes';
+			$relTable = 'Distributes';
 			$criteria =  "{$col} in (select {$priKey} from {$_SESSION['table']}) and {$col} not in ('0'))";
 			break;
 		default:
