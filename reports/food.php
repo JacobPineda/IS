@@ -80,7 +80,6 @@ $_SESSION['graph_type'] = null;
 
 				//get number of first record to be displayed
 				$counter = $offset - 10;
-				//$sql = "SELECT * from Drug WHERE cpr_no NOT IN ('0') ORDER BY cpr_no ASC LIMIT 10 OFFSET {$counter} ";
 				$sql = "SELECT cpr_no,dr_no,country,rsn,validity_date,food_name
 				,(select name from Manufacturer where manu_no = (select manu_no from manufactures where food_cpr_no = f.cpr_no LIMIT 1)) as manufacturer
 				,(select name from Trader where trader_no = (select trader_no from trades where food_cpr_no = f.cpr_no LIMIT 1)) as trader
