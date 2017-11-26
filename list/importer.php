@@ -60,7 +60,7 @@ $_SESSION['table'] = 'Importer';
 
 				//display prev and next button based on the current page
 				$prev = ($_SESSION['page'] > 1)?
-					"<td> <form action='drug.php' method='post'><input type='submit' name='prev_table' value='prev'/></form></td>": null;
+					"<td> <form action='importer.php' method='post'><input type='submit' name='prev_table' value='prev'/></form></td>": null;
 				$next = ($_SESSION['page'] < $noOfPages)? "<td> <form action='importer.php' method='post'><input type='submit' name='next_table' value='next'/></form></td>" : null;
 
 				//table to be generated
@@ -96,7 +96,7 @@ $_SESSION['table'] = 'Importer';
 		if($noOfPages < $_SESSION['page']){
 			$_SESSION['page'] = 1;
 		}
-	
+
     if($_POST['next_table'] || $_POST['prev_table']){
 		if($_POST['next_table']){
 			$_SESSION['page'] ++;
@@ -105,7 +105,7 @@ $_SESSION['table'] = 'Importer';
 			$_SESSION['page'] --;
 		}
 		$offset = $_SESSION['page'] * 20;
-     
+
 		echo generateTable($offset);
     }else{
 		$offset = $_SESSION['page'] * 20;

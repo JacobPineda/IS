@@ -50,7 +50,7 @@ session_start();
 			echo "$form";
 			
 			include('connect.php');
-			$sql = "SELECT * from admin WHERE username = '{$username}' AND password = '{$password}'";
+			$sql = "SELECT * from Admin WHERE username = '{$username}' AND password = '{$password}'";
 			$result = $conn->query($sql);
 			if (!$result->num_rows == 1) {
 				echo "<p>Invalid username/password combination</p>";

@@ -1,7 +1,7 @@
 <?php
 error_reporting (E_ALL ^ E_NOTICE);
 session_start();
-$_SESSION['table'] = 'Manufacturer';
+$_SESSION['table'] = 'Trader';
 ?>
 
 
@@ -16,7 +16,7 @@ $_SESSION['table'] = 'Manufacturer';
 	<script type="text/javascript" src="/IS/js/jquery.min.js"></script>
 
 
-<title>Manufacturer</title>
+<title>Trader</title>
 
 </head>
 
@@ -28,12 +28,12 @@ $_SESSION['table'] = 'Manufacturer';
 
 		//check if logged in
 		if($_SESSION['isLoggedIn'] == true){
-			echo "<p> <a href='create/create-manufacturer.php' >Create</a><p>";
+			echo "<p> <a href='create/create-trader.php' >Create</a><p>";
 		}
 
 		function getPage($conn){
 			//get total number of record
-			$totalSql = "SELECT count(*) as total_no from Manufacturer";
+			$totalSql = "SELECT count(*) as total_no from Trader";
 			$totalResult = $conn->query($totalSql);
 			$totalRow = mysqli_fetch_array($totalResult);
 			$total_no = $totalRow['total_no'];
@@ -60,8 +60,8 @@ $_SESSION['table'] = 'Manufacturer';
 
 				//display prev and next button based on the current page
 				$prev = ($_SESSION['page'] > 1)?
-					"<td> <form action='manufacturer.php' method='post'><input type='submit' name='prev_table' value='prev'/></form></td>": null;
-				$next = ($_SESSION['page'] < $noOfPages)? "<td> <form action='manufacturer.php' method='post'><input type='submit' name='next_table' value='next'/></form></td>" : null;
+					"<td> <form action='trader.php' method='post'><input type='submit' name='prev_table' value='prev'/></form></td>": null;
+				$next = ($_SESSION['page'] < $noOfPages)? "<td> <form action='trader.php' method='post'><input type='submit' name='next_table' value='next'/></form></td>" : null;
 
 				//table to be generated
 				$table = "<br/><center><table><tr> {$prev} <td>	Total no. of records: {$total_no}</td>  {$next} </tr></table></center>
@@ -70,17 +70,18 @@ $_SESSION['table'] = 'Manufacturer';
 
 				//get number of first record to be displayed
 				$counter = $offset - 20;
-				$sql = "SELECT * from Manufacturer ORDER BY manu_no ASC LIMIT 20 OFFSET {$counter}";
+				//$sql = "SELECT * from Drug WHERE cpr_no NOT IN ('0') ORDER BY cpr_no ASC LIMIT 10 OFFSET {$counter} ";
+				$sql = "SELECT * from Trader ORDER BY trader_no ASC LIMIT 20 OFFSET {$counter}";
 				$result = $conn->query($sql);
 
 				//add action column to the table, i.e., view, edit, and delete actions
 				while($row = mysqli_fetch_array($result)){
 					$counter++;
 					$table .= "<tr><td>{$counter}</td><td>";
-					$table .= '<a href="view/view-manufacturer.php?id='.$row['manu_no'].'">view</a>';
+					$table .= '<a href="view/view-trader.php?id='.$row['trader_no'].'">view</a>';
 					if($_SESSION['isLoggedIn'] == true){
-						$table .=' | <a href="edit/edit-manufacturer.php?id='.$row['manu_no'].'">edit</a>
-						| <a href="delete/delete-manufacturer.php?id='.$row['manu_no'].'">delete</a></td>';
+						$table .=' | <a href="edit/edit-trader.php?id='.$row['trader_no'].'">edit</a>
+						| <a href="delete/delete-trader.php?id='.$row['trader_no'].'">delete</a></td>';
 					}
 					$table .= "<td>" . $row['name'] . "</td></tr>";
 				}
@@ -89,7 +90,12 @@ $_SESSION['table'] = 'Manufacturer';
 				mysqli_close($conn);
 				return $table;
 		}
-
+		include('../connect.php');
+		$total_no = getPage($conn);
+		$noOfPages = ceil($total_no/20);
+		if($noOfPages < $_SESSION['page']){
+			$_SESSION['page'] = 1;
+		}
 
     if($_POST['next_table'] || $_POST['prev_table']){
 		if($_POST['next_table']){
@@ -105,7 +111,6 @@ $_SESSION['table'] = 'Manufacturer';
 		$offset = $_SESSION['page'] * 20;
 		echo generateTable($offset);
 	}
-
 	?>
 
 
