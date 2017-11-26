@@ -17,13 +17,13 @@ $_SESSION['graph_type'] = null;
 	<script type="text/javascript" src="/IS/js/jquery.min.js"></script>
 	<script type="text/javascript" src="/IS/js/Chart.min.js"></script>
 	<?php
-	function setBarScript(){
+	function setGraphScript(){
 		switch($_SESSION['selected_report']){
 			case 'default':
 				$path= '/IS/js/generate_graph.js';
 				break;
-			case 'no_of_drug_country':
-				$path= '/IS/js/preconf_graphs/no_of_drug_country.js';
+			case 'no_of_prod_country':
+				$path= '/IS/js/preconf_graphs/no_of_prod_country.js';
 				break;
 			case 'no_of_generic_name':
 				$path= '/IS/js/preconf_graphs/no_of_generic_name.js';
@@ -50,7 +50,7 @@ $_SESSION['graph_type'] = null;
 
 		return "<script type='text/javascript' src='{$path}'></script>";
 	}
-	echo setBarScript();
+	echo setGraphScript();
 	?>
 
 <title>Drug Products Report</title>
@@ -182,7 +182,7 @@ $_SESSION['graph_type'] = null;
 				<p>Pre-Configured Reports</p>
 				<table>
 				<tr>
-					<td><input type='submit' name='no_of_drug_country' value='Number of products per country'/></td>
+					<td><input type='submit' name='no_of_prod_country' value='Number of products per country'/></td>
 					<td><input type='submit' name='no_of_generic_name' value='Number of Generic Names'/> </td>
 					<td><input type='submit' name='no_of_branded_prod' value='Number of Branded Drug'/> </td>
 				</tr>
@@ -212,7 +212,7 @@ $_SESSION['graph_type'] = null;
 				//number of records will be displayed at most 10 each page
 				$offset = $_SESSION['page'] * 10;
 				$_SESSION['selected_report'] = 'default';
-				echo setBarScript();
+				echo setGraphScript();
 				echo generateTable($arrCheckBox,$offset);
 				echo generateGraph('bar_graph');
 				echo generateAdHocReports();
@@ -274,14 +274,14 @@ $_SESSION['graph_type'] = null;
 		}
 
 		//if a preconfigured report is selected
-		if($_POST['no_of_drug_country'] || $_POST['no_of_generic_name'] || $_POST['no_of_branded_prod']
+		if($_POST['no_of_prod_country'] || $_POST['no_of_generic_name'] || $_POST['no_of_branded_prod']
 				|| $_POST['no_of_manufacturer'] || $_POST['no_of_importer'] || $_POST['no_of_trader'] || $_POST['no_of_distributor'] ){
 			$graphType = 'bar_graph';
 			$arrCheckBox = $_SESSION['arrCheckedVals'];
 			$offset = $_SESSION['page'] * 10;
 
-			if($_POST['no_of_drug_country']){
-				$_SESSION['selected_report'] = 'no_of_drug_country';
+			if($_POST['no_of_prod_country']){
+				$_SESSION['selected_report'] = 'no_of_prod_country';
 				$graphType = 'bar_graph';
 			}
 			if($_POST['no_of_generic_name']){
@@ -311,7 +311,7 @@ $_SESSION['graph_type'] = null;
 
 
 
-			echo setBarScript();
+			echo setGraphScript();
 			echo generateTable($arrCheckBox,$offset);
 			echo generateGraph($graphType);
 			echo generateAdHocReports();

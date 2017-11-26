@@ -11,7 +11,6 @@ $(document).ready(function(){
 			
 			var arrCols = data[0].columns.split(',');
 			for (var i = 0; i < arrCols.length ; i++){
-				console.log('that'+columnLabel);
 				var columnLabel = ((arrCols[i] != 'dummy')? arrCols[i] + " : " + data[0][arrCols[i]] : ' ');
 				column.push(columnLabel);
 				doughnutCols.push(arrCols[i]);

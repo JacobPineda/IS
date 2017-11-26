@@ -15,7 +15,7 @@ $(document).ready(function(){
 				doughnutCols.push((data[i].name)? data[i].name : 'Null');
 				total.push(data[i].total);
 			}
-			var labelTable = 'No of Drug Products per Country';
+			var labelTable = 'No of Entities';
 			var bgColor = ['rgba(54, 162, 235, 0.5)',
 							'rgba(255, 206, 86, 0.5)',
 							'rgba(153, 102, 255, 0.5)',
@@ -43,7 +43,7 @@ $(document).ready(function(){
 				labels: column,
 				datasets : [
 					{
-						label: labelTable,
+						label: 'No of entities',
 						backgroundColor: bgColor,
 						borderColor: 'rgba(200, 200, 200, 1)',
 						hoverBackgroundColor: 'rgba(200, 200, 200, 1)',

@@ -15,7 +15,7 @@ $(document).ready(function(){
 				doughnutCols.push((data[i].country)? data[i].country : 'Null');
 				total.push(data[i].total);
 			}
-			var labelTable = 'No of Drug Products per Country';
+			var labelTable = 'No of Products per Country';
 			var bgColor = ['rgba(54, 162, 235, 0.5)',
 							'rgba(255, 206, 86, 0.5)',
 							'rgba(153, 102, 255, 0.5)',

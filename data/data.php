@@ -97,7 +97,7 @@ function generateDefaultResult($conn){
 }
 
 
-function generate_Drug_vs_Country($conn){
+function generate_prod_vs_Country($conn){
 	
 	$query = sprintf("SELECT country, count(*) as total FROM {$_SESSION['table']} where cpr_no not in ('0') GROUP BY country");
 	$result = $conn->query($query);
@@ -172,8 +172,8 @@ switch($_SESSION['selected_report']){
 	case 'default': 
 		$data = generateDefaultResult($conn);
 		break;
-	case 'no_of_drug_country':
-		$data = generate_Drug_vs_Country($conn);
+	case 'no_of_prod_country':
+		$data = generate_prod_vs_Country($conn);
 		break;		
 	case 'no_of_generic_name':
 		$data = generate_no_of_entities($conn, 'generic_name',$_SESSION['table']);
