@@ -29,15 +29,15 @@ session_start();
 
 
 			return "<center><h3>Edit a record</h3>
-		<form action = 'edit-importer.php?id=$id' method='post'>
+		<form action = 'edit-manufacturer.php?id=$id' method='post'>
 		<table>
         	<tr> 
 	  			<td>Name</td>
                 <td><input name='new_name' type='text'  value='".$name."' required></td>
 			</tr>
 			<tr>
-				<td><input  type='submit' name='edit_importer' value='Save'/></td>
-                <td><a class='btn' href='/IS/list/importer.php'>Back</a></td>
+				<td><input  type='submit' name='edit_manufacturer' value='Save'/></td>
+                <td><a class='btn' href='/IS/list/manufacturer.php'>Back</a></td>
 			</tr>
 		</table> </form></center>";
 		}
@@ -48,12 +48,12 @@ session_start();
 			$id = $_REQUEST['id'];
 		}
 		if($id == null){
-			header("Location: /IS/list/importer.php");
+			header("Location: /IS/list/manufacturer.php");
 		}else{
 			include('../../connect.php');
 
 			//get current values
-			$sql = "SELECT * from Importer WHERE importer_no = '{$id}'";
+			$sql = "SELECT * from Manufacturer WHERE manu_no = '{$id}'";
 			$result = $conn->query($sql);
 			$row = mysqli_fetch_array($result);
 			$curr_name = $row['name'];
@@ -62,7 +62,7 @@ session_start();
 		}
 
 		//when form is submitted or saved, record will be updated with new values
-		if($_POST['edit_importer']){
+		if($_POST['edit_manufacturer']){
 			//get new values
 			$new_name = $_POST['new_name'];
 
@@ -70,15 +70,15 @@ session_start();
 
 			//update record
 
-			$qry = "SELECT * from Importer where name = '{$new_name}'";
+			$qry = "SELECT * from Manufacturer where name = '{$new_name}'";
 			$result = $conn->query($qry);
 			$data = mysqli_fetch_array($result)['name'];
 
 			if($data){
-				echo "<center>Importer name already exists!</center>" . $form;
+				echo "<center>Manufacturer name already exists!</center>" . $form;
 			}else{
-				if(!mysqli_query($conn, "UPDATE Importer SET name = '{$new_name}'
-					WHERE importer_no = '{$id}'")){
+				if(!mysqli_query($conn, "UPDATE Manufacturer SET name = '{$new_name}'
+					WHERE manu_no = '{$id}'")){
 				echo "Error description: " . mysqli_error($conn) . "<br>". generateForm($id, $new_name);
 
 				} else {

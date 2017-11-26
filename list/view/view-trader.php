@@ -22,18 +22,18 @@ session_start();
 			$id = $_REQUEST['id'];
 		}
 		if($id == null){
-			header("Location: /IS/list/importer.php");
+			header("Location: /IS/list/trader.php");
 		}else{
 			include("../../connect.php");
 
 			//get all field values of selected record
-			$sql = "SELECT * from Importer WHERE importer_no = '{$id}'";
+			$sql = "SELECT * from Trader WHERE trader_no = '{$id}'";
 			$result = $conn->query($sql);
 			$row = mysqli_fetch_array($result);
 			$name = $row['name'];
 		}
 
-		$edit_delete = ($_SESSION['isLoggedIn'] == true)? "<a href='../edit/edit-importer.php?id=$id'>Edit</a>     <a href='../delete/delete-importer.php?id=$id'>Delete</a>": null;
+		$edit_delete = ($_SESSION['isLoggedIn'] == true)? "<a href='../edit/edit-trader.php?id=$id'>Edit</a>     <a href='../delete/delete-trader.php?id=$id'>Delete</a>": null;
 		$form=" {$edit_delete}
 		<br><center><h3>View a record</h3>
 			<table border='1'>
@@ -41,7 +41,7 @@ session_start();
 	  			<td><b>Name</b></td>
                 <td>".$name."</td>
 			</tr>
-		</table><br/><a class='btn' href='/IS/list/importer.php'>Back</a></center>";
+		</table><br/><a class='btn' href='/IS/list/trader.php'>Back</a></center>";
 
 		echo "$form";
 

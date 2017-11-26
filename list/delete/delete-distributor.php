@@ -23,12 +23,12 @@ session_start();
 			$id = $_REQUEST['id'];
 		}
 		if($id == null){
-			header("Location: /IS/list/importer.php");
+			header("Location: /IS/list/distributor.php");
 		}else{
 			include("../../connect.php");
 
 			//get all field values of the selected record
-			$sql = "SELECT * from Importer WHERE importer_no = '{$id}'";
+			$sql = "SELECT * from Distributor WHERE dist_no = '{$id}'";
 			$result = $conn->query($sql);
 			$row = mysqli_fetch_array($result);
 			$name = $row['name'];
@@ -39,11 +39,11 @@ session_start();
 		//form to be displayed
 		$form="<center><h3>Delete a record</h3>
 			<p class='alert alert-error'>Are you sure you want to delete this record?</p>
-			<form action = 'delete-importer.php?id=$id' method='post'>
+			<form action = 'delete-distributor.php?id=$id' method='post'>
 			<table>
         	<tr> 
-	  			<td><input name='delete_importer' type='submit' value='Yes'/></td>
-                <td><a class='btn' href='/IS/list/importer.php'>Back</a></td>
+	  			<td><input name='delete_distributor' type='submit' value='Yes'/></td>
+                <td><a class='btn' href='/IS/list/distributor.php'>Back</a></td>
 			</tr>
 		</table>
 		<br/><br/>
@@ -59,13 +59,13 @@ session_start();
 
 
 		//delete record when record is confirmed to be deleted
-		if($_POST['delete_importer']){
+		if($_POST['delete_distributor']){
 			include('../../connect.php');
 
-			if(!mysqli_query($conn, "DELETE FROM Importer WHERE importer_no={$id}")){
+			if(!mysqli_query($conn, "DELETE FROM Distributor WHERE dist_no={$id}")){
 				echo "Error description: " . mysqli_error($conn) . "<br> $form";
 			} else {
-				echo "<center>Successfully deleted a record! <br/> <a class='btn' href='/IS/list/importer.php'>Back</a></center>";
+				echo "<center>Successfully deleted a record! <br/> <a class='btn' href='/IS/list/distributor.php'>Back</a></center>";
 			}
 
 			mysqli_close($conn);
