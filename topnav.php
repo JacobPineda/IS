@@ -25,7 +25,7 @@ echo "
 		<li><a href='/IS/list/enrollment.php'>Enrollments</a></li>
 	</ul></li>
 <li><a  href='/IS/reports/drug.php'>Drug</a></li>
-<li><a  href='#'>Food</a></li>
+<li><a  href='/IS/reports/food.php'>Food</a></li>
 <li><a  href='#'>School</a></li>
 <li><a  href='#'>Public Elementary School</a></li>
 <li><a href='#'>About</a></li>

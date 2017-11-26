@@ -12,47 +12,47 @@ $_SESSION['graph_type'] = null;
 <html>
 <head>
     <meta charset="utf-8">
-	<link href="/IS/css/topnav.css" rel="stylesheet">		
-	<link href="/IS/css/styles.css" rel="stylesheet">		
+	<link href="/IS/css/topnav.css" rel="stylesheet">
+	<link href="/IS/css/styles.css" rel="stylesheet">
 	<script type="text/javascript" src="/IS/js/jquery.min.js"></script>
 	<script type="text/javascript" src="/IS/js/Chart.min.js"></script>
 	<?php
-	function setBarScript(){		
+	function setBarScript(){
 		switch($_SESSION['selected_report']){
-			case 'default':  
+			case 'default':
 				$path= '/IS/js/generate_graph.js';
 				break;
 			case 'no_of_drug_country':
 				$path= '/IS/js/preconf_graphs/no_of_drug_country.js';
-				break;	
+				break;
 			case 'no_of_generic_name':
 				$path= '/IS/js/preconf_graphs/no_of_generic_name.js';
-				break;	
+				break;
 			case 'no_of_branded_prod':
 				$path= '/IS/js/preconf_graphs/no_of_branded_prod.js';
-				break;	
+				break;
 			case 'no_of_manufacturer':
 				$path= '/IS/js/preconf_graphs/no_of_drug_food_entities.js';
-				break;	
+				break;
 			case 'no_of_importer':
 				$path= '/IS/js/preconf_graphs/no_of_drug_food_entities.js';
-				break;	
+				break;
 			case 'no_of_trader':
 				$path= '/IS/js/preconf_graphs/no_of_drug_food_entities.js';
-				break;	
+				break;
 			case 'no_of_distributor':
 				$path= '/IS/js/preconf_graphs/no_of_drug_food_entities.js';
-				break;	
+				break;
 			default:
 				$path= '/IS/js/generate_graph.js';
 				break;
 		}
-	
+
 		return "<script type='text/javascript' src='{$path}'></script>";
 	}
 	echo setBarScript();
 	?>
-	
+
 <title>Drug Products Report</title>
 
 </head>
@@ -60,17 +60,17 @@ $_SESSION['graph_type'] = null;
 
 <body>
 
-	<?php	
+	<?php
 		include("../topnav.php");
-		
+
 		//check if logged in
 		if($_SESSION['isLoggedIn'] == true){
 			echo "<p> <a href='../create/create-drug.php' >Create</a><p>";
-		} 
+		}
 		//list of displayed column names and ids/db column name
 		$arrColValues = array('cpr_no','dr_no','country','rsn','validity_date','generic_name','brand_name','strength','form','manufacturer', 'importer','trader','distributor');
 		$arrColLabels = array('CPR No.','DR No.','Country','RSN','Validity Date','Generic Name','Brand Name','Strength','Form','Manufacturer', 'Importer','Trader','Distributor');
-		
+
 		/*
 		*generate form/ selection of columns
 		*arrColValues - list of db column name
@@ -78,48 +78,48 @@ $_SESSION['graph_type'] = null;
 		*/
 		function generateForm($arrColValues, $arrColLabels){
 			$form="<center><div> <form action='drug.php' method='post'>";
-			
+
 			for($i = 0; $i < count($arrColValues); $i++){
 				for($j = 0; $j < count($_SESSION['arrCheckedVals']); $j++){
 					if($_SESSION['arrCheckedVals'][$j] == $arrColValues[$i]){
 						$isChecked = 'checked';
 						break;
-					}else{						
+					}else{
 						$isChecked = null;
 					}
-				}				
+				}
 				$form .= "<input type='checkbox' name='check_list[]' value='{$arrColValues[$i]}' id='cbox_columns' $isChecked>{$arrColLabels[$i]}</input>";
 			}
 			$form .= " <input type='submit' name='generate' value='Generate'/></form></div></center>";
 			return $form;
 		}
-		
+
 		/*
 		*generate table based from selected columns
 		*arrCheckBox - list of selected columns
 		*offset - number of last record displayed
 		*/
 		function generateTable($arrCheckBox, $offset){
-			
+
 				include('../connect.php');
-				
+
 				//get total number of record
 				$totalSql = "SELECT count(*) as total_no from Drug WHERE cpr_no NOT IN ('0')";
 				$totalResult = $conn->query($totalSql);
-				$totalRow = mysqli_fetch_array($totalResult);		
-				$total_no = ($arrCheckBox)? $totalRow['total_no']: 0;	
+				$totalRow = mysqli_fetch_array($totalResult);
+				$total_no = ($arrCheckBox)? $totalRow['total_no']: 0;
 
 				//get number of pages
 				$noOfPages = ceil($total_no/10);
 				if($noOfPages < $_SESSION['page']){
 					$_SESSION['page'] = 1;
 				}
-				
+
 				//display prev and next button based on the current page
 				$prev = ($_SESSION['page'] > 1)?
 					"<td> <form action='drug.php' method='post'><input type='submit' name='prev_table' value='prev'/></form></td>": null;
-				$next = ($_SESSION['page'] < $noOfPages)? "<td> <form action='drug.php' method='post'><input type='submit' name='next_table' value='next'/></form></td>" : null;				
-			
+				$next = ($_SESSION['page'] < $noOfPages)? "<td> <form action='drug.php' method='post'><input type='submit' name='next_table' value='next'/></form></td>" : null;
+
 				//table to be generated
 				$table = "<br/><center><table><tr> {$prev} <td>	Total no. of records: {$total_no}</td>  {$next} </tr></table></center>";
 				$table .= "<center><table border='1'><tr><th>no.</th><th>action</th>";
@@ -127,7 +127,7 @@ $_SESSION['graph_type'] = null;
 					$table .= "<th>$check</th>";
 				}
 				$table .= "</tr>";
-				
+
 				//get number of first record to be displayed
 				$counter = $offset - 10;
 				//$sql = "SELECT * from Drug WHERE cpr_no NOT IN ('0') ORDER BY cpr_no ASC LIMIT 10 OFFSET {$counter} ";
@@ -137,8 +137,8 @@ $_SESSION['graph_type'] = null;
 				,(select name from Trader where trader_no = (select trader_no from trades where drug_cpr_no = d.cpr_no)) as trader
 				,(select name from Distributor where dist_no = (select dist_no from distributes where drug_cpr_no = d.cpr_no)) as distributor
 				From drug d where cpr_no <> '0' ORDER BY cpr_no ASC LIMIT 10 OFFSET {$counter}";
-				$result = $conn->query($sql);				
-				
+				$result = $conn->query($sql);
+
 				//add action column to the table, i.e., view, edit, and delete actions
 				while($row = mysqli_fetch_array($result)){
 					$counter++;
@@ -161,10 +161,10 @@ $_SESSION['graph_type'] = null;
 		/*
 		*generate graph based from selected columns
 		*graph_type - type of graph to be displayed
-		*/		
+		*/
 		function generateGraph($graph_type){
 			 $graph = "<br><br><br><form action='drug.php' method='post'>
-				<input type='submit' name='bar' value='Bar'/> 
+				<input type='submit' name='bar' value='Bar'/>
 				<input type='submit' name='line' value='Line'/>
 				<input type='submit' name='doughnut' value='Doughnut'/>
 				<input type='submit' name='radar' value='Radar'/>
@@ -172,12 +172,12 @@ $_SESSION['graph_type'] = null;
 				<br></center><br><canvas id='{$graph_type}'></canvas></form>";
 			 return $graph;
 		}
-		
-		
+
+
 		/*
 		*generate graph based from selected columns
 		*graph_type - type of graph to be displayed
-		*/		
+		*/
 		function generateAdHocReports(){
 			$options = "<br><br><br><center><form action='drug.php' method='post'>
 				<p>Pre-Configured Reports</p>
@@ -197,34 +197,34 @@ $_SESSION['graph_type'] = null;
 				</form></center>";
 			 return $options;
 		}
-		
+
 		//when form is submitted/or generate table
 		if($_POST['generate']){
-			
+
 			//set list of selected columns to the session variable so that checkboxes will remain checked after submitting the form
 			$_SESSION['arrCheckedVals'] = $_POST['check_list'];
 			$_SESSION['selected_report'] = 'default';
 			echo generateForm($arrColValues, $arrColLabels);
-			
-			
+
+
 			$arrCheckBox = $_POST['check_list'];
-			
+
 			if($arrCheckBox){
 				//number of records will be displayed at most 10 each page
 				$offset = $_SESSION['page'] * 10;
 				$_SESSION['selected_report'] = 'default';
-				echo setBarScript();	
+				echo setBarScript();
 				echo generateTable($arrCheckBox,$offset);
 				echo generateGraph('bar_graph');
 				echo generateAdHocReports();
-				
+
 			}
 
-			
+
 		} else {
 			echo generateForm($arrColValues, $arrColLabels);
 		}
-		
+
 		//if next page is selected
 		if($_POST['next_table']){
 			$arrCheckBox = $_SESSION['arrCheckedVals'];
@@ -243,83 +243,83 @@ $_SESSION['graph_type'] = null;
 			echo generateGraph('bar_graph');
 			echo generateAdHocReports();
 		}
-		
+
 		//if a graph is selected
 		if($_POST['bar'] || $_POST['line'] || $_POST['doughnut'] || $_POST['radar'] || $_POST['polarArea']){
 			$graphType = 'bar_graph';
 			$arrCheckBox = $_SESSION['arrCheckedVals'];
 			$offset = $_SESSION['page'] * 10;
-			if($_POST['bar']){				
+			if($_POST['bar']){
 				$_SESSION['graph_type'] = 'bar_graph';
 				$graphType = 'bar_graph';
 			}
 			if($_POST['line']){
 				$_SESSION['graph_type'] = 'line_graph';
-				$graphType = 'line_graph';				
+				$graphType = 'line_graph';
 			}
 			if($_POST['doughnut']){
 				$_SESSION['graph_type'] = 'doughnut_graph';
-				$graphType = 'doughnut_graph';				
+				$graphType = 'doughnut_graph';
 			}
 			if($_POST['radar']){
 				$_SESSION['graph_type'] = 'radar_graph';
-				$graphType = 'radar_graph';				
+				$graphType = 'radar_graph';
 			}
 			if($_POST['polarArea']){
 				$_SESSION['graph_type'] = 'polarArea_graph';
-				$graphType = 'polarArea_graph';				
+				$graphType = 'polarArea_graph';
 			}
 			echo generateTable($arrCheckBox,$offset);
 			echo generateGraph($graphType);
 			echo generateAdHocReports();
 		}
-		
+
 		//if a preconfigured report is selected
 		if($_POST['no_of_drug_country'] || $_POST['no_of_generic_name'] || $_POST['no_of_branded_prod']
 				|| $_POST['no_of_manufacturer'] || $_POST['no_of_importer'] || $_POST['no_of_trader'] || $_POST['no_of_distributor'] ){
-			$graphType = 'bar_graph';	
+			$graphType = 'bar_graph';
 			$arrCheckBox = $_SESSION['arrCheckedVals'];
 			$offset = $_SESSION['page'] * 10;
-			
+
 			if($_POST['no_of_drug_country']){
 				$_SESSION['selected_report'] = 'no_of_drug_country';
-				$graphType = 'bar_graph';				
+				$graphType = 'bar_graph';
 			}
 			if($_POST['no_of_generic_name']){
 				$_SESSION['selected_report'] = 'no_of_generic_name';
-				$graphType = 'radar_graph';				
+				$graphType = 'radar_graph';
 			}
 			if($_POST['no_of_branded_prod']){
 				$_SESSION['selected_report'] = 'no_of_branded_prod';
-				$graphType = 'radar_graph';				
+				$graphType = 'radar_graph';
 			}
 			if($_POST['no_of_manufacturer']){
 				$_SESSION['selected_report'] = 'no_of_manufacturer';
-				$graphType = 'bar_graph';				
+				$graphType = 'bar_graph';
 			}
 			if($_POST['no_of_importer']){
 				$_SESSION['selected_report'] = 'no_of_importer';
-				$graphType = 'radar_graph';				
+				$graphType = 'radar_graph';
 			}
 			if($_POST['no_of_trader']){
 				$_SESSION['selected_report'] = 'no_of_trader';
-				$graphType = 'polarArea_graph';				
+				$graphType = 'polarArea_graph';
 			}
 			if($_POST['no_of_distributor']){
 				$_SESSION['selected_report'] = 'no_of_distributor';
-				$graphType = 'radar_graph';				
+				$graphType = 'radar_graph';
 			}
 
-							
-			
-			echo setBarScript();	
+
+
+			echo setBarScript();
 			echo generateTable($arrCheckBox,$offset);
 			echo generateGraph($graphType);
 			echo generateAdHocReports();
-		
+
 		}
-		
-	
+
+
 	?>
 
 
@@ -327,4 +327,3 @@ $_SESSION['graph_type'] = null;
 </body>
 
 </html>
-
