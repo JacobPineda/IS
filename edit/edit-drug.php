@@ -22,17 +22,38 @@ session_start();
 		*@params - too many parameters, planning to insert them into an array instead
 		*parameters are columns of the table
 		*/
-		function generateForm($cpr_no, $curr_dr_no, $curr_country, $curr_rsn, $curr_validity_date, $curr_generic_name, $curr_brand_name,$curr_strength, $curr_form, $curr_manu){
+		function generateForm($cpr_no, $curr_dr_no, $curr_country, $curr_rsn, $curr_validity_date, $curr_generic_name, $curr_brand_name,$curr_strength, $curr_form, $curr_manu,$curr_imp,$curr_trader,$curr_dist){
+			
+			include('../connect.php');
 			
 			$manuList = "<option value='null'></option>";
-			include('../connect.php');
 			$sql = "SELECT * FROM Manufacturer ORDER BY name";
 			$result = $conn->query($sql);
-			
 			//default value of manufacturer will be set here
 			while($row = mysqli_fetch_array($result)){
 				$isSelected = ($curr_manu == $row['manu_no'])? "selected = 'selected'" : null;
 				$manuList .= "<option value=".$row['manu_no']. " ".$isSelected.">".$row['name']."</option>";
+			}
+			$importerList = "<option value='null'></option>";
+			$sql = "SELECT * FROM Importer ORDER BY name";
+			$result = $conn->query($sql);
+			while($row = mysqli_fetch_array($result)){
+				$isSelected = ($curr_imp == $row['importer_no'])? "selected = 'selected'" : null;
+				$importerList .= "<option value=".$row['importer_no']. " ".$isSelected.">".$row['name']."</option>";
+			}
+			$traderList = "<option value='null'></option>";
+			$sql = "SELECT * FROM Trader ORDER BY name";
+			$result = $conn->query($sql);
+			while($row = mysqli_fetch_array($result)){
+				$isSelected = ($curr_trader == $row['trader_no'])? "selected = 'selected'" : null;
+				$traderList .= "<option value=".$row['trader_no']. " ".$isSelected.">".$row['name']."</option>";
+			}
+			$distList = "<option value='null'></option>";
+			$sql = "SELECT * FROM Distributor ORDER BY name";
+			$result = $conn->query($sql);
+			while($row = mysqli_fetch_array($result)){
+				$isSelected = ($curr_dist == $row['dist_no'])? "selected = 'selected'" : null;
+				$distList .= "<option value=".$row['dist_no']. " ".$isSelected.">".$row['name']."</option>";
 			}
 		
 			mysqli_close($conn);
@@ -82,6 +103,18 @@ session_start();
    				<td>Manufacturer</td>
             	<td><select name='new_manu'>{$manuList}</select></td>
             </tr>
+			<tr>                   
+   				<td>Importer</td>
+            	<td><select name='new_imp'>{$importerList}</select></td>
+            </tr>
+			<tr>                   
+   				<td>Trader</td>
+            	<td><select name='new_trader'>{$traderList}</select></td>
+            </tr>
+			<tr>                   
+   				<td>Distributor</td>
+            	<td><select name='new_dist'>{$distList}</select></td>
+            </tr>
 			<tr>
 				<td><input  type='submit' name='edit_drug' value='Save'/></td>
                 <td><a class='btn' href='/IS/reports/drug.php'>Back</a></td>
@@ -115,8 +148,22 @@ session_start();
 			$manuSql = "SELECT manu_no FROM Manufactures WHERE drug_cpr_no = '{$cpr_no}'";
 			$manuResult = $conn->query($manuSql);
 			$manuRow = mysqli_fetch_array($manuResult);			
-		
 			$curr_manu = $manuRow['manu_no'];
+			
+			$impSql = "SELECT importer_no FROM Imports WHERE drug_cpr_no = '{$cpr_no}'";
+			$impResult = $conn->query($impSql);
+			$impRow = mysqli_fetch_array($impResult);			
+			$curr_imp = $impRow['importer_no'];
+			
+			$traderSql = "SELECT trader_no FROM Trades WHERE drug_cpr_no = '{$cpr_no}'";
+			$traderResult = $conn->query($traderSql);
+			$traderRow = mysqli_fetch_array($traderResult);			
+			$curr_trader = $traderRow['trader_no'];
+			
+			$distSql = "SELECT dist_no FROM Distributes WHERE drug_cpr_no = '{$cpr_no}'";
+			$distResult = $conn->query($distSql);
+			$distRow = mysqli_fetch_array($distResult);			
+			$curr_dist = $distRow['dist_no'];
 			
 			mysqli_close($conn);
 		}
@@ -133,6 +180,9 @@ session_start();
 			$new_strength = $_POST['new_strength'];
 			$new_form = $_POST['new_form'];
 			$new_manu = $_POST['new_manu'];
+			$new_imp = $_POST['new_imp'];
+			$new_trader = $_POST['new_trader'];
+			$new_dist = $_POST['new_dist'];
 			
 			include('../connect.php');
 		
@@ -146,20 +196,32 @@ session_start();
 					, strength = '{$new_strength}'
 					, form = '{$new_form}' 
 					WHERE cpr_no = '{$cpr_no}'")){
-				echo "Error description: " . mysqli_error($conn) . "<br>". generateForm($cpr_no, $new_dr_no, $new_country, $new_rsn, $new_validity_date, $new_generic_name, $new_brand_name,$new_strength, $new_form, $new_manu);
+				echo "Error description: " . mysqli_error($conn) . "<br>". generateForm($cpr_no, $new_dr_no, $new_country, $new_rsn, $new_validity_date, $new_generic_name, $new_brand_name,$new_strength, $new_form, $new_manu,$new_imp,$new_trader,$new_dist);
 				
 			} else { 
 				if($curr_manu != $new_manu){
 					mysqli_query($conn, "DELETE FROM Manufactures WHERE drug_cpr_no = '{$cpr_no}' AND manu_no = '{$curr_manu}'");
 					mysqli_query($conn, "INSERT INTO Manufactures VALUES ('{$cpr_no}', '0', '{$new_manu}')");
 				}
+				if($curr_imp != $new_imp){
+					mysqli_query($conn, "DELETE FROM Imports WHERE drug_cpr_no = '{$cpr_no}' AND importer_no = '{$curr_imp}'");
+					mysqli_query($conn, "INSERT INTO Imports VALUES ('{$cpr_no}', '0', '{$new_imp}')");
+				}
+				if($curr_trader != $new_trader){
+					mysqli_query($conn, "DELETE FROM Trades WHERE drug_cpr_no = '{$cpr_no}' AND trader_no = '{$curr_trader}'");
+					mysqli_query($conn, "INSERT INTO Trades VALUES ('{$cpr_no}', '0', '{$new_trader}')");
+				}
+				if($curr_dist != $new_dist){
+					mysqli_query($conn, "DELETE FROM Distributes WHERE drug_cpr_no = '{$cpr_no}' AND manu_no = '{$curr_dist}'");
+					mysqli_query($conn, "INSERT INTO Distributes VALUES ('{$cpr_no}', '0', '{$new_dist}')");
+				}
 				//echo updated form
-				echo "Successfully edited a drug! <br/>" . generateForm($cpr_no, $new_dr_no, $new_country, $new_rsn, $new_validity_date, $new_generic_name, $new_brand_name,$new_strength, $new_form, $new_manu);
+				echo "<center>Successfully edited a drug! <br/></center>" . generateForm($cpr_no, $new_dr_no, $new_country, $new_rsn, $new_validity_date, $new_generic_name, $new_brand_name,$new_strength, $new_form, $new_manu,$new_imp,$new_trader,$new_dist);
 			}
 		
 			mysqli_close($conn);
 		} else{
-			echo  generateForm($cpr_no, $curr_dr_no, $curr_country, $curr_rsn, $curr_validity_date, $curr_generic_name, $curr_brand_name,$curr_strength, $curr_form, $curr_manu);
+			echo  generateForm($cpr_no, $curr_dr_no, $curr_country, $curr_rsn, $curr_validity_date, $curr_generic_name, $curr_brand_name,$curr_strength, $curr_form, $curr_manu,$curr_imp,$curr_trader,$curr_dist);
 		}
 	?>
 

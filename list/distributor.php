@@ -41,6 +41,12 @@ $_SESSION['table'] = 'Distributor';
 		function generateTable($offset){
 
 				include('../connect.php');
+				//get total number of record
+				$totalSql = "SELECT count(*) as total_no from Distributor";
+				$totalResult = $conn->query($totalSql);
+				$totalRow = mysqli_fetch_array($totalResult);
+				$total_no = $totalRow['total_no'];
+				$noOfPages = ceil($total_no/20);
 
 				//display prev and next button based on the current page
 				$prev = ($_SESSION['page'] > 1)?
