@@ -69,13 +69,12 @@ session_start();
 			include('../../connect.php');
 
 			//update record
-
 			$qry = "SELECT * from Importer where name = '{$new_name}'";
 			$result = $conn->query($qry);
 			$data = mysqli_fetch_array($result)['name'];
 
 			if($data){
-				echo "<center>Importer name already exists!</center>" . $form;
+				echo "<center>Importer name already exists!</center>" . generateForm($id, $curr_name);
 			}else{
 				if(!mysqli_query($conn, "UPDATE Importer SET name = '{$new_name}'
 					WHERE importer_no = '{$id}'")){

@@ -1,6 +1,9 @@
 <?php
 error_reporting (E_ALL ^ E_NOTICE);
 session_start();
+if($_SESSION['table'] != 'Food'){
+	$_SESSION['page'] = 1;
+}
 $_SESSION['table'] = 'Food';
 $_SESSION['graph_type'] = null;
 ?>
