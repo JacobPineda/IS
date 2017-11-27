@@ -44,12 +44,12 @@ session_start();
 			$manuRow = mysqli_fetch_array($manuResult);
 			$manufacturer = $manuRow['name'];
 
-      $impSql = "SELECT name from Importer WHERE manu_no = (SELECT importer_no FROM Imports WHERE food_cpr_no = '{$cpr_no}')";
-			$impResult = $conn->query($impSql);
-			$impRow = mysqli_fetch_array($impResult);
-			$importer = $impRow['name'];
+      $traderSql = "SELECT name from Trader WHERE trader_no = (SELECT trader_no FROM Trades WHERE food_cpr_no = '{$cpr_no}')";
+			$traderResult = $conn->query($traderSql);
+			$traderRow = mysqli_fetch_array($traderResult);
+			$trader = $traderRow['name'];
 
-      $distSql = "SELECT name from Distributor WHERE manu_no = (SELECT dist_no FROM Distibutes WHERE food_cpr_no = '{$cpr_no}')";
+      $distSql = "SELECT name from Distributor WHERE dist_no = (SELECT dist_no FROM Distributes WHERE food_cpr_no = '{$cpr_no}')";
 			$distResult = $conn->query($distSql);
 			$distRow = mysqli_fetch_array($distResult);
 			$distributor = $distRow['name'];
@@ -98,11 +98,11 @@ session_start();
 				<td>".$manufacturer."</td>
             </tr>
       <tr>                   
-   				<td>Importer</td>
-        <td>".$importer."</td>
+   				<td>Trader</td>
+        <td>".$trader."</td>
             </tr>
       <tr>                   
-   				<td>Manufacturer</td>
+   				<td>Distributor</td>
         <td>".$distributor."</td>
             </tr>
 
@@ -120,7 +120,7 @@ session_start();
 			if(!mysqli_query($conn, "DELETE FROM Food WHERE cpr_no='{$cpr_no}'")){
 				echo "Error description: " . mysqli_error($conn) . "<br> $form";
 			} else {
-				echo "Successfully deleted a record! <br/> <a class='btn' href='/IS/reports/food.php'>Back</a> ";
+				echo "<center>Successfully deleted a record! <br/> <a class='btn' href='/IS/reports/food.php'>Back</a> </center>";
 			}
 
 			mysqli_close($conn);

@@ -42,10 +42,19 @@ session_start();
 			$form1 = $row['form'];
 			
 			//get name of manufacturer
-			$manuSql = "SELECT name from Manufacturer WHERE manu_no = (SELECT manu_no FROM Manufactures WHERE drug_cpr_no = '{$cpr_no}')";
+			$manuSql = "SELECT name from Manufacturer WHERE manu_no = (SELECT manu_no FROM Manufactures WHERE drug_cpr_no = '{$cpr_no}' LIMIT 1)";
 			$manuResult = $conn->query($manuSql);
 			$manuRow = mysqli_fetch_array($manuResult);		
 			$manufacturer = $manuRow['name'];	
+			
+			$impSql = "SELECT name from Importer WHERE importer_no = (SELECT importer_no FROM Imports WHERE drug_cpr_no = '{$cpr_no}' LIMIT 1)";
+			$importer =  mysqli_fetch_array($conn->query($impSql))['name'];
+			
+			$traderSql = "SELECT name from Trader WHERE trader_no = (SELECT trader_no FROM Trades WHERE drug_cpr_no = '{$cpr_no}' LIMIT 1)";
+			$trader =  mysqli_fetch_array($conn->query($traderSql))['name'];
+			
+			$distSql = "SELECT name from Distributor WHERE dist_no = (SELECT dist_no FROM Distributes WHERE drug_cpr_no = '{$cpr_no}' LIMIT 1)";
+			$distributor =  mysqli_fetch_array($conn->query($distSql))['name'];
 			
 			mysqli_close($conn);
 		}
@@ -102,6 +111,18 @@ session_start();
    				<td>Manufacturer</td>
 				<td>".$manufacturer."</td>
             </tr>
+			<tr>                   
+   				<td>Importer</td>
+				<td>".$importer."</td>
+            </tr>
+			<tr>                   
+   				<td>Trader</td>
+				<td>".$trader."</td>
+            </tr>
+			<tr>                   
+   				<td>Distributor</td>
+				<td>".$distributor."</td>
+            </tr>
 		</table>
 		</form>
 		</center>
@@ -115,7 +136,7 @@ session_start();
 			if(!mysqli_query($conn, "DELETE FROM Drug WHERE cpr_no='{$cpr_no}'")){
 				echo "Error description: " . mysqli_error($conn) . "<br> $form";
 			} else { 
-				echo "Successfully deleted a record! <br/> <a class='btn' href='/IS/reports/drug.php'>Back</a> ";
+				echo "<center>Successfully deleted a record! <br/> <a class='btn' href='/IS/reports/drug.php'>Back</a> </center>";
 			}
 		
 			mysqli_close($conn);

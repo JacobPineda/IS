@@ -26,6 +26,29 @@ session_start();
 	$manuList = "<option value='null'></option>";
 	while($row = mysqli_fetch_array($result)){
 		$manuList .= "<option value=".$row['manu_no'].">".$row['name']."</option>";
+	}	
+	
+	//generate query
+	$sql = "SELECT * FROM Importer ORDER BY name";
+	$result = $conn->query($sql);
+	
+	$importerList = "<option value='null'></option>";
+	while($row = mysqli_fetch_array($result)){
+		$importerList .= "<option value=".$row['importer_no'].">".$row['name']."</option>";
+	}
+	$sql = "SELECT * FROM Trader ORDER BY name";
+	$result = $conn->query($sql);
+	
+	$traderList = "<option value='null'></option>";
+	while($row = mysqli_fetch_array($result)){
+		$traderList .= "<option value=".$row['trader_no'].">".$row['name']."</option>";
+	}
+	$sql = "SELECT * FROM Distributor ORDER BY name";
+	$result = $conn->query($sql);
+	
+	$distList = "<option value='null'></option>";
+	while($row = mysqli_fetch_array($result)){
+		$distList .= "<option value=".$row['dist_no'].">".$row['name']."</option>";
 	}
 	
 	//disconnect to db
@@ -78,6 +101,18 @@ session_start();
 				<td><select name='manu'>{$manuList}</select><td>
 			</tr>
 			<tr>
+				<td>Importer</td>
+				<td><select name='importer'>{$importerList}</select><td>
+			</tr>
+			<tr>
+				<td>Trader</td>
+				<td><select name='trader'>{$traderList}</select><td>
+			</tr>
+			<tr>
+				<td>Distributor</td>
+				<td><select name='dist'>{$distList}</select><td>
+			</tr>
+			<tr>
 				<td><input  type='submit' name='create_drug' value='Create'/></td>
                 <td><a class='btn' href='/IS/reports/drug.php'>Back</a></td>
 			</tr>
@@ -99,6 +134,10 @@ session_start();
 			$strength = $_POST['strength'];
 			$form1 = $_POST['form'];		
 			$manufacturer = $_POST['manu'];
+			$importer = $_POST['importer'];
+			$trader = $_POST['trader'];
+			$distributor = $_POST['dist'];
+		
 		
 			include('../connect.php');
 			
@@ -120,10 +159,25 @@ session_start();
 					if($manufacturer != 'null'){
 						if(!mysqli_query($conn, "INSERT INTO Manufactures VALUES ('{$cpr_no}','0','{$manufacturer}')")){
 							echo "Error description: " . mysqli_error($conn) . "<br> $form";
-						} else {
+						} 		
+					} 					
+					if($importer != 'null'){
+						if(!mysqli_query($conn, "INSERT INTO Imports VALUES ('{$cpr_no}','0','{$importer}')")){
+							echo "Error description: " . mysqli_error($conn) . "<br> $form";
+						}		
+					}				
+					if($trader != 'null'){
+						if(!mysqli_query($conn, "INSERT INTO Trades VALUES ('{$cpr_no}','0','{$trader}')")){
+							echo "Error description: " . mysqli_error($conn) . "<br> $form";
+						}		
+					}				
+					if($distributor != 'null'){
+						if(!mysqli_query($conn, "INSERT INTO Distributes VALUES ('{$cpr_no}','0','{$distributor}')")){
+							echo "Error description: " . mysqli_error($conn) . "<br> $form";
+						}else{
 							echo "<center>Successfully created a Product! </center><br> $form";
-						}				
-					} else{
+						}
+					}else{
 						echo "<center>Successfully created a Product! </center><br> $form";
 					}
 				}

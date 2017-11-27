@@ -21,8 +21,6 @@ session_start();
 	//generate query
 	$sql = "SELECT * FROM Manufacturer ORDER BY name";
 	$result = $conn->query($sql);
-
-	// get list of manufacturers and place them to <option> tags
 	$manuList = "<option value='null'></option>";
 	while($row = mysqli_fetch_array($result)){
 		$manuList .= "<option value=".$row['manu_no'].">".$row['name']."</option>";
@@ -30,18 +28,16 @@ session_start();
 
   $sql = "SELECT * FROM Trader ORDER BY name";
   $result = $conn->query($sql);
-
   $traderList = "<option value = 'null'></option>";
   while($row = mysqli_fetch_array($result)){
-    $traderList .= "<option value=".$row['importer_no'].">".$row['name']."</option>";
+    $traderList .= "<option value=".$row['trader_no'].">".$row['name']."</option>";
   }
 
   $sql = "SELECT * FROM Distributor ORDER BY name";
   $result = $conn->query($sql);
-
   $distribList = "<option value = 'null'></option>";
   while($row = mysqli_fetch_array($result)){
-    $distribList .= "<option value=".$row['importer_no'].">".$row['name']."</option>";
+    $distribList .= "<option value=".$row['dist_no'].">".$row['name']."</option>";
   }
 
 	//disconnect to db
@@ -108,6 +104,8 @@ session_start();
 			$validity_date = $_POST['validity_date'];
 			$food_name = $_POST['food_name'];
 			$manufacturer = $_POST['manu'];
+			$trader = $_POST['trader'];
+			$distributor = $_POST['distrib'];
 
 			include('../connect.php');
 
@@ -127,12 +125,22 @@ session_start();
 					echo "Error description: " . mysqli_error($conn) . "<br> $form";
 				} else {
 					if($manufacturer != 'null'){
-						if(!mysqli_query($conn, "INSERT INTO Manufactures VALUES ('{$cpr_no}','0','{$manufacturer}')")){
+						if(!mysqli_query($conn, "INSERT INTO Manufactures VALUES ('0','{$cpr_no}','{$manufacturer}')")){
 							echo "Error description: " . mysqli_error($conn) . "<br> $form";
-						} else {
+						} 		
+					} 					
+					if($trader != 'null'){
+						if(!mysqli_query($conn, "INSERT INTO Trades VALUES ('0','{$cpr_no}','{$trader}')")){
+							echo "Error description: " . mysqli_error($conn) . "<br> $form";
+						}		
+					}				
+					if($distributor != 'null'){
+						if(!mysqli_query($conn, "INSERT INTO Distributes VALUES ('0','{$cpr_no}','{$distributor}')")){
+							echo "Error description: " . mysqli_error($conn) . "<br> $form";
+						}else{
 							echo "<center>Successfully created a Product! </center><br> $form";
 						}
-					} else{
+					}else{
 						echo "<center>Successfully created a Product! </center><br> $form";
 					}
 				}
