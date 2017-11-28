@@ -23,7 +23,7 @@ session_start();
 	$result = $conn->query($sql);
 	
 	// get list of manufacturers and place them to <option> tags
-	$regionList = "<option value='null'></option>";
+	$regionList = "";
 	while($row = mysqli_fetch_array($result)){
 		$regionList .= "<option value=".$row['region_id'].">".$row['region_name']."</option>";
 	}	
@@ -72,21 +72,23 @@ session_start();
 			
 			include('../connect.php');
 
-			$newIdSql = "SELECT COUNT(school_id) as total from School";
-			$result = $conn->query($newIdSql);
-			$total = mysqli_fetch_array($result)['total'];
+			$sql = "SELECT COUNT(*) as total FROM School";
+			$total = mysqli_fetch_array($conn->query($sql))['total'];
+			$total--;
 			
-			$total++;
-			if($total < 10){
+			$newIdSql = "SELECT TRIM(LEADING '0' FROM REPLACE(school_id, 'SCID-', '')) as 'id' from School ORDER BY school_id ASC LIMIT 1 OFFSET {$total}";
+			$id = mysqli_fetch_array($conn->query($newIdSql))['id'];
+			$id++;
+			if($id < 10){
 				$zero = '000';
-			} else if ($total < 100){
+			} else if ($id < 100){
 				$zero = '00';
-			} else if ($total < 1000){
+			} else if ($id < 1000){
 				$zero = '0';
 			} else {
 				$zero = null;
 			}
-			$school_id = 'SCID-'.$zero.$total;
+			$school_id = 'SCID-'.$zero.$id;
 			//insert values into the table
 			if(!mysqli_query($conn, "INSERT INTO School VALUES (3,'{$school_id}','{$name}','{$region}','{$contact}','{$email}')")){
 					echo "Error description: " . mysqli_error($conn) . "<br> $form";

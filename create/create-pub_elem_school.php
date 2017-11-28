@@ -23,7 +23,7 @@ session_start();
 	$result = $conn->query($sql);
 	
 	// get list of manufacturers and place them to <option> tags
-	$regionList = "<option value='null'></option>";
+	$regionList = "";
 	while($row = mysqli_fetch_array($result)){
 		$regionList .= "<option value=".$row['region_id'].">".$row['region_name']."</option>";
 	}	
@@ -61,26 +61,28 @@ session_start();
 			$region = $_POST['region'];	
 			
 			include('../connect.php');
-
-			$newIdSql = "SELECT COUNT(elementary_school_id) as total from Public_Elementary_School";
-			$result = $conn->query($newIdSql);
-			$total = mysqli_fetch_array($result)['total'];
+			$sql = "SELECT COUNT(*) as total FROM Public_Elementary_School";
+			$total = mysqli_fetch_array($conn->query($sql))['total'];
+			$total--;
 			
-			$total++;
-			if($total < 10){
+			$newIdSql = "SELECT TRIM(LEADING '0' FROM REPLACE(elementary_school_id, 'PESID-', '')) as 'id' from Public_Elementary_School ORDER BY elementary_school_id ASC LIMIT 1 OFFSET {$total}";
+			$id = mysqli_fetch_array($conn->query($newIdSql))['id'];
+			$id++;
+
+			if($id < 10){
 				$zero = '00000';
-			} else if ($total < 100){
+			} else if ($id < 100){
 				$zero = '0000';
-			} else if ($total < 1000){
+			} else if ($id < 1000){
 				$zero = '000';
-			} else if ($total < 10000){
+			} else if ($id < 10000){
 				$zero = '00';
-			}  else if ($total < 100000){
+			}  else if ($id < 100000){
 				$zero = '0';
 			}  else {
 				$zero = null;
 			}
-			$school_id = 'PESID-'.$zero.$total;
+			$school_id = 'PESID-'.$zero.$id;
 			//insert values into the table
 			if(!mysqli_query($conn, "INSERT INTO Public_Elementary_School VALUES (4,'{$school_id}','{$region}','{$name}')")){
 					echo "Error description: " . mysqli_error($conn) . "<br> $form";
