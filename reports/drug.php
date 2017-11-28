@@ -3,6 +3,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 session_start();
 if($_SESSION['table'] != 'Drug'){
 	$_SESSION['page'] = 1;
+	$_SESSION['arrCheckedVals'] = null;
 }
 $_SESSION['table'] = 'Drug';
 $_SESSION['graph_type'] = null;
