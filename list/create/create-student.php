@@ -22,15 +22,39 @@ session_start();
 	$form ="
 <center><h3>Create a record</h3>
                     
-    <form action='create-course.php' method='post'>
+    <form action='create-student.php' method='post'>
 		<table>
         	<tr> 
-	  			<td>Name</td>
-                <td><input name='name' type='text'  required></td>
+	  			<td><b>Name</b></td>
+                 <td><input name='name' type='text'  required></td>
 			</tr>
-			<tr>
-				<td><input  type='submit' name='create_course' value='Create'/></td>
-                <td><a class='btn' href='/IS/list/course.php'>Back</a></td>
+        	<tr> 
+	  			<td><b>Course</b></td>
+                <td>".$course."</td>
+			</tr>
+        	<tr> 
+	  			<td><b>School</b></td>
+                <td>".$school."</td>
+			</tr>
+        	<tr> 
+	  			<td><b>Birthdate</b></td>
+                 <td><input name='birthdate' type='date' ></td>
+			</tr>
+        	<tr> 
+	  			<td><b>Gender</b></td>
+                 <td><input name='gender' type='text'></td>
+			</tr>
+        	<tr> 
+	  			<td><b>Contact</b></td>
+                 <td><input name='contact' type='text'></td>
+			</tr>
+        	<tr> 
+	  			<td><b>Address</b></td>
+                 <td><input name='address' type='text'></td>
+			</tr>
+        	<tr>
+				<td><input  type='submit' name='create_student' value='Create'/></td>
+                <td><a class='btn' href='/IS/list/student.php'>Back</a></td>
 			</tr>
 		</table>
 
@@ -39,7 +63,7 @@ session_start();
 
 
 		//when form is submitted, get all values of each fields
-		if($_POST['create_course']){
+		if($_POST['create_student']){
 			$name = $_POST['name'];
 
 			include('../../connect.php');
