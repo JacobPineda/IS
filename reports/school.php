@@ -3,6 +3,7 @@ error_reporting (E_ALL ^ E_NOTICE);
 session_start();
 if($_SESSION['table'] != 'School'){
 	$_SESSION['page'] = 1;
+	$_SESSION['arrCheckedVals'] = null;
 }
 $_SESSION['table'] = 'School';
 $_SESSION['graph_type'] = null;
@@ -311,7 +312,7 @@ $_SESSION['graph_type'] = null;
 			}
 
 
-
+			
 			echo setGraphScript();
 			echo generateTable($arrCheckBox,$offset);
 			echo generateGraph($graphType);

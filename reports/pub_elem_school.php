@@ -1,10 +1,11 @@
 <?php
 error_reporting (E_ALL ^ E_NOTICE);
 session_start();
-if($_SESSION['table'] != 'School'){
+if($_SESSION['table'] != 'Public_Elementary_School'){
 	$_SESSION['page'] = 1;
+	$_SESSION['arrCheckedVals'] = null;
 }
-$_SESSION['table'] = 'School';
+$_SESSION['table'] = 'Public_Elementary_School';
 $_SESSION['graph_type'] = null;
 ?>
 
@@ -56,7 +57,7 @@ $_SESSION['graph_type'] = null;
 	echo setGraphScript();
 	?>
 
-<title>School Report</title>
+<title>Public Elementary School Report</title>
 
 </head>
 
