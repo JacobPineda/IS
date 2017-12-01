@@ -31,7 +31,7 @@ $_SESSION['table'] = 'Enrollment';
 
 		//check if logged in
 		if($_SESSION['isLoggedIn'] == true){
-			echo "<p> <a href='create/create-course.php' >Create</a><p>";
+			echo "<p> <a href='create/create-enrollment.php' >Create</a><p>";
 		}
 
 		/*
@@ -55,7 +55,7 @@ $_SESSION['table'] = 'Enrollment';
 
 				//table to be generated
 				$table = "<br/><center><table><tr> {$prev} <td>	Total no. of records: {$total_no}</td>  {$next} </tr></table></center>
-					<center><table border='1'><tr><th>no.</th><th>action</th><th>enrollment_id</th><th>student_name</th>
+					<center><table border='1'><tr><th>no.</th><th>action</th><th>enrollment_id</th><th>student_name</th><th>num_units</th><th>school_year</th><th>semester</th><th>payment_status</th><th>enrollment_status</th>
 					</tr>";
 
 				//get number of first record to be displayed
@@ -67,12 +67,12 @@ $_SESSION['table'] = 'Enrollment';
 				while($row = mysqli_fetch_array($result)){
 					$counter++;
 					$table .= "<tr><td>{$counter}</td><td>";
-					$table .= '<a href="view/view-course.php?id='.$row['enrollment_id'].'">view</a>';
+					$table .= '<a href="view/view-enrollment.php?id='.$row['enrollment_id'].'">view</a>';
 					if($_SESSION['isLoggedIn'] == true){
-						$table .=' | <a href="edit/edit-course.php?id='.$row['enrollment_id'].'">edit</a>
-						| <a href="delete/delete-course.php?id='.$row['enrollment_id'].'">delete</a></td>';
+						$table .=' | <a href="edit/edit-enrollment.php?id='.$row['enrollment_id'].'">edit</a>
+						| <a href="delete/delete-enrollment.php?id='.$row['enrollment_id'].'">delete</a></td>';
 					}
-					$table .= "<td>" . $row['enrollment_id'] . "</td><td>" . $row['student_id'] . "</td></tr>";
+					$table .= "<td>" . $row['enrollment_id'] . "</td><td>" . $row['student_id'] . "</td><td>" . $row['num_units'] . "</td><td>" . $row['school_year'] . "</td><td>" . $row['semester'] . "</td><td>" . $row['payment_status'] . "</td><td>" . $row['enrollment_status'] . "</td></tr>";
 				}
 				$table .= "</table>";
 
