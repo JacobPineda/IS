@@ -4,16 +4,13 @@ session_start();
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link   href="/IS/css/topnav.css" rel="stylesheet">
+    <link href="/IS/css/topnav.css" rel="stylesheet">
     <meta charset="utf-8">
 </head>
-
 <body>
-
    <?php
 		include("../../topnav.php");
 
@@ -93,6 +90,5 @@ session_start();
 			echo  generateForm($id, $curr_name);
 		}
 	?>
-
-  </body>
+</body>
 </html>

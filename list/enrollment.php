@@ -16,7 +16,6 @@ $_SESSION['table'] = 'Enrollment';
     <script type="text/javascript" src="/IS/js/jquery.min.js"></script>
     <title>Enrollment</title>
 </head>
-
 <body>
     <?php
     include("../topnav.php");
@@ -86,6 +85,5 @@ $_SESSION['table'] = 'Enrollment';
         echo generateTable($offset);
     }
     ?>
-
 </body>
 </html>
