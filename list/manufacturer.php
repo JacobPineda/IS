@@ -32,12 +32,13 @@ $_SESSION['table'] = 'Manufacturer';
         <div class="pusher">
             <div class="ui centered text container">
                 <h1 class="ui center aligned header"><i class="list layout icon"></i>MANUFACTURER LIST</h1>
-    <?php
+    <?php    
 
-		//check if logged in
-		if($_SESSION['isLoggedIn'] == true){
-			echo "<p> <a href='create/create-manufacturer.php' >Create</a><p>";
-		}
+       //check if logged in
+       if($_SESSION['isLoggedIn'] == true){
+       echo "<a href='create/create-manufacturer.php' class='fluid ui primary button'>Create New Entry</a>";
+       }
+
 
 		/*
 		*generate table based from selected columns
@@ -108,11 +109,6 @@ $_SESSION['table'] = 'Manufacturer';
 		$offset = $_SESSION['page'] * 20;
 		echo generateTable($offset);
 	}
-
-       //check if logged in
-       if($_SESSION['isLoggedIn'] == true){
-       echo "<a href='create/create-manufacturer.php' class='fluid ui primary button'>Create New Entry</a>";
-       }
        ?>
                 <br>
                 <br>

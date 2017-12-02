@@ -64,13 +64,17 @@ $_SESSION['graph_type'] = null;
 
 <body>
 
-	<?php
-		include("../topnav.php");
-
-		//check if logged in
-		if($_SESSION['isLoggedIn'] == true){
-			echo "<p> <a href='../create/create-pub_elem_school.php' >Create</a><p>";
-		}
+    <?php
+   include("../topnav.php");
+	?>
+   	 <div class="pusher">
+        <div class="ui centered container">
+            <h1 class="ui center aligned header"><i class="list layout icon"></i>Public Elementary School Report</h1>
+    <?php		
+       //check if logged in
+       if($_SESSION['isLoggedIn'] == true){
+       echo "<a href='../create/create-pub_elem_school.php' class='fluid ui primary button'>Create New Entry</a>";
+       }
 		//list of displayed column names and ids/db column name
 		$arrColValues = array('elementary_school_id', 'region_id', 'school_name');
 		$arrColLabels = array('Elementary School ID', 'Region','School Name');
@@ -125,12 +129,15 @@ $_SESSION['graph_type'] = null;
 				$next = ($_SESSION['page'] < $noOfPages)? "<td> <form action='pub_elem_school.php' method='post'><input type='submit' name='next_table' value='next'/></form></td>" : null;
 
 				//table to be generated
-				$table = "<br/><center><table><tr> {$prev} <td>	Total no. of records: {$total_no}</td>  {$next} </tr></table></center>";
-				$table .= "<center><table border='1'><tr><th>no.</th><th>action</th>";
+				$table = "<div class='ui center aligned container'>{$prev} Total no. of records: {$total_no}  {$next}</div>";
+				$table .= "<table class='ui celled table'>
+							<thead>
+								<tr><th>No.</th>
+								    <th>Action</th>";
 				foreach($arrCheckBox as $check) {
 					$table .= "<th>$check</th>";
 				}
-				$table .= "</tr>";
+				$table .= "</tr></thead>";
 
 				//get number of first record to be displayed
 				$counter = $offset - 10;
@@ -324,6 +331,10 @@ $_SESSION['graph_type'] = null;
 	?>
 
 
+                <br>
+                <br>
+        </div>
+    </div>
 
 </body>
 

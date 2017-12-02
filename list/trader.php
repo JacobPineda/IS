@@ -34,7 +34,10 @@ $_SESSION['table'] = 'Trader';
             <h1 class="ui center aligned header"><i class="list layout icon"></i>TRADER LIST</h1>
     <?php		
 
-
+       //check if logged in
+       if($_SESSION['isLoggedIn'] == true){
+       echo "<a href='create/create-trader.php' class='fluid ui primary button'>Create New Entry</a>";
+       }
 		/*
 		*generate table based from selected columns
 		*offset - number of last record displayed
@@ -106,10 +109,6 @@ $_SESSION['table'] = 'Trader';
 	}
        
 
-       //check if logged in
-       if($_SESSION['isLoggedIn'] == true){
-       echo "<a href='create/create-trader.php' class='fluid ui primary button'>Create New Entry</a>";
-       }
        ?>
                 <br>
                 <br>
