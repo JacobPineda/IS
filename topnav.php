@@ -49,6 +49,13 @@ if ($_SESSION['isLoggedIn'] == false){
     <a href="/IS/reports/food.php" class="item">Food</a>
     <a href="/IS/reports/school.php" class="item">School</a>
     <a href="/IS/reports/pub_elem_school.php" class="item">Public Elementary School</a>
+    <?php if ($_SESSION['isLoggedIn'] == false){ ?>
+      <a href="/IS/login.php" class="right item">
+        <i class="sign in icon"></i>Login as admin</a>
+    <?php }else{ ?>
+      <a href="/IS/logout.php" class="right item">
+         <i class="sign out icon"></i>Log out</a>
+    <?php;}?>
   </div>
 </div>
 
