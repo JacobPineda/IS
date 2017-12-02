@@ -26,13 +26,14 @@ $_SESSION['table'] = 'Trader';
 
 <body>
 
-	<?php
-		include("../topnav.php");
+    <?php
+   include("../topnav.php");
+	?>
+   	 <div class="pusher">
+        <div class="ui centered text container">
+            <h1 class="ui center aligned header"><i class="list layout icon"></i>TRADER LIST</h1>
+    <?php		
 
-		//check if logged in
-		if($_SESSION['isLoggedIn'] == true){
-			echo "<p> <a href='create/create-trader.php' >Create</a><p>";
-		}
 
 		/*
 		*generate table based from selected columns
@@ -57,6 +58,14 @@ $_SESSION['table'] = 'Trader';
 				$table = "<br/><center><table><tr> {$prev} <td>	Total no. of records: {$total_no}</td>  {$next} </tr></table></center>
 					<center><table border='1'><tr><th>no.</th><th>action</th><th>name</th>
 					</tr>";
+		$table = "<div class='ui center aligned container'>{$prev} Total no. of records: {$total_no}  {$next}</div>
+					<table class='ui celled table'>
+						<thead>
+							<tr><th>No.</th>
+							    <th>Action</th>
+							    <th>Trader Name</th>
+					  		</tr></thead>
+					";
 
 				//get number of first record to be displayed
 				$counter = $offset - 20;
@@ -95,7 +104,17 @@ $_SESSION['table'] = 'Trader';
 		$offset = $_SESSION['page'] * 20;
 		echo generateTable($offset);
 	}
-	?>
+       
+
+       //check if logged in
+       if($_SESSION['isLoggedIn'] == true){
+       echo "<a href='create/create-trader.php' class='fluid ui primary button'>Create New Entry</a>";
+       }
+       ?>
+                <br>
+                <br>
+        </div>
+    </div>
 
 
 
