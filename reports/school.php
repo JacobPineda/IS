@@ -26,26 +26,17 @@ $_SESSION['graph_type'] = null;
 			case 'default':
 				$path= '/IS/js/generate_graph.js';
 				break;
-			case 'no_of_prod_country':
-				$path= '/IS/js/preconf_graphs/no_of_prod_country.js';
+			case 'no_of_school_region':
+				$path= '/IS/js/preconf_graphs/no_of_school_region.js';
 				break;
-			case 'no_of_generic_name':
-				$path= '/IS/js/preconf_graphs/no_of_generic_name.js';
+			case 'no_of_student_course':
+				$path= '/IS/js/preconf_graphs/no_of_student_course.js';
 				break;
-			case 'no_of_branded_prod':
-				$path= '/IS/js/preconf_graphs/no_of_branded_prod.js';
+			case 'no_of_female_school':
+				$path= '/IS/js/preconf_graphs/no_of_female_school.js';
 				break;
-			case 'no_of_manufacturer':
-				$path= '/IS/js/preconf_graphs/no_of_drug_food_entities.js';
-				break;
-			case 'no_of_importer':
-				$path= '/IS/js/preconf_graphs/no_of_drug_food_entities.js';
-				break;
-			case 'no_of_trader':
-				$path= '/IS/js/preconf_graphs/no_of_drug_food_entities.js';
-				break;
-			case 'no_of_distributor':
-				$path= '/IS/js/preconf_graphs/no_of_drug_food_entities.js';
+			case 'no_of_male_school':
+				$path= '/IS/js/preconf_graphs/no_of_male_school.js';
 				break;
 			default:
 				$path= '/IS/js/generate_graph.js';
@@ -191,15 +182,10 @@ $_SESSION['graph_type'] = null;
 				<p>Pre-Configured Reports</p>
 				<table>
 				<tr>
-					<td><input type='submit' name='no_of_school_region' value='Number of schools per region'/></td>
-					<td><input type='submit' name='no_of_generic_name' value='Number of Generic Names'/> </td>
-					<td><input type='submit' name='no_of_branded_prod' value='Number of Branded Drug'/> </td>
-				</tr>
-				<tr>
-					<td><input type='submit' name='no_of_manufacturer' value='Number of Manufacturers'/></td>
-					<td><input type='submit' name='no_of_importer' value='Number of Importers'/></td>
-					<td><input type='submit' name='no_of_trader' value='Number of Traders'/></td>
-					<td><input type='submit' name='no_of_distributor' value='Number of Distributors'/></td>
+					<td><input type='submit' name='no_of_school_region' value='Number of Schools per Region'/></td>
+					<td><input type='submit' name='no_of_student_course' value='Number of Students per Course'/></td>
+					<td><input type='submit' name='no_of_female_school' value='Number of Females per School'/></td>
+					<td><input type='submit' name='no_of_male_school' value='Number of Males per School'/></td>
 				</tr>
 				</table>
 				</form></center>";
@@ -283,40 +269,39 @@ $_SESSION['graph_type'] = null;
 		}
 
 		//if a preconfigured report is selected
-		if($_POST['no_of_prod_country'] || $_POST['no_of_generic_name'] || $_POST['no_of_branded_prod']
-				|| $_POST['no_of_manufacturer'] || $_POST['no_of_importer'] || $_POST['no_of_trader'] || $_POST['no_of_distributor'] ){
+		if($_POST['no_of_school_region'] || $_POST['no_of_student_course'] || $_POST['no_of_female_school'] || $_POST['no_of_male_school']){
 			$graphType = 'bar_graph';
 			$arrCheckBox = $_SESSION['arrCheckedVals'];
 			$offset = $_SESSION['page'] * 10;
 
-			if($_POST['no_of_prod_country']){
-				$_SESSION['selected_report'] = 'no_of_prod_country';
+			if($_POST['no_of_school_region']){
+				$_SESSION['selected_report'] = 'no_of_school_region';
 				$graphType = 'bar_graph';
 			}
-			if($_POST['no_of_generic_name']){
-				$_SESSION['selected_report'] = 'no_of_generic_name';
+			if($_POST['no_of_student_course']){
+				$_SESSION['selected_report'] = 'no_of_student_course';
 				$graphType = 'radar_graph';
 			}
-			if($_POST['no_of_branded_prod']){
-				$_SESSION['selected_report'] = 'no_of_branded_prod';
+			if($_POST['no_of_female_school']){
+				$_SESSION['selected_report'] = 'no_of_female_per_school';
 				$graphType = 'radar_graph';
 			}
-			if($_POST['no_of_manufacturer']){
-				$_SESSION['selected_report'] = 'no_of_manufacturer';
+			if($_POST['no_of_male_school']){
+				$_SESSION['selected_report'] = 'no_of_male_per_school';
 				$graphType = 'bar_graph';
 			}
-			if($_POST['no_of_importer']){
-				$_SESSION['selected_report'] = 'no_of_importer';
-				$graphType = 'radar_graph';
-			}
-			if($_POST['no_of_trader']){
-				$_SESSION['selected_report'] = 'no_of_trader';
-				$graphType = 'polarArea_graph';
-			}
-			if($_POST['no_of_distributor']){
-				$_SESSION['selected_report'] = 'no_of_distributor';
-				$graphType = 'radar_graph';
-			}
+			// if($_POST['no_of_importer']){
+			// 	$_SESSION['selected_report'] = 'no_of_importer';
+			// 	$graphType = 'radar_graph';
+			// }
+			// if($_POST['no_of_trader']){
+			// 	$_SESSION['selected_report'] = 'no_of_trader';
+			// 	$graphType = 'polarArea_graph';
+			// }
+			// if($_POST['no_of_distributor']){
+			// 	$_SESSION['selected_report'] = 'no_of_distributor';
+			// 	$graphType = 'radar_graph';
+			// }
 
 
 			
