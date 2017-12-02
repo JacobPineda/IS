@@ -26,11 +26,6 @@
                     <h1 class="ui center aligned header"><i class="list layout icon"></i>COURSE LIST</h1>
                     <?php
 
-               //check if logged in
-               // if($_SESSION['isLoggedIn'] == true){
-               // 	echo "<a href='create/create-course.php' class='ui primary button'>Create Entry</a>";
-               // }	
-
                /*
                *generate table based from selected columns
                *offset - number of last record displayed
@@ -50,18 +45,6 @@
                			"<td> <form action='course.php' method='post'><input type='submit' name='prev_table' value='prev'/></form></td>": null;
                		$next = ($_SESSION['page'] < $noOfPages)? "<td> <form action='course.php' method='post'><input type='submit' name='next_table' value='next'/></form></td>" : null;
 
-               		// $table = "<center><table>
-               		// 			<tr> {$prev} 
-               		// 				<td>	Total no. of records: {$total_no}</td>  {$next} 
-               		// 			</tr>
-               		// 			</table></center>
-               		// 		<center><table border='1'>
-               		// 			<tr>
-               		// 				<th>no.</th>
-               		// 				<th>action</th>
-               		// 				<th>course_id</th>
-               		// 				<th>course_name</th>
-               		// 			</tr>";
                		$table = "<div class='ui center aligned container'>{$prev} Total no. of records: {$total_no}  {$next}</div>
                					<table class='ui celled table'>
                						<thead>
