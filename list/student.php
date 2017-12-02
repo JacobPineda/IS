@@ -26,13 +26,13 @@ $_SESSION['table'] = 'Student';
 
 <body>
 
-	<?php
-		include("../topnav.php");
-
-		//check if logged in
-		if($_SESSION['isLoggedIn'] == true){
-			echo "<p> <a href='create/create-student.php'>Create</a><p>";
-		}
+    <?php
+   include("../topnav.php");
+	?>
+   	 <div class="pusher">
+        <div class="ui centered container">
+            <h1 class="ui center aligned header"><i class="list layout icon"></i>STUDENT LIST</h1>
+    <?php		
 
 		/*
 		*generate table based from selected columns
@@ -58,6 +58,21 @@ $_SESSION['table'] = 'Student';
 					<center><table border='1'><tr><th>no.</th><th>action</th><th>student_id</th><th>school</th><th>course</th><th>student_name</th>
 					<th>birthdate</th><th>gender</th><th>contact</th><th>address</th>
 					</tr>";
+		$table = "<div class='ui center aligned container'>{$prev} Total no. of records: {$total_no}  {$next}</div>
+					<table class='ui celled table'>
+						<thead>
+							<tr><th>No.</th>
+							    <th>Action</th>
+							    <th>Student ID</th>
+							    <th>School</th>
+							    <th>Course</th>
+							    <th>Student Name</th>
+							    <th>Birthdate</th>
+							    <th>Gender</th>
+							    <th>Contact</th>
+							    <th>Address</th>
+					  		</tr></thead>
+					";
 
 				//get number of first record to be displayed
 				$counter = $offset - 20;
@@ -108,7 +123,15 @@ $_SESSION['table'] = 'Student';
 		echo generateTable($offset);
 	}
 
-	?>
+       //check if logged in
+       if($_SESSION['isLoggedIn'] == true){
+       echo "<a href='create/create-student.php' class='fluid ui primary button'>Create New Entry</a>";
+       }
+       ?>
+                <br>
+                <br>
+        </div>
+    </div>
 
 
 
