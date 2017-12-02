@@ -25,14 +25,18 @@ $_SESSION['table'] = 'Course';
 
 
 <body>
+<div class="pusher">
+	<br><br><br><br>
+  	<div class="ui centered text container">
+  		<h1 class="ui center aligned header"><i class="list layout icon"></i>COURSE LIST</h1>
 
 	<?php
 		include("../topnav.php");
 
 		//check if logged in
-		if($_SESSION['isLoggedIn'] == true){
-			echo "<p> <a href='create/create-course.php' >Create</a><p>";
-		}
+		// if($_SESSION['isLoggedIn'] == true){
+		// 	echo "<a href='create/create-course.php' class='ui primary button'>Create Entry</a>";
+		// }	
 
 		/*
 		*generate table based from selected columns
@@ -53,10 +57,27 @@ $_SESSION['table'] = 'Course';
 					"<td> <form action='course.php' method='post'><input type='submit' name='prev_table' value='prev'/></form></td>": null;
 				$next = ($_SESSION['page'] < $noOfPages)? "<td> <form action='course.php' method='post'><input type='submit' name='next_table' value='next'/></form></td>" : null;
 
-				//table to be generated
-				$table = "<br/><center><table><tr> {$prev} <td>	Total no. of records: {$total_no}</td>  {$next} </tr></table></center>
-					<center><table border='1'><tr><th>no.</th><th>action</th><th>course_id</th><th>course_name</th>
-					</tr>";
+				// $table = "<center><table>
+				// 			<tr> {$prev} 
+				// 				<td>	Total no. of records: {$total_no}</td>  {$next} 
+				// 			</tr>
+				// 			</table></center>
+				// 		<center><table border='1'>
+				// 			<tr>
+				// 				<th>no.</th>
+				// 				<th>action</th>
+				// 				<th>course_id</th>
+				// 				<th>course_name</th>
+				// 			</tr>";
+				$table = "<div class='ui center aligned container'>{$prev} Total no. of records: {$total_no}  {$next}</div>
+							<table class='ui celled table'>
+								<thead>
+									<tr><th>No.</th>
+									    <th>Action</th>
+									    <th>Course ID</th>
+									    <th>Course Name</th>
+							  		</tr></thead>
+							";
 
 				//get number of first record to be displayed
 				$counter = $offset - 20;
@@ -96,9 +117,15 @@ $_SESSION['table'] = 'Course';
 		echo generateTable($offset);
 	}
 
+	//check if logged in
+	if($_SESSION['isLoggedIn'] == true){
+		echo "<a href='create/create-course.php' class='fluid ui primary button'>Create New Entry</a>";
+	}
 	?>
 
-
+<br><br>
+</div>
+</div>
 
 </body>
 

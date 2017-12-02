@@ -1,11 +1,11 @@
 <?php
 session_start();
 //check whether an admin is logged in
-if ($_SESSION['isLoggedIn'] == false){
-	echo '<a href="/IS/login.php">Login as admin</a>';
-}else{
-	echo '<a href="/IS/logout.php">Log out</a>'
-;}
+// if ($_SESSION['isLoggedIn'] == false){
+// 	echo '<a href="/IS/login.php">Login as admin</a>';
+// }else{
+// 	echo '<a href="/IS/logout.php">Log out</a>'
+// ;}
 
 ?>
 
