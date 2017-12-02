@@ -40,7 +40,6 @@
          include("topnav.php");
          ?>
       <div class="pusher">
-      <br><br><br><br>
       <div class="ui centered text container">
          <h1><i class="info circle icon"></i>About Report Analytics Portal</h1>
          This​ ​web​ ​application​ ​is​ ​a​ ​general-purpose​ ​information​ ​portal​ ​about​ ​certificates​ ​of 

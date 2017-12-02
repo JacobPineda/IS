@@ -51,6 +51,8 @@
       <?php }else{ ?>
       <a href="/IS/logout.php" class="right item">
       <i class="sign out icon"></i>Log out</a>
-      <?php;}?>
+      <?php } ?>
    </div>
 </div>
+
+<br><br><br><br>
