@@ -24,7 +24,10 @@ $_SESSION['table'] = 'Enrollment';
                 <div class="ui centered container">
                     <h1 class="ui center aligned header"><i class="list layout icon"></i>ENROLLMENT LIST</h1>
                     <?php
-
+       //check if logged in
+       if($_SESSION['isLoggedIn'] == true){
+       echo "<a href='create/create-enrollment.php' class='fluid ui primary button'>Create New Entry</a>";
+       }
     /*
     *generate table based from selected columns
     *offset - number of last record displayed
@@ -99,10 +102,6 @@ $_SESSION['table'] = 'Enrollment';
         $offset = $_SESSION['page'] * 20;
         echo generateTable($offset);
     }
-       //check if logged in
-       if($_SESSION['isLoggedIn'] == true){
-       echo "<a href='create/create-enrollment.php' class='fluid ui primary button'>Create New Entry</a>";
-       }
        ?>
                 <br>
                 <br>

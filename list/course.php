@@ -25,7 +25,10 @@
                 <div class="ui centered text container">
                     <h1 class="ui center aligned header"><i class="list layout icon"></i>COURSE LIST</h1>
                     <?php
-
+               //check if logged in
+               if($_SESSION['isLoggedIn'] == true){
+               echo "<a href='create/create-course.php' class='fluid ui primary button'>Create New Entry</a>";
+               }
                /*
                *generate table based from selected columns
                *offset - number of last record displayed
@@ -92,10 +95,6 @@
                echo generateTable($offset);
                }
 
-               //check if logged in
-               if($_SESSION['isLoggedIn'] == true){
-               echo "<a href='create/create-course.php' class='fluid ui primary button'>Create New Entry</a>";
-               }
                ?>
                         <br>
                         <br>

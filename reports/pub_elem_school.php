@@ -26,26 +26,14 @@ $_SESSION['graph_type'] = null;
 			case 'default':
 				$path= '/IS/js/generate_graph.js';
 				break;
-			case 'no_of_prod_country':
-				$path= '/IS/js/preconf_graphs/no_of_prod_country.js';
+			case 'no_of_pub_elem_school_per_region':
+				$path= '/IS/js/preconf_graphs/no_of_pub_elem_school_per_region.js';
 				break;
-			case 'no_of_generic_name':
-				$path= '/IS/js/preconf_graphs/no_of_generic_name.js';
+			case 'no_of_student_per_public_elem_school':
+				$path= '/IS/js/preconf_graphs/no_of_student_per_public_elem_school.js';
 				break;
-			case 'no_of_branded_prod':
-				$path= '/IS/js/preconf_graphs/no_of_branded_prod.js';
-				break;
-			case 'no_of_manufacturer':
-				$path= '/IS/js/preconf_graphs/no_of_drug_food_entities.js';
-				break;
-			case 'no_of_importer':
-				$path= '/IS/js/preconf_graphs/no_of_drug_food_entities.js';
-				break;
-			case 'no_of_trader':
-				$path= '/IS/js/preconf_graphs/no_of_drug_food_entities.js';
-				break;
-			case 'no_of_distributor':
-				$path= '/IS/js/preconf_graphs/no_of_drug_food_entities.js';
+			case 'no_of_student_grade_level':
+				$path= '/IS/js/preconf_graphs/no_of_student_grade_level.js';
 				break;
 			default:
 				$path= '/IS/js/generate_graph.js';
@@ -64,13 +52,17 @@ $_SESSION['graph_type'] = null;
 
 <body>
 
-	<?php
-		include("../topnav.php");
-
-		//check if logged in
-		if($_SESSION['isLoggedIn'] == true){
-			echo "<p> <a href='../create/create-pub_elem_school.php' >Create</a><p>";
-		}
+    <?php
+   include("../topnav.php");
+	?>
+   	 <div class="pusher">
+        <div class="ui centered container">
+            <h1 class="ui center aligned header"><i class="list layout icon"></i>Public Elementary School Report</h1>
+    <?php		
+       //check if logged in
+       if($_SESSION['isLoggedIn'] == true){
+       echo "<a href='../create/create-pub_elem_school.php' class='fluid ui primary button'>Create New Entry</a>";
+       }
 		//list of displayed column names and ids/db column name
 		$arrColValues = array('elementary_school_id', 'region_id', 'school_name');
 		$arrColLabels = array('Elementary School ID', 'Region','School Name');
@@ -125,12 +117,15 @@ $_SESSION['graph_type'] = null;
 				$next = ($_SESSION['page'] < $noOfPages)? "<td> <form action='pub_elem_school.php' method='post'><input type='submit' name='next_table' value='next'/></form></td>" : null;
 
 				//table to be generated
-				$table = "<br/><center><table><tr> {$prev} <td>	Total no. of records: {$total_no}</td>  {$next} </tr></table></center>";
-				$table .= "<center><table border='1'><tr><th>no.</th><th>action</th>";
+				$table = "<div class='ui center aligned container'>{$prev} Total no. of records: {$total_no}  {$next}</div>";
+				$table .= "<table class='ui celled table'>
+							<thead>
+								<tr><th>No.</th>
+								    <th>Action</th>";
 				foreach($arrCheckBox as $check) {
 					$table .= "<th>$check</th>";
 				}
-				$table .= "</tr>";
+				$table .= "</tr></thead>";
 
 				//get number of first record to be displayed
 				$counter = $offset - 10;
@@ -185,15 +180,8 @@ $_SESSION['graph_type'] = null;
 				<table>
 				<tr>
 					<td><input type='submit' name='no_of_school_region' value='Number of schools per region'/></td>
-					<td><input type='submit' name='no_of_generic_name' value='Number of Generic Names'/> </td>
-					<td><input type='submit' name='no_of_branded_prod' value='Number of Branded Drug'/> </td>
-				</tr>
-				<tr>
-					<td><input type='submit' name='no_of_manufacturer' value='Number of Manufacturers'/></td>
-					<td><input type='submit' name='no_of_importer' value='Number of Importers'/></td>
-					<td><input type='submit' name='no_of_trader' value='Number of Traders'/></td>
-					<td><input type='submit' name='no_of_distributor' value='Number of Distributors'/></td>
-				</tr>
+					<td><input type='submit' name='no_of_student_public_elem_school' value='Number of Students per PES'/> </td>
+					<td><input type='submit' name='no_of_student_grade_level' value='Number of Student per Grade Level'/> </td>
 				</table>
 				</form></center>";
 			 return $options;
@@ -276,40 +264,39 @@ $_SESSION['graph_type'] = null;
 		}
 
 		//if a preconfigured report is selected
-		if($_POST['no_of_prod_country'] || $_POST['no_of_generic_name'] || $_POST['no_of_branded_prod']
-				|| $_POST['no_of_manufacturer'] || $_POST['no_of_importer'] || $_POST['no_of_trader'] || $_POST['no_of_distributor'] ){
+		if($_POST['no_of_school_region'] || $_POST['no_of_student_public_elem_school'] || $_POST['no_of_student_grade_level']){
 			$graphType = 'bar_graph';
 			$arrCheckBox = $_SESSION['arrCheckedVals'];
 			$offset = $_SESSION['page'] * 10;
 
-			if($_POST['no_of_prod_country']){
-				$_SESSION['selected_report'] = 'no_of_prod_country';
+			if($_POST['no_of_school_region']){
+				$_SESSION['selected_report'] = 'no_of_school_region';
 				$graphType = 'bar_graph';
 			}
-			if($_POST['no_of_generic_name']){
-				$_SESSION['selected_report'] = 'no_of_generic_name';
+			if($_POST['no_of_student_public_elem_school']){
+				$_SESSION['selected_report'] = 'no_of_student_public_elem_school';
 				$graphType = 'radar_graph';
 			}
-			if($_POST['no_of_branded_prod']){
-				$_SESSION['selected_report'] = 'no_of_branded_prod';
+			if($_POST['no_of_student_grade_level']){
+				$_SESSION['selected_report'] = 'no_of_student_grade_level';
 				$graphType = 'radar_graph';
 			}
-			if($_POST['no_of_manufacturer']){
-				$_SESSION['selected_report'] = 'no_of_manufacturer';
-				$graphType = 'bar_graph';
-			}
-			if($_POST['no_of_importer']){
-				$_SESSION['selected_report'] = 'no_of_importer';
-				$graphType = 'radar_graph';
-			}
-			if($_POST['no_of_trader']){
-				$_SESSION['selected_report'] = 'no_of_trader';
-				$graphType = 'polarArea_graph';
-			}
-			if($_POST['no_of_distributor']){
-				$_SESSION['selected_report'] = 'no_of_distributor';
-				$graphType = 'radar_graph';
-			}
+			// if($_POST['no_of_manufacturer']){
+			// 	$_SESSION['selected_report'] = 'no_of_manufacturer';
+			// 	$graphType = 'bar_graph';
+			// }
+			// if($_POST['no_of_importer']){
+			// 	$_SESSION['selected_report'] = 'no_of_importer';
+			// 	$graphType = 'radar_graph';
+			// }
+			// if($_POST['no_of_trader']){
+			// 	$_SESSION['selected_report'] = 'no_of_trader';
+			// 	$graphType = 'polarArea_graph';
+			// }
+			// if($_POST['no_of_distributor']){
+			// 	$_SESSION['selected_report'] = 'no_of_distributor';
+			// 	$graphType = 'radar_graph';
+			// }
 
 
 
@@ -324,6 +311,10 @@ $_SESSION['graph_type'] = null;
 	?>
 
 
+                <br>
+                <br>
+        </div>
+    </div>
 
 </body>
 

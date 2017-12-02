@@ -59,11 +59,18 @@ $_SESSION['graph_type'] = null;
   <title>Food Products Report</title>
 </head>
 <body>
-  <?php
-    include("../topnav.php");
-    if($_SESSION['isLoggedIn'] == true){
-      echo "<p> <a href='../create/create-food.php'>Create</a></p>";
-    }
+    <?php
+   include("../topnav.php");
+	?>
+   	 <div class="pusher">
+        <div class="ui centered container">
+            <h1 class="ui center aligned header"><i class="list layout icon"></i>Food Products Report</h1>
+    <?php		
+       //check if logged in
+       if($_SESSION['isLoggedIn'] == true){
+       echo "<a href='../create/create-food.php' class='fluid ui primary button'>Create New Entry</a>";
+       }
+
     $arrColValues = array('cpr_no','dr_no','country','rsn','validity_date','food_name','manufacturer','trader','distributor');
     $arrColLabels = array('CPR No.','DR No.','Country','RSN','Validity Date','Name','Manufacturer','Trader','Distributor');
 
@@ -106,12 +113,15 @@ $_SESSION['graph_type'] = null;
 				$next = ($_SESSION['page'] < $noOfPages)? "<td> <form action='food.php' method='post'><input type='submit' name='next_table' value='next'/></form></td>" : null;
 
 				//table to be generated
-				$table = "<br/><center><table><tr> {$prev} <td>	Total no. of records: {$total_no}</td>  {$next} </tr></table></center>";
-				$table .= "<center><table border='1'><tr><th>no.</th><th>action</th>";
+				$table = "<div class='ui center aligned container'>{$prev} Total no. of records: {$total_no}  {$next}</div>";
+				$table .= "<table class='ui celled table'>
+							<thead>
+								<tr><th>No.</th>
+								    <th>Action</th>";
 				foreach($arrCheckBox as $check) {
 					$table .= "<th>$check</th>";
 				}
-				$table .= "</tr>";
+				$table .= "</tr></thead>";
 
 				//get number of first record to be displayed
 				$counter = $offset - 10;
@@ -292,6 +302,10 @@ $_SESSION['graph_type'] = null;
 ?>
 
 
+                <br>
+                <br>
+        </div>
+    </div>
 
 </body>
 

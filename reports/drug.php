@@ -64,13 +64,18 @@ $_SESSION['graph_type'] = null;
 
 <body>
 
-	<?php
-		include("../topnav.php");
+    <?php
+   include("../topnav.php");
+	?>
+   	 <div class="pusher">
+        <div class="ui centered container">
+            <h1 class="ui center aligned header"><i class="list layout icon"></i>DRUG PRODUCTS REPORT</h1>
+    <?php		
 
-		//check if logged in
-		if($_SESSION['isLoggedIn'] == true){
-			echo "<p> <a href='../create/create-drug.php' >Create</a><p>";
-		}
+       //check if logged in
+       if($_SESSION['isLoggedIn'] == true){
+       echo "<a href='../create/create-drug.php' class='fluid ui primary button'>Create New Entry</a>";
+       }
 		//list of displayed column names and ids/db column name
 		$arrColValues = array('cpr_no','dr_no','country','rsn','validity_date','generic_name','brand_name','strength','form','manufacturer', 'importer','trader','distributor');
 		$arrColLabels = array('CPR No.','DR No.','Country','RSN','Validity Date','Generic Name','Brand Name','Strength','Form','Manufacturer', 'Importer','Trader','Distributor');
@@ -125,12 +130,15 @@ $_SESSION['graph_type'] = null;
 				$next = ($_SESSION['page'] < $noOfPages)? "<td> <form action='drug.php' method='post'><input type='submit' name='next_table' value='next'/></form></td>" : null;
 
 				//table to be generated
-				$table = "<br/><center><table><tr> {$prev} <td>	Total no. of records: {$total_no}</td>  {$next} </tr></table></center>";
-				$table .= "<center><table border='1'><tr><th>no.</th><th>action</th>";
+				$table = "<div class='ui center aligned container'>{$prev} Total no. of records: {$total_no}  {$next}</div>";
+				$table .= "<table class='ui celled table'>
+							<thead>
+								<tr><th>No.</th>
+								    <th>Action</th>";
 				foreach($arrCheckBox as $check) {
 					$table .= "<th>$check</th>";
 				}
-				$table .= "</tr>";
+				$table .= "</tr></thead>";
 
 				//get number of first record to be displayed
 				$counter = $offset - 10;
@@ -326,6 +334,10 @@ $_SESSION['graph_type'] = null;
 	?>
 
 
+                <br>
+                <br>
+        </div>
+    </div>
 
 </body>
 

@@ -32,7 +32,7 @@
          Lists <i class="dropdown icon"></i>
          <div class="menu">
             <a class="item" href="/IS/list/importer.php">Importers</a>
-            <a class="item" href="/IS/list/importer.php">Manufacturers</a>
+            <a class="item" href="/IS/list/manufacturer.php">Manufacturers</a>
             <a class="item" href="/IS/list/trader.php">Traders</a>
             <a class="item" href="/IS/list/distributor.php">Distributors</a>
             <a class="item" href="/IS/list/course.php">Courses</a>
