@@ -22,14 +22,21 @@ session_start();
 		function generateForm($id, $curr_sid, $curr_units,$currentsy,$currentsem,$currentpaystat,$currentenrollstat){
 
 			include('../../connect.php');
-      $sql = "SELECT * FROM Student ORDER BY student_name WHERE student_id = '{$curr_sid}'";
+      $sql = "SELECT * FROM Student WHERE student_id = '{$curr_sid}'";
       $name = mysqli_fetch_array($conn->query($sql))['student_name'];
 	  
-			return "<center><h3>Edit a record</h3>
+	  $isSemSelected1 = ($currentsem == '1')? 'selected': null;
+	  $isSemSelected2 = ($currentsem == '2')? 'selected': null;
+	  $isPAID = ($currentpaystat == 'PAID')? 'selected': null;
+	  $isNPAID = ($currentpaystat == 'NOT PAID')? 'selected': null;
+	  $isREG = ($currentenrollstat == 'REGULAR')? 'selected': null;
+	  $isNREG = ($currentenrollstat == 'NOT REGULAR')? 'selected': null;
+	  
+	return "<center><h3>Edit a record</h3>
 		<form action = 'edit-enrollment.php?id=$id' method='post'>
     <table>
         <tr>
-            <td><b>Student ID</b></td>
+            <td><b>Student</b></td>
               <td><input name='new_student_id' type='text'  value='".$name."' disabled></td>
         </tr>
         <tr>
@@ -42,18 +49,18 @@ session_start();
         </tr>
         <tr>
             <td><b>Semester</b></td>
-            <td><select name='new_currentsem'><option value='null'></option><option value=1>1</option><option value=2>2</option><td></select>
+            <td><select name='new_currentsem'><option value='null'></option><option value=1 ".$isSemSelected1.">1</option><option value=2 ".$isSemSelected2.">2</option><td></select>
         </tr>
         <tr>
             <td><b>Payment Status</b></td>
-            <td><select name='new_currentpaystat'><option value='null'></option><option value='PAID'>PAID</option><option value='NOT PAID'>NOT PAID</option></select><td>
+            <td><select name='new_currentpaystat'><option value='null'></option><option value='PAID' ".$isPAID.">PAID</option><option value='NOT PAID' ".$isNPAID.">NOT PAID</option></select><td>
         </tr>
         <tr>
             <td><b>Enrollment Status</b></td>
-              <td><select name='new_currentenrollstat'><option value='null'></option><option value='REGULAR'>REGULAR</option><option value='NOT REGULAR'>NOT REGULAR</option></select><td>
+              <td><select name='new_currentenrollstat'><option value='null'></option><option value='REGULAR' ".$isREG.">REGULAR</option><option value='NOT REGULAR' ".$isNREG.">NOT REGULAR</option></select><td>
         </tr>
         <tr>
-            <td><input  type='submit' name='update_enrollment' value='Update'/></td>
+            <td><input  type='submit' name='edit_enrollment' value='Update'/></td>
             <td><a class='btn' href='/IS/list/enrollment.php'>Back</a></td>
         </tr>
     </table></form></center>";
@@ -73,11 +80,11 @@ session_start();
 			$result = $conn->query($sql);
 			$row = mysqli_fetch_array($result);
 			$curr_sid = $row['student_id'];
-		  $curr_units = $row['num_units'];
-		  $currentsy = $row['school_year'];
-		  $currentsem = $row['semester'];
-		  $currentpaystat = $row['payment_status'];
-		  $currentenrollstat = $row['enrollment_status'];
+			$curr_units = $row['num_units'];
+			$currentsy = $row['school_year'];
+			$currentsem = $row['semester'];
+			$currentpaystat = $row['payment_status'];
+			$currentenrollstat = $row['enrollment_status'];
 
 
 			mysqli_close($conn);
@@ -85,13 +92,11 @@ session_start();
 
 		//when form is submitted or saved, record will be updated with new values
 		if($_POST['edit_enrollment']){
-			//get new values
-      //$new_sid = $_POST['new_student_id'];
-      $new_num_units = $_POST['new_num_units'];
-      $new_currentsy = $_POST['new_currentsy'];
-      $new_currentsem = $_POST['new_currentsem'];
-      $new_currentpaystat = $_POST['new_currentpaystat'];
-      $new_currentenrollstat = $_POST['new_currentenrollstat'];
+		  $new_num_units = $_POST['new_num_units'];
+		  $new_currentsy = $_POST['new_currentsy'];
+		  $new_currentsem = $_POST['new_currentsem'];
+		  $new_currentpaystat = $_POST['new_currentpaystat'];
+		  $new_currentenrollstat = $_POST['new_currentenrollstat'];
 
 			include('../../connect.php');
 
@@ -102,10 +107,10 @@ session_start();
         , payment_status = '{$new_currentpaystat}'
         , enrollment_status = '{$new_currentenrollstat}'
         WHERE enrollment_id = '{$id}'")){
-      echo "Error description: " . mysqli_error($conn) . "<br>". generateForm($id, $new_student_id, $new_num_units,$new_currentsy,$new_currentsem,$new_currentpaystat,$new_currentenrollstat);
+      echo "Error description: " . mysqli_error($conn) . "<br>". generateForm($id, $curr_sid, $new_num_units,$new_currentsy,$new_currentsem,$new_currentpaystat,$new_currentenrollstat);
     } else {
       //echo updated form
-      echo "<center>Successfully edited an enrollment! <br/></center>" . generateForm($id, $new_student_id, $new_num_units,$new_currentsy,$new_currentsem,$new_currentpaystat,$new_currentenrollstat);
+      echo "<center>Successfully edited an enrollment! <br/></center>" . generateForm($id, $curr_sid, $new_num_units,$new_currentsy,$new_currentsem,$new_currentpaystat,$new_currentenrollstat);
     }
 
     mysqli_close($conn);

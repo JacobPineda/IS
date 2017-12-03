@@ -74,13 +74,16 @@ $_SESSION['table'] = 'Enrollment';
         //add action column to the table, i.e., view, edit, and delete actions
         while($row = mysqli_fetch_array($result)){
             $counter++;
+			$studentsql = "SELECT student_name from Student WHERE student_id = '{$row['student_id']}'";
+			$studentname =  mysqli_fetch_array($conn->query($studentsql))['student_name'];
+			
             $table .= "<tr><td>{$counter}</td><td>";
             $table .= '<a href="view/view-enrollment.php?id='.$row['enrollment_id'].'">view</a>';
             if($_SESSION['isLoggedIn'] == true){
                 $table .=' | <a href="edit/edit-enrollment.php?id='.$row['enrollment_id'].'">edit</a>
                 | <a href="delete/delete-enrollment.php?id='.$row['enrollment_id'].'">delete</a></td>';
             }
-            $table .= "<td>" . $row['enrollment_id'] . "</td><td>" . $row['student_id'] . "</td><td>" . $row['num_units'] . "</td><td>" . $row['school_year'] . "</td><td>" . $row['semester'] . "</td><td>" . $row['payment_status'] . "</td><td>" . $row['enrollment_status'] . "</td></tr>";
+            $table .= "<td>" . $row['enrollment_id'] . "</td><td>" . $studentname . "</td><td>" . $row['num_units'] . "</td><td>" . $row['school_year'] . "</td><td>" . $row['semester'] . "</td><td>" . $row['payment_status'] . "</td><td>" . $row['enrollment_status'] . "</td></tr>";
         }
         $table .= "</table>";
 

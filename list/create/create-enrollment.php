@@ -30,7 +30,7 @@ session_start();
     <form action='create-enrollment.php' method='post'>
         <table>
             <tr>
-                <td><b>Student ID</b></td>
+                <td><b>Student</b></td>
                 	<td><select name='student_id'>{$sidList}</select><td>
             </tr>
             <tr>
@@ -63,14 +63,18 @@ session_start();
 
     //when form is submitted, get all values of each fields
     if($_POST['create_enrollment']){
-        $sid = $_POST['name'];
-
+        $student_id = $_POST['student_id'];
+        $num_units = $_POST['num_units'];
+        $year = $_POST['year'];
+        $semester = $_POST['semester'];
+        $payment_status = $_POST['payment_status'];
+        $enrollment_status = $_POST['enrollment_status'];
+		
         include('../../connect.php');
 
         $qry = "SELECT * from Enrollment where student_id = '{$sid}'";
         $result = $conn->query($qry);
         $data = mysqli_fetch_array($result)['student_id'];
-
 
         if($data){
             echo "<center>Enrollment data for student already exists!</center>" . $form;
@@ -87,17 +91,21 @@ session_start();
             $newIdSql = "SELECT TRIM(LEADING '0' FROM REPLACE(enrollment_id, 'EID-', '')) as 'id' from Enrollment ORDER BY enrollment_id ASC LIMIT 1 OFFSET {$total}";
             $id = mysqli_fetch_array($conn->query($newIdSql))['id'];
             $id++;
-            if($id < 10){
-                $zero = '00';
-            } else if ($id < 100){
-                $zero = '0';
-            } else {
-                $zero = null;
-            }
-            $enrolment_id = 'CID-'.$zero.$id;
+			if($id < 10){
+				$zero = '0000';
+			} else if ($id < 100){
+				$zero = '000';
+			} else if ($id < 1000){
+				$zero = '00';
+			} else if ($id < 10000){
+				$zero = '0';
+			} else {
+				$zero = null;
+			}
+            $enrollment_id = 'EID-'.$zero.$id;
 
             //insert values into the table
-            if(!mysqli_query($conn, "INSERT INTO Enrollment VALUES ('{$enrollment_id}','{$sid}')")){
+            if(!mysqli_query($conn, "INSERT INTO Enrollment VALUES ('{$enrollment_id}','{$student_id}','{$num_units}','{$year}','{$semester}', '0', '{$payment_status}','{$enrollment_status}')")){
                 echo "Error description: " . mysqli_error($conn) . "<br> $form";
             } else {
                 echo "<center>Successfully created a record! </center><br> $form";
