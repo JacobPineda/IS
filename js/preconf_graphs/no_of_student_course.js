@@ -15,7 +15,7 @@ $(document).ready(function(){
 				doughnutCols.push((data[i].course)? data[i].course : 'Null');
 				total.push(data[i].total);
 			}
-			var labelTable = 'No of Schools per course';
+			var labelTable = 'No of students per course';
 			var bgColor = ['rgba(54, 162, 235, 0.5)',
 							'rgba(255, 206, 86, 0.5)',
 							'rgba(153, 102, 255, 0.5)',
