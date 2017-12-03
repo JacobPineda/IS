@@ -32,11 +32,8 @@ $_SESSION['graph_type'] = null;
 			case 'no_of_student_course':
 				$path= '/IS/js/preconf_graphs/no_of_student_course.js';
 				break;
-			case 'no_of_female_school':
-				$path= '/IS/js/preconf_graphs/no_of_female_school.js';
-				break;
-			case 'no_of_male_school':
-				$path= '/IS/js/preconf_graphs/no_of_male_school.js';
+			case 'no_of_male_vs_female':
+				$path= '/IS/js/preconf_graphs/no_of_gender_school.js';
 				break;
 			default:
 				$path= '/IS/js/generate_graph.js';
@@ -60,7 +57,7 @@ $_SESSION['graph_type'] = null;
 	?>
    	 <div class="pusher">
         <div class="ui centered container">
-            <h1 class="ui center aligned header"><i class="list layout icon"></i>School Report</h1>
+            <h1 class="ui center aligned header"><i class="pie chart  icon"></i>School Report</h1>
     <?php		
        //check if logged in
        if($_SESSION['isLoggedIn'] == true){
@@ -184,8 +181,7 @@ $_SESSION['graph_type'] = null;
 				<tr>
 					<td><input type='submit' name='no_of_school_region' value='Number of Schools per Region'/></td>
 					<td><input type='submit' name='no_of_student_course' value='Number of Students per Course'/></td>
-					<td><input type='submit' name='no_of_female_school' value='Number of Females per School'/></td>
-					<td><input type='submit' name='no_of_male_school' value='Number of Males per School'/></td>
+					<td><input type='submit' name='no_of_male_vs_female' value='Number of Females vs Males per School'/></td>
 				</tr>
 				</table>
 				</form></center>";
@@ -269,41 +265,23 @@ $_SESSION['graph_type'] = null;
 		}
 
 		//if a preconfigured report is selected
-		if($_POST['no_of_school_region'] || $_POST['no_of_student_course'] || $_POST['no_of_female_school'] || $_POST['no_of_male_school']){
+		if($_POST['no_of_school_region'] || $_POST['no_of_student_course'] || $_POST['no_of_male_vs_female']){
 			$graphType = 'bar_graph';
 			$arrCheckBox = $_SESSION['arrCheckedVals'];
 			$offset = $_SESSION['page'] * 10;
 
 			if($_POST['no_of_school_region']){
 				$_SESSION['selected_report'] = 'no_of_school_region';
-				$graphType = 'bar_graph';
+				$graphType = 'radar_graph';
 			}
 			if($_POST['no_of_student_course']){
 				$_SESSION['selected_report'] = 'no_of_student_course';
 				$graphType = 'radar_graph';
 			}
-			if($_POST['no_of_female_school']){
-				$_SESSION['selected_report'] = 'no_of_female_per_school';
-				$graphType = 'radar_graph';
-			}
-			if($_POST['no_of_male_school']){
-				$_SESSION['selected_report'] = 'no_of_male_per_school';
+			if($_POST['no_of_male_vs_female']){
+				$_SESSION['selected_report'] = 'no_of_male_vs_female';
 				$graphType = 'bar_graph';
 			}
-			// if($_POST['no_of_importer']){
-			// 	$_SESSION['selected_report'] = 'no_of_importer';
-			// 	$graphType = 'radar_graph';
-			// }
-			// if($_POST['no_of_trader']){
-			// 	$_SESSION['selected_report'] = 'no_of_trader';
-			// 	$graphType = 'polarArea_graph';
-			// }
-			// if($_POST['no_of_distributor']){
-			// 	$_SESSION['selected_report'] = 'no_of_distributor';
-			// 	$graphType = 'radar_graph';
-			// }
-
-
 			
 			echo setGraphScript();
 			echo generateTable($arrCheckBox,$offset);

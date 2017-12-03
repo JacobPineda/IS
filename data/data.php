@@ -113,6 +113,83 @@ function generate_prod_vs_Country($conn){
 		
 }
 
+function generate_no_of_school_region($conn){
+	
+	$query = sprintf("SELECT (SELECT region_name FROM region r where s.region_id = r.region_id) as region, count(*) as total FROM {$_SESSION['table']} s GROUP BY region");
+	$result = $conn->query($query);
+	
+	$data = array();
+	foreach ($result as $row) {
+		$data[] = $row;
+	}
+	
+	$result->close();
+	
+	return $data;	
+		
+}
+
+function generate_no_of_student_course($conn, $table){
+	
+	$query = sprintf("SELECT (SELECT course_name FROM course c where c.course_id = s.course_id) as course, count(*) as total FROM $table s GROUP BY course");
+	$result = $conn->query($query);
+	
+	$data = array();
+	foreach ($result as $row) {
+		$data[] = $row;
+	}
+	
+	$result->close();
+	
+	return $data;	
+	
+}
+
+function generate_no_of_students($conn, $table){
+	
+	$query = sprintf("SELECT gender, count(*) as total FROM $table GROUP BY gender");
+	$result = $conn->query($query);
+	
+	$data = array();
+	foreach ($result as $row) {
+		$data[] = $row;
+	}
+	
+	$result->close();
+	
+	return $data;	
+	
+}
+
+function generate_no_student_pes($conn, $table){
+	$query = sprintf("SELECT (SELECT school_name FROM Public_Elementary_School p WHERE s.elementary_school_id = p.elementary_school_id) as school, SUM(s.no_of_students) as total FROM $table s GROUP BY elementary_school_id");
+	$result = $conn->query($query);
+	
+	$data = array();
+	foreach ($result as $row) {
+		$data[] = $row;
+	}
+	
+	$result->close();
+	
+	return $data;		
+	
+}
+function generate_no_student_grade($conn, $table){
+	$query = sprintf("SELECT (SELECT level_name FROM Grade_Level g WHERE o.level_id = g.level_id) as level, SUM(o.no_of_students) as total FROM $table o GROUP BY level_id");
+	$result = $conn->query($query);
+	
+	$data = array();
+	foreach ($result as $row) {
+		$data[] = $row;
+	}
+	
+	$result->close();
+	
+	return $data;		
+	
+}
+
 function generate_no_of_entities($conn, $column, $table){
 	
 	$criteria = null;
@@ -192,8 +269,22 @@ switch($_SESSION['selected_report']){
 		break;			
 	case 'no_of_distributor':
 		$data = generate_no_of_entities($conn, 'name','Distributor');
+		break;				
+	case 'no_of_school_region':
+		$data = generate_no_of_school_region($conn);
+		break;					
+	case 'no_of_student_course':
+		$data = generate_no_of_student_course($conn, 'Student');
+		break;					
+	case 'no_of_male_vs_female':
+		$data = generate_no_of_students($conn, 'Student');
 		break;			
-		
+	case 'no_of_student_public_elem_school':
+		$data = generate_no_student_pes($conn, 'Offers');
+		break;			
+	case 'no_of_student_grade_level':
+		$data = generate_no_student_grade($conn, 'Offers');
+		break;			
 		
 	default: 
 		$data = generateDefaultResult($conn);

@@ -26,11 +26,11 @@ $_SESSION['graph_type'] = null;
 			case 'default':
 				$path= '/IS/js/generate_graph.js';
 				break;
-			case 'no_of_pub_elem_school_per_region':
-				$path= '/IS/js/preconf_graphs/no_of_pub_elem_school_per_region.js';
+			case 'no_of_school_region':
+				$path= '/IS/js/preconf_graphs/no_of_school_region.js';
 				break;
-			case 'no_of_student_per_public_elem_school':
-				$path= '/IS/js/preconf_graphs/no_of_student_per_public_elem_school.js';
+			case 'no_of_student_public_elem_school':
+				$path= '/IS/js/preconf_graphs/no_of_student_public_elem_school.js';
 				break;
 			case 'no_of_student_grade_level':
 				$path= '/IS/js/preconf_graphs/no_of_student_grade_level.js';
@@ -57,7 +57,7 @@ $_SESSION['graph_type'] = null;
 	?>
    	 <div class="pusher">
         <div class="ui centered container">
-            <h1 class="ui center aligned header"><i class="list layout icon"></i>Public Elementary School Report</h1>
+            <h1 class="ui center aligned header"><i class="pie chart  icon"></i>Public Elementary School Report</h1>
     <?php		
        //check if logged in
        if($_SESSION['isLoggedIn'] == true){
@@ -271,7 +271,7 @@ $_SESSION['graph_type'] = null;
 
 			if($_POST['no_of_school_region']){
 				$_SESSION['selected_report'] = 'no_of_school_region';
-				$graphType = 'bar_graph';
+				$graphType = 'radar_graph';
 			}
 			if($_POST['no_of_student_public_elem_school']){
 				$_SESSION['selected_report'] = 'no_of_student_public_elem_school';
@@ -281,24 +281,6 @@ $_SESSION['graph_type'] = null;
 				$_SESSION['selected_report'] = 'no_of_student_grade_level';
 				$graphType = 'radar_graph';
 			}
-			// if($_POST['no_of_manufacturer']){
-			// 	$_SESSION['selected_report'] = 'no_of_manufacturer';
-			// 	$graphType = 'bar_graph';
-			// }
-			// if($_POST['no_of_importer']){
-			// 	$_SESSION['selected_report'] = 'no_of_importer';
-			// 	$graphType = 'radar_graph';
-			// }
-			// if($_POST['no_of_trader']){
-			// 	$_SESSION['selected_report'] = 'no_of_trader';
-			// 	$graphType = 'polarArea_graph';
-			// }
-			// if($_POST['no_of_distributor']){
-			// 	$_SESSION['selected_report'] = 'no_of_distributor';
-			// 	$graphType = 'radar_graph';
-			// }
-
-
 
 			echo setGraphScript();
 			echo generateTable($arrCheckBox,$offset);
