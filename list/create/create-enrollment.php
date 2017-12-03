@@ -16,14 +16,22 @@ session_start();
     //connect to database
     include('../../connect.php');
 
+    $sql = "SELECT * FROM Student ORDER BY student_id";
+    $result = $conn->query($sql);
+
+    $sidList = "<option value='null'></option>";
+    while($row = mysqli_fetch_array($result)){
+      $sidList .= "<option value=".$row['student_id'].">".$row['student_id']."</option>";
+    }
+
     //form to be displayed
     $form ="
     <center><h3>Create a record</h3>
     <form action='create-enrollment.php' method='post'>
         <table>
             <tr>
-                <td><b>Student Name</b></td>
-                <td>".$sid."</td>
+                <td><b>Student ID</b></td>
+                	<td><select name='student_id'>{$sidList}</select><td>
             </tr>
             <tr>
                 <td><b>No. of Units</b></td>
@@ -35,15 +43,15 @@ session_start();
             </tr>
             <tr>
                 <td><b>Semester</b></td>
-                <td><input name='semester' type='text'></td>
+                <td><select name='semester'><option value='null'></option><option value=1>1</option><option value=2>2</option><td></select>
             </tr>
             <tr>
                 <td><b>Payment Status</b></td>
-                <td><input name='payment_status' type='text'></td>
+                <td><select name='payment_status'><option value='null'></option><option value='PAID'>PAID</option><option value='NOT PAID'>NOT PAID</option></select><td>
             </tr>
             <tr>
                 <td><b>Enrollment Status</b></td>
-                <td><input name='enrollment_status' type='text'></td>
+                  <td><select name='enrollment_status'><option value='null'></option><option value='REGULAR'>REGULAR</option><option value='NOT REGULAR'>NOT REGULAR</option></select><td>
             </tr>
             <tr>
                 <td><input  type='submit' name='create_enrollment' value='Create'/></td>
@@ -52,7 +60,7 @@ session_start();
         </table>
     </form>
     </center>";
-    
+
     //when form is submitted, get all values of each fields
     if($_POST['create_enrollment']){
         $sid = $_POST['name'];
@@ -78,7 +86,7 @@ session_start();
 
             $newIdSql = "SELECT TRIM(LEADING '0' FROM REPLACE(enrollment_id, 'EID-', '')) as 'id' from Enrollment ORDER BY enrollment_id ASC LIMIT 1 OFFSET {$total}";
             $id = mysqli_fetch_array($conn->query($newIdSql))['id'];
-            $id++;				
+            $id++;
             if($id < 10){
                 $zero = '00';
             } else if ($id < 100){
