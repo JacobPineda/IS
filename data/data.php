@@ -115,7 +115,7 @@ function generate_prod_vs_Country($conn){
 
 function generate_no_of_school_region($conn){
 	
-	$query = sprintf("SELECT (SELECT region_name FROM region r where s.region_id = r.region_id) as region, count(*) as total FROM {$_SESSION['table']} s GROUP BY region");
+	$query = sprintf("SELECT (SELECT region_name FROM Region r where s.region_id = r.region_id) as region, count(*) as total FROM {$_SESSION['table']} s GROUP BY region");
 	$result = $conn->query($query);
 	
 	$data = array();
@@ -131,7 +131,7 @@ function generate_no_of_school_region($conn){
 
 function generate_no_of_student_course($conn, $table){
 	
-	$query = sprintf("SELECT (SELECT course_name FROM course c where c.course_id = s.course_id) as course, count(*) as total FROM $table s GROUP BY course");
+	$query = sprintf("SELECT (SELECT course_name FROM Course c where c.course_id = s.course_id) as course, count(*) as total FROM $table s GROUP BY course");
 	$result = $conn->query($query);
 	
 	$data = array();
