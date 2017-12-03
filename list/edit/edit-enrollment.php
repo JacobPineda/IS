@@ -22,19 +22,15 @@ session_start();
 		function generateForm($id, $curr_sid, $curr_units,$currentsy,$currentsem,$currentpaystat,$currentenrollstat){
 
 			include('../../connect.php');
-      $sql = "SELECT * FROM Student ORDER BY student_id";
-      $result = $conn->query($sql);
-
-      $sidList = "<option value='null'></option>";
-      while($row = mysqli_fetch_array($result)){
-        $sidList .= "<option value=".$row['student_id'].">".$row['student_id']."</option>";
-      }
+      $sql = "SELECT * FROM Student ORDER BY student_name WHERE student_id = '{$curr_sid}'";
+      $name = mysqli_fetch_array($conn->query($sql))['student_name'];
+	  
 			return "<center><h3>Edit a record</h3>
 		<form action = 'edit-enrollment.php?id=$id' method='post'>
     <table>
         <tr>
             <td><b>Student ID</b></td>
-              <td><input name='new_student_id' type='text'  value='".$curr_sid."' disabled></td>
+              <td><input name='new_student_id' type='text'  value='".$name."' disabled></td>
         </tr>
         <tr>
             <td><b>No. of Units</b></td>
@@ -63,7 +59,6 @@ session_start();
     </table></form></center>";
 		}
 
-		//get cpr_no of selected record from the generated table
 		$id = null;
 		if ( !empty($_GET['id'])) {
 			$id = $_REQUEST['id'];
@@ -78,11 +73,11 @@ session_start();
 			$result = $conn->query($sql);
 			$row = mysqli_fetch_array($result);
 			$curr_sid = $row['student_id'];
-      $curr_units = $row['num_units'];
-      $currentsy = $row['school_year'];
-      $currentsem = $row['semester'];
-      $currentpaystat = $row['payment_status'];
-      $currentenrollstat = $row['enrollment_status'];
+		  $curr_units = $row['num_units'];
+		  $currentsy = $row['school_year'];
+		  $currentsem = $row['semester'];
+		  $currentpaystat = $row['payment_status'];
+		  $currentenrollstat = $row['enrollment_status'];
 
 
 			mysqli_close($conn);
@@ -100,28 +95,6 @@ session_start();
 
 			include('../../connect.php');
 
-			//update record
-
-			/*$qry = "SELECT * from Enrollment where course_name = '{$new_name}'";
-			$result = $conn->query($qry);
-			$data = mysqli_fetch_array($result)['course_name'];
-
-			if($data){
-				echo "<center>Enrollment data already exists!</center>" .generateForm($id, $curr_name);
-			}else{
-				if(!mysqli_query($conn, "UPDATE Enrollment SET course_name = '{$new_name}'
-					WHERE course_id = '{$id}'")){
-				echo "Error description: " . mysqli_error($conn) . "<br>". generateForm($id, $new_name);
-
-				} else {
-				//echo updated form
-					echo "<center>Successfully edited a record!</center> <br/>" . generateForm($id, $new_name);
-				}
-				mysqli_close($conn);
-			}
-		} else{
-			echo  generateForm($id, $curr_name);
-		}*/
     if(!mysqli_query($conn, "UPDATE Enrollment SET
           num_units = '{$new_num_units}'
         , school_year = '{$new_currentsy}'

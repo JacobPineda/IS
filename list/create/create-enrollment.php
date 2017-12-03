@@ -16,12 +16,12 @@ session_start();
     //connect to database
     include('../../connect.php');
 
-    $sql = "SELECT * FROM Student ORDER BY student_id";
+    $sql = "SELECT * FROM Student ORDER BY student_name";
     $result = $conn->query($sql);
 
     $sidList = "<option value='null'></option>";
     while($row = mysqli_fetch_array($result)){
-      $sidList .= "<option value=".$row['student_id'].">".$row['student_id']."</option>";
+      $sidList .= "<option value=".$row['student_id'].">".$row['student_name']."</option>";
     }
 
     //form to be displayed
