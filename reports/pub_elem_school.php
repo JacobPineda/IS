@@ -57,7 +57,7 @@ $_SESSION['graph_type'] = null;
 	?>
    	 <div class="pusher">
         <div class="ui centered container">
-            <h1 class="ui center aligned header"><i class="list layout icon"></i>Public Elementary School Report</h1>
+            <h1 class="ui center aligned header"><i class="pie chart  icon"></i>Public Elementary School Report</h1>
     <?php		
        //check if logged in
        if($_SESSION['isLoggedIn'] == true){
