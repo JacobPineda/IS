@@ -34,12 +34,9 @@ session_start();
 			
 			// get list of school and place them to <option> tags
 			$schoollist = "<option value='null'></option>";
-			$select = "";
 			while($row = mysqli_fetch_array($result)){
-				// if ($row['name'] === $school) {
-				// 	$select = "selected";
-				// };
-				$schoollist .= "<option value=".$row['school_id']." ".$select.">".$row['name']."</option>";
+				$isSelected = ($school == $row['school_id'])? "selected = 'selected'" : null;
+				$schoollist .= "<option value=".$row['school_id']." ".$isSelected.">".$row['name']."</option>";
 			}
 
 			//generate query
@@ -48,16 +45,13 @@ session_start();
 			
 			// get list of courses and place them to <option> tags
 			$courselist = "<option value='null'></option>";
-			$select = "";
 			while($row = mysqli_fetch_array($result)){
-				// if ($row['name'] === $course) {
-				// 	$select = "selected";
-				// };
-				$courselist .= "<option value=".$row['course_id']." ".$select.">".$row['course_name']."</option>";
+				$isSelected = ($course == $row['course_id'])? "selected = 'selected'" : null;
+				$courselist .= "<option value=".$row['course_id']." ".$isSelected.">".$row['course_name']."</option>";
 			}
 
-
-
+			$isFemale = ($gender == 'Female')? "selected = 'selected'": null;
+			$isMale = ($gender == 'Male')? "selected = 'selected'": null;
 
 			return "<center><h3>Edit a record</h3>
 		<form action = 'edit-student.php?id=$id' method='post'>
@@ -85,8 +79,8 @@ session_start();
 			<tr> 
 	  			<td>Gender</td>
                 <td><select name='new_gender' value='".$gender."' required>
-					<option value='Female'>Female</option>
-					<option value='Male'>Male</option></select></td>
+					<option value='Female' ".$isFemale.">Female</option>
+					<option value='Male' ".$isMale.">Male</option></select></td>
 			</tr>
 			<tr> 
 	  			<td>Contact</td>
@@ -118,12 +112,12 @@ session_start();
 			$result = $conn->query($sql);
 			$row = mysqli_fetch_array($result);
 			$curr_name = $row['student_name'];
-			$curr_school = $_POST['school'];
-			$curr_course = $_POST['course'];
-			$curr_gender = $_POST['gender'];
-			$curr_birthdate = $_POST['birthdate'];
-			$curr_contact = $_POST['contact'];
-			$curr_address = $_POST['address'];
+			$curr_school = $row['school_id'];
+			$curr_course = $row['course_id'];
+			$curr_gender = $row['gender'];
+			$curr_birthdate = $row['birthdate'];
+			$curr_contact = $row['contact'];
+			$curr_address = $row['address'];
 
 			mysqli_close($conn);
 		}
@@ -168,13 +162,12 @@ session_start();
 					contact = '{$new_contact}',
 					address = '{$new_address}'
 					WHERE student_id = '{$id}'")){
-				echo "Error description: " . mysqli_error($conn) . "<br>". generateForm($id, $new_name, $school, $course, $course, $birthdate, $gender,
-								$contact, $address);
+				echo "Error description: " . mysqli_error($conn) . "<br>". generateForm($id, $new_name, $new_school, $new_course, $new_birthdate, $new_gender,
+								$new_contact, $new_address);
 
 				} else {
 				//echo updated form
-					echo "<center>Successfully edited a record!</center> <br/>" . generateForm($id, $new_name, $school, $course, $birthdate, $gender,
-								$contact, $address);
+					echo "<center>Successfully edited a record!</center> <br/>" . generateForm($id, $new_name, $new_school, $new_course, $new_birthdate, $new_gender, $new_contact, $new_address);
 				}
 				mysqli_close($conn);
 			}
