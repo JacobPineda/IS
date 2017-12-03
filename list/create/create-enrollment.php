@@ -22,7 +22,7 @@ session_start();
     <form action='create-enrollment.php' method='post'>
         <table>
             <tr>
-                <td><b>Student Name</b></td>
+                <td><b>Student ID</b></td>
                 <td>".$sid."</td>
             </tr>
             <tr>

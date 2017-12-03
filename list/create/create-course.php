@@ -44,10 +44,10 @@ session_start();
 
 			include('../../connect.php');
 
-			$qry = "SELECT * from course where course_name = '{$name}'";
+			$qry = "SELECT * from Course where course_name = '{$name}'";
 			$result = $conn->query($qry);
 			$data = mysqli_fetch_array($result)['course_name'];
-			
+
 
 			if($data){
 				echo "<center>Course name already exists!</center>" . $form;
@@ -56,14 +56,14 @@ session_start();
 				$result = $conn->query($qry);
 				$id = mysqli_fetch_array($result)['total_no'];
 				$id++;
-				
+
 				$sql = "SELECT COUNT(*) as total FROM Course";
 				$total = mysqli_fetch_array($conn->query($sql))['total'];
 				$total--;
-				
+
 				$newIdSql = "SELECT TRIM(LEADING '0' FROM REPLACE(course_id, 'CID-', '')) as 'id' from Course ORDER BY course_id ASC LIMIT 1 OFFSET {$total}";
 				$id = mysqli_fetch_array($conn->query($newIdSql))['id'];
-				$id++;				
+				$id++;
 				if($id < 10){
 					$zero = '00';
 				} else if ($id < 100){
@@ -72,7 +72,7 @@ session_start();
 					$zero = null;
 				}
 				$course_id = 'CID-'.$zero.$id;
-					
+
 
 			//insert values into the table
 				if(!mysqli_query($conn, "INSERT INTO Course VALUES ('{$course_id}','{$name}')")){
