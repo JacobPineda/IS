@@ -19,7 +19,7 @@ $_SESSION['table'] = 'Grade Level';
 	<script type="text/javascript" src="/IS/js/jquery.min.js"></script>
 
 
-<title>Trader</title>
+<title>Grade Level</title>
 
 </head>
 
@@ -35,7 +35,7 @@ $_SESSION['table'] = 'Grade Level';
     <?php		
 
        //check if logged in
-       if($_SESSION['isLoggedIn'] == true){
+  /*     if($_SESSION['isLoggedIn'] == true){
        echo "<a href='create/create-grade_level.php' class='fluid ui primary button'>Create New Entry</a>";
        }
 		/*
@@ -54,8 +54,8 @@ $_SESSION['table'] = 'Grade Level';
 				
 				//display prev and next button based on the current page
 				$prev = ($_SESSION['page'] > 1)?
-					"<td> <form action='trader.php' method='post'><input type='submit' name='prev_table' value='prev'/></form></td>": null;
-				$next = ($_SESSION['page'] < $noOfPages)? "<td> <form action='trader.php' method='post'><input type='submit' name='next_table' value='next'/></form></td>" : null;
+					"<td> <form action='grade_level.php' method='post'><input type='submit' name='prev_table' value='prev'/></form></td>": null;
+				$next = ($_SESSION['page'] < $noOfPages)? "<td> <form action='grade_level.php' method='post'><input type='submit' name='next_table' value='next'/></form></td>" : null;
 
 				//table to be generated
 				$table = "<br/><center><table><tr> {$prev} <td>	Total no. of records: {$total_no}</td>  {$next} </tr></table></center>
@@ -65,7 +65,6 @@ $_SESSION['table'] = 'Grade Level';
 					<table class='ui celled table'>
 						<thead>
 							<tr><th>No.</th>
-							    <th>Action</th>
 							    <th>Level Name</th>
 					  		</tr></thead>
 					";
@@ -79,13 +78,8 @@ $_SESSION['table'] = 'Grade Level';
 				//add action column to the table, i.e., view, edit, and delete actions
 				while($row = mysqli_fetch_array($result)){
 					$counter++;
-					$table .= "<tr><td>{$counter}</td><td>";
-					$table .= '<a href="view/view-grade_level.php?id='.$row['level_id'].'">view</a>';
-					if($_SESSION['isLoggedIn'] == true){
-						$table .=' | <a href="edit/edit-grade_level.php?id='.$row['level_id'].'">edit</a>
-						| <a href="delete/delete-grade_level.php?id='.$row['level_id'].'">delete</a></td>';
-					}
-					$table .= "<td>" . $row['level_name'] . "</td></tr>";
+					$table .= "<tr><td>{$counter}</td>";
+					$table .= "<td> {$row['level_name']} </td></tr>";
 				}
 				$table .= "</table>";
 
