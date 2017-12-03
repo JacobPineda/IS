@@ -34,7 +34,7 @@ session_start();
     <table>
         <tr>
             <td><b>Student ID</b></td>
-              <td><input name='new_num_units' type='text'  value='".$curr_sid."' disabled></td>
+              <td><input name='new_student_id' type='text'  value='".$curr_sid."' disabled></td>
         </tr>
         <tr>
             <td><b>No. of Units</b></td>
@@ -93,10 +93,10 @@ session_start();
 			//get new values
       //$new_sid = $_POST['new_student_id'];
       $new_num_units = $_POST['new_num_units'];
-      $new_currentsy = $_POST['new_school_year'];
-      $new_currentsem = $_POST['new_semester'];
-      $new_currentpaystat = $_POST['new_payment_status'];
-      $new_currentenrollstat = $_POST['new_enrollment_status'];
+      $new_currentsy = $_POST['new_currentsy'];
+      $new_currentsem = $_POST['new_currentsem'];
+      $new_currentpaystat = $_POST['new_currentpaystat'];
+      $new_currentenrollstat = $_POST['new_currentenrollstat'];
 
 			include('../../connect.php');
 
@@ -122,17 +122,17 @@ session_start();
 		} else{
 			echo  generateForm($id, $curr_name);
 		}*/
-    if(!mysqli_query($conn, "UPDATE Enrollment SET student_id =
+    if(!mysqli_query($conn, "UPDATE Enrollment SET
           num_units = '{$new_num_units}'
         , school_year = '{$new_currentsy}'
         , semester = '{$new_currentsem}'
         , payment_status = '{$new_currentpaystat}'
         , enrollment_status = '{$new_currentenrollstat}'
         WHERE enrollment_id = '{$id}'")){
-      echo "Error description: " . mysqli_error($conn) . "<br>". ggenerateForm($id, $new_student_id, $new_num_units,$new_currentsy,$new_currentsem,$new_currentpaystat,$new_currentenrollstat);
+      echo "Error description: " . mysqli_error($conn) . "<br>". generateForm($id, $new_student_id, $new_num_units,$new_currentsy,$new_currentsem,$new_currentpaystat,$new_currentenrollstat);
     } else {
       //echo updated form
-      echo "<center>Successfully edited a drug! <br/></center>" . generateForm($id, $new_student_id, $new_num_units,$new_currentsy,$new_currentsem,$new_currentpaystat,$new_currentenrollstat);
+      echo "<center>Successfully edited an enrollment! <br/></center>" . generateForm($id, $new_student_id, $new_num_units,$new_currentsy,$new_currentsem,$new_currentpaystat,$new_currentenrollstat);
     }
 
     mysqli_close($conn);
