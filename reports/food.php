@@ -88,7 +88,7 @@ $_SESSION['graph_type'] = null;
 				}
 				$form .= "<div class='ui checkbox'><input type='checkbox' name='check_list[]' value='{$arrColValues[$i]}' id='cbox_columns' $isChecked><label>{$arrColLabels[$i]}</label></input></div>";
 			}
-			$form .= " <input type='submit' name='generate' value='Generate'/></form></div></center>";
+			$form .= " <button class='ui secondary button' type='submit' name='generate' value='Generate'/>Generate</button></form></div></center>";
 			return $form;
 		}
     function generateTable($arrCheckBox, $offset){
