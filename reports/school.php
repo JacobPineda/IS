@@ -84,7 +84,7 @@ $_SESSION['graph_type'] = null;
 						$isChecked = null;
 					}
 				}
-				$form .= "<input type='checkbox' name='check_list[]' value='{$arrColValues[$i]}' id='cbox_columns' $isChecked>{$arrColLabels[$i]}</input>";
+				$form .= "<div class='ui checkbox'><input type='checkbox' name='check_list[]' value='{$arrColValues[$i]}' id='cbox_columns' $isChecked><label>{$arrColLabels[$i]}</label></input></div>";
 			}
 			$form .= " <input type='submit' name='generate' value='Generate'/></form></div></center>";
 			return $form;
